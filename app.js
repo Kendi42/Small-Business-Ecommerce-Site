@@ -16,7 +16,20 @@ const { resume } = require("./dbconnector");
 const { body, validationResult } = require('express-validator');
 const loginValidationChain = [
     body('email').isEmail().withMessage('Invalid email address'),
-    body('password').notEmpty().withMessage('Password is required')
+    body('pass').notEmpty().withMessage('Password is required')
+  ];
+
+ const signupValidationChain = [
+    body('username').trim().not().isEmpty().withMessage('Username is required'),
+    body('email').isEmail().withMessage('Invalid email address'),
+    body('pass').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long'), 
+    body('confPass').custom((value, { req }) => {
+        if (value !== req.body.pass) {
+          throw new Error('Password confirmation does not match password');
+        }
+        return true;
+      })
+    //body('phoneNumber').isMobilePhone().withMessage('Invalid phone number')
   ];
 
 
@@ -57,35 +70,12 @@ app.use(sessions({
     resave: false 
 }));
 
-//username and password
-const myusername = 'user1@gmail.com'
-const mypassword = 'mypassword'
 
 // a variable to save a session
 var session;
 
-/*-----------------------PAGE ROUTES------------------------- */
-// Landing page route
-app.get('/', (req, res) => {
-    session=req.session;
-    if(session.userid){
-        res.send("Welcome User <a href=\'/logout'>click to logout</a>");
-    }else{
-        res.render('landing', { root: __dirname });
-    }
-  });
-
-// Go to login page
-app.get("/login", (req, res) => {
-	res.render("login");
-});
-
-// Go to signup page
-app.get("/signup", (req, res) => {
-	res.render("signup");
-});
-// Creating a Session
-app.post('/user',loginValidationChain, (req,res) => {
+// Creating a Session upon Login
+app.post('/userlogin', loginValidationChain, (req,res) => {
     console.log("Request body:",req.body.email, req.body.pass);
     // Server Side Validation
     const errors = validationResult(req);
@@ -109,11 +99,67 @@ app.post('/user',loginValidationChain, (req,res) => {
                   return res.render('landing');
                 }
                 else{
-                    res.send('Invalid username or password');
+                    return res.render('login', { error: 'Invalid email or password!' });
                 } 
               }
         }
       });   
+});
+
+// Creating a user account upon signup
+app.post('/usersignup', signupValidationChain, (req,res) => {
+    console.log("Request body:",req.body.username,req.body.email, req.body.pass, req.body.confPass);
+    const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    // If there were validation errors, send an error response
+
+    return res.status(400).json({ errors: errors.array() });
+
+  }
+  // Make sure email is unique
+  db.query('SELECT * FROM users WHERE userEmail = ?', [req.body.email], (error, results) => {
+    if (error) {
+        console.error(error);
+        res.status(500).send('Server error');
+    } else if (results.length > 0) {
+        return res.render('signup', { error: 'Email already exists!' });
+    } else {
+        // Signup User
+        const sql = 'INSERT INTO users (userName, userEmail, userPass) VALUES (?, ?, ?)';
+        const values = [req.body.username, req.body.email, req.body.pass];
+        db.query(sql, values, (error, results, fields) => {
+            if (error) {
+            console.error(error);
+            console.log("Failed to create user");
+            return res.render('landing');
+            }
+            console.log("User created successfully");
+            return res.render('login');
+        });
+        }
+  });
+    
+
+});
+/*-----------------------PAGE ROUTES: GET METHODS------------------------- */
+// Landing page route
+app.get('/', (req, res) => {
+    session=req.session;
+    if(session.userid){
+        res.render('landing', { root: __dirname });
+    }else{
+        res.render('landing', { root: __dirname });
+    }
+  });
+
+// Go to login page
+app.get("/login", (req, res) => {
+	res.render("login");
+});
+
+// Go to signup page
+app.get("/signup", (req, res) => {
+	res.render("signup");
 });
 
 app.get('/logout',(req,res) => {
@@ -121,7 +167,7 @@ app.get('/logout',(req,res) => {
     res.redirect('/');
 });
 
-// Running server Message
+/*-----------------------Running server Message--------------------------------------*/
 app.listen(PORT, () => console.log(`Server Running at port ${PORT}`));
 
 

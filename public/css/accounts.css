@@ -38,7 +38,7 @@ input{
     width: 100%;
     display: flex;
     justify-content: center;
-    padding-bottom: 0.5em;
+    padding-bottom: 0.8em;
 }
 .btn-primary:hover{
     background-color: #E29EC3;
@@ -46,7 +46,7 @@ input{
 }
 .redirectphrase{
     text-align: center;
-    padding-top: 2em;
+    padding-top: 0.2em;
     font-size: 1.2em;
     font-weight: 400;
 }
@@ -105,6 +105,7 @@ h2{
     font-size: 0.8em;
 
 }
+
 
 
 

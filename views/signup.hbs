@@ -28,30 +28,34 @@ session_start();
     <div class="formdiv">
         <div class="formcontent">
             <h1>SIGNUP</h1>
-            <form id="form" action="#" method="post">
+            <form id="form" action="/usersignup" method="post">
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="username" name="name" placeholder="JaneDoe123">
-                    <label for="userName" id=usernamelb>User name</label>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="JaneDoe123">
+                    <label for="userName" id="usernamelb">User name</label>
                     <label for="userName" class="error"></label>
                 </div>
                 <div class="form-floating mb-3">
                     <input type="email" class="form-control" id="useremail" name="email" placeholder="name@example.com">
-                    <label for="useremail" id=emaillb>Email address</label>
+                    <label for="useremail" id="emaillb">Email address</label>
                     <label for="useremail" class="error"></label>
                   </div>
                   <div class="form-floating">
                     <input type="password" class="form-control" id="password" name="pass" placeholder="Password">
-                    <label for="password" id=passlb>Password</label>
+                    <label for="password" id="passlb">Password</label>
                     <label for="password" class="error"></label>
                 </div>
                 <div class="form-floating">
                     <input type="password" class="form-control" id="confirmpassword" name="confPass"  placeholder="Confirm Password">
-                    <label for="confirmpassword" id=confpasslb>Confirm Password</label>
+                    <label for="confirmpassword" id="confpasslb">Confirm Password</label>
                     <label for="confirmpassword" class="error"></label>
                 </div>
                 <div class="buttondiv">
                     <button type="submit" class="btn btn-primary  btn-lg" name="submit">Signup</button>
                 </div>
+                {{#if error}}
+                <div class="alert alert-danger">{{error}}</div>
+                {{/if}}
+                
             </form>
             <p class="redirectphrase">Already have an account?<br> <a href="/login">Login Instead</a></p>
     
