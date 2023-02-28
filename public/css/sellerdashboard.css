@@ -1,0 +1,70 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+nav{
+    height: 7vh;
+    padding-top: 1em;
+    width:100%;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    align-items: center;
+    padding-right:1.5em;
+}
+.navbar-brand{
+    font-size: 1.4em;
+    font-weight: 600;
+}
+#pagecontent{
+    width:90vw;
+    margin: 0 auto;
+}
+
+h1{
+    text-align: center;
+    font-size: 3.2rem;
+    font-weight: 600;
+    padding-bottom: 0.1em;
+}
+
+#imagediv{
+    background-image: url(/imgs/sellerdashbordimg2.png);
+    background-size: cover;
+    width:100%;
+    height:30vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+h2{
+    color: white;
+    text-align: center;
+    font-size: 2.5rem;
+}
+#yourshopssection{
+    padding-top: 2em;
+}
+h3{
+    font-size: 2.2rem;
+    font-weight:500;
+
+}
+#newshopdiv{
+    width: 100%;
+    display: flex;
+    justify-content: right;
+}
+.btn-primary{
+    background-color: #C63E88;
+    border: none;
+    padding: 0.7em;
+
+}
+.btn-primary:hover{
+    background-color:#E29EC3
+
+}
+

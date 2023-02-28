@@ -90,8 +90,12 @@ app.post('/userlogin', loginValidationChain, (req,res) => {
         }
         else{
             console.log("Results", results);
+            console.log("Results length", results.length);
+
             for (let i = 0; i < results.length; i++) {
-                if ((req.body.email == results[i].userEmail) && (req.body.pass == results[i].userPass)) {
+                if ((req.body.email === results[i].userEmail) && (req.body.pass === results[i].userPass)) {
+                    console.log("Email: ", results[i].userEmail);
+                    console.log("Pass: ", results[i].userPass);
                   session = req.session;
                   session.userid = results[i].userID;
                   console.log(req.session);
@@ -100,10 +104,8 @@ app.post('/userlogin', loginValidationChain, (req,res) => {
                   console.log("req.session.loggedIn",req.session.loggedIn );
                   return res.render('landing', {loggedIn: req.session.loggedIn});
                 }
-                else{
-                    return res.render('login', { error: 'Invalid email or password!' });
-                } 
               }
+                return res.render('login', { error: 'Invalid email or password!' });
         }
       });   
 });
@@ -159,7 +161,7 @@ app.get("/logout", (req, res, next) => {
 app.get('/', (req, res) => {
     session=req.session;
     if(session.userid){
-        res.render('landing', { root: __dirname });
+        res.render('landing', {loggedIn: req.session.loggedIn});
     }else{
         res.render('landing', { root: __dirname });
     }
@@ -173,6 +175,16 @@ app.get("/login", (req, res) => {
 // Go to signup page
 app.get("/signup", (req, res) => {
 	res.render("signup");
+});
+
+// Go to seller dashboard
+app.get("/sellerdashboard", (req, res) => {
+	res.render("sellerdashboard");
+});
+
+// Go to become a seller page
+app.get("/becomeseller", (req, res) => {
+	res.render("becomeseller");
 });
 
 /*-----------------------Opening and Closing the Server--------------------------------------*/
