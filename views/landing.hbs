@@ -29,9 +29,14 @@
         <div class="maincontent">
             <!--Top Navigation-->
             <nav>
-                <button type="button" class="navbtn" id="sellerbtn">Become a Seller</button>
-                 <a class="navbtn" id="signup" href="/signup" role="button">Sign up</a>
+                {{#if loggedIn}}
+                <a class="navbtn" id="sellerbtn" href="#" role="button">Seller Dashboard</a>
+                <a class="navbtn" id="login" href="/logout" role="button">Logout</a>
+                {{else}}
+                <a class="navbtn" id="sellerbtn" href="#" role="button">Become a Seller</a>
+                <a class="navbtn" id="signup" href="/signup" role="button">Sign up</a>
                 <a class="navbtn" id="login" href="/login" role="button">Login</a>
+                {{/if}}
                </nav>
 
             <div id="imagecontainer"

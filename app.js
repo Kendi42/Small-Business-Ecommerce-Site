@@ -96,7 +96,9 @@ app.post('/userlogin', loginValidationChain, (req,res) => {
                   session.userid = results[i].userID;
                   console.log(req.session);
                   console.log(results[i].userID)
-                  return res.render('landing');
+                  req.session.loggedIn = true;
+                  console.log("req.session.loggedIn",req.session.loggedIn );
+                  return res.render('landing', {loggedIn: req.session.loggedIn});
                 }
                 else{
                     return res.render('login', { error: 'Invalid email or password!' });
@@ -137,10 +139,21 @@ app.post('/usersignup', signupValidationChain, (req,res) => {
             return res.render('login');
         });
         }
-  });
-    
-
+  }); 
 });
+
+// Logging out a user
+app.get("/logout", (req, res, next) => {
+    delete req.session.loggedIn;
+	req.session.destroy();
+    res.header("Cache-Control", "no-cache, private, no-store, must-revalidate");
+	res.header("Expires", "-1");
+	res.header("Pragma", "no-cache");
+    console.log("Session Destroyed");
+	res.redirect("/");
+    next();
+});
+
 /*-----------------------PAGE ROUTES: GET METHODS------------------------- */
 // Landing page route
 app.get('/', (req, res) => {
@@ -162,12 +175,18 @@ app.get("/signup", (req, res) => {
 	res.render("signup");
 });
 
-app.get('/logout',(req,res) => {
-    req.session.destroy();
-    res.redirect('/');
-});
-
-/*-----------------------Running server Message--------------------------------------*/
-app.listen(PORT, () => console.log(`Server Running at port ${PORT}`));
+/*-----------------------Opening and Closing the Server--------------------------------------*/
+const server= app.listen(PORT, () => console.log(`Server Running at port ${PORT}`));
 
 
+// Close the connection when the server stops
+server.on('close', () => {
+    console.log('Closing database connection...');
+    db.end((err) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      console.log('Database connection closed.');
+    });
+  });
