@@ -83,6 +83,10 @@ app.post('/userlogin', loginValidationChain, (req,res) => {
     // If there were validation errors, send an error response
     return res.status(400).json({ errors: errors.array() });
     }
+    
+    if(req.body.email=== "admin@socialmarket.com" &&  req.body.pass==="mypassword"){
+        return res.redirect("/admin");
+    }
     // Login in
     db.query('SELECT * FROM users', function(error, results, fields) {
         if (error){
@@ -185,6 +189,11 @@ app.get("/sellerdashboard", (req, res) => {
 // Go to become a seller page
 app.get("/becomeseller", (req, res) => {
 	res.render("becomeseller");
+});
+
+// Admin Page
+app.get("/admin", (req, res) => {
+	res.render("admin");
 });
 
 /*-----------------------Opening and Closing the Server--------------------------------------*/
