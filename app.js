@@ -3,13 +3,19 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const sessions= require('express-session');
-const db= require("./dbconnector")
+const db= require("./dbconnector");
 const dotenv = require("dotenv").config();
-const { readFileSync, writeFileSync } = require('fs')
-const bodyParser = require('body-parser')
+const { readFileSync, writeFileSync } = require('fs');
+const bodyParser = require('body-parser');
 const urlEncoder = bodyParser.urlencoded({extended:true})
-const jsonParser = bodyParser.json()
-const path = require('path')
+const jsonParser = bodyParser.json();
+const path = require('path');
+const { resume } = require("./dbconnector");
+
+// Initializing the Express app and setting the PORT
+const app = express();
+const PORT = process.env.PORT ||3000;
+
 // Setting up the routing for the views
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
@@ -23,9 +29,7 @@ app.use(cookieParser());
 // Read json files from user login/signup pages
 app.use(express.json());
 
-// Initializing the Express app and setting the PORT
-const app = express();
-const PORT = process.env.PORT ||3000;
+
 
 /*-----------------CONNECTING DATABASE--------------------*/
 db.connect((err)=>{
@@ -34,7 +38,6 @@ db.connect((err)=>{
         console.log("Database Connected Succesfully")
     }
 })
-
 /*-----------------SESSION MANAGEMENT--------------------*/
 
 // Setting up the express Session
@@ -53,7 +56,6 @@ const mypassword = 'mypassword'
 // a variable to save a session
 var session;
 
-
 /*-----------------------PAGE ROUTES------------------------- */
 // Landing page route
 app.get('/', (req, res) => {
@@ -65,25 +67,6 @@ app.get('/', (req, res) => {
     }
   });
 
-// Creating a Session
-  app.post('/user',(req,res) => {
-    console.log("Request body:",req.body.username, req.body.pass);
-    if(req.body.username == myusername && req.body.pass == mypassword){
-        session=req.session;
-        session.userid=req.body.username;
-        console.log(req.session)
-        res.send(`Hey there, welcome <a href=\'/logout'>click to logout</a>`);
-    }
-    else{
-        res.send('Invalid username or password');
-    }
-});
-
-app.get('/logout',(req,res) => {
-    req.session.destroy();
-    res.redirect('/');
-});
-
 // Go to login page
 app.get("/login", (req, res) => {
 	res.render("login");
@@ -93,7 +76,35 @@ app.get("/login", (req, res) => {
 app.get("/signup", (req, res) => {
 	res.render("signup");
 });
+// Creating a Session
+app.post('/user',(req,res) => {
+    console.log("Request body:",req.body.email, req.body.pass);
+    db.query('SELECT * FROM users', function(error, results, fields) {
+        if (error){
+            throw error;
+        }
+        else{
+            console.log("Results", results);
+            for (let i = 0; i < results.length; i++) {
+                if ((req.body.email == results[i].userEmail) && (req.body.pass == results[i].userPass)) {
+                  session = req.session;
+                  session.userid = results[i].userID;
+                  console.log(req.session);
+                  console.log(results[i].userID)
+                  return res.render('landing');
+                }
+                else{
+                    res.send('Invalid username or password');
+                } 
+              }
+        }
+      });   
+});
 
+app.get('/logout',(req,res) => {
+    req.session.destroy();
+    res.redirect('/');
+});
 
 // Running server Message
 app.listen(PORT, () => console.log(`Server Running at port ${PORT}`));
