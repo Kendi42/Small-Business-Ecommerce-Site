@@ -12,6 +12,14 @@ const jsonParser = bodyParser.json();
 const path = require('path');
 const { resume } = require("./dbconnector");
 
+// Server Side Validation
+const { body, validationResult } = require('express-validator');
+const loginValidationChain = [
+    body('email').isEmail().withMessage('Invalid email address'),
+    body('password').notEmpty().withMessage('Password is required')
+  ];
+
+
 // Initializing the Express app and setting the PORT
 const app = express();
 const PORT = process.env.PORT ||3000;
@@ -77,8 +85,15 @@ app.get("/signup", (req, res) => {
 	res.render("signup");
 });
 // Creating a Session
-app.post('/user',(req,res) => {
+app.post('/user',loginValidationChain, (req,res) => {
     console.log("Request body:",req.body.email, req.body.pass);
+    // Server Side Validation
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+    // If there were validation errors, send an error response
+    return res.status(400).json({ errors: errors.array() });
+    }
+    // Login in
     db.query('SELECT * FROM users', function(error, results, fields) {
         if (error){
             throw error;
