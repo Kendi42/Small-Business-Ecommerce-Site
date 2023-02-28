@@ -22,7 +22,7 @@ app.use(cookieParser());
 
 // Landing page route
 app.get('/', (req, res) => {
-    res.render('landing', { root: __dirname });
+    res.render('login', { root: __dirname });
   });
 
 // Running server Message

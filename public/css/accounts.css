@@ -1,0 +1,111 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+h1{
+    text-align: center;
+    font-size: 3.5rem;
+}
+.formdiv{
+    background-color: white;
+    width: 50%;
+    height: 100vh;
+    float: right;
+    display: flex;
+    justify-content: center;
+}
+.formcontent{
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+input{
+    margin-top: 3em;
+    margin-bottom: 3em;
+
+}
+.btn-primary{
+    background-color: #C63E88;
+    border: #C63E88 ;
+    padding:0.5em;
+    padding-left: 2em;
+    padding-right: 2em;
+
+}
+.buttondiv{
+    
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 0.5em;
+}
+.btn-primary:hover{
+    background-color: #E29EC3;
+    border: #E29EC3 ;
+}
+.redirectphrase{
+    text-align: center;
+    padding-top: 2em;
+    font-size: 1.2em;
+    font-weight: 400;
+}
+a{
+    text-decoration: none;
+    color: #C63E88;
+}
+
+h2{
+    color: white;
+    text-align: center;
+    font-size: 3.1rem;
+    font-weight: 700;
+    padding-top: 0.8em;
+    padding-bottom: 0.4em;
+
+    
+}
+.slogan{
+    color: white;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 300;
+
+
+}
+.accountsimagediv{
+    background-color:#E29EC3;
+    width: 50%;
+    height: 100vh;
+    float:left;
+    position: relative;
+}
+.leftcontent{
+    width: 100%;
+    position:absolute;
+    top:8vh;
+    bottom:8vh;
+
+}
+.imagediv{
+    width: 100%;
+    height: 60vh;
+    background-size: cover;
+
+}
+#imagedivlogin{
+    background-image: url(/imgs/loginimg.svg);
+}
+#imagedivsignup{
+    background-image: url(/imgs/signupimg2.svg);
+
+}
+.error {
+    color: #ff3860;
+    font-size: 0.8em;
+
+}
+
+
+
+

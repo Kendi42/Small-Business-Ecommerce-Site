@@ -1,0 +1,62 @@
+<?php 
+session_start();
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/accounts.css"/>
+    <title>Signup</title>
+
+</head>
+<body>
+    <div class="accountsimagediv">
+
+        <div class="leftcontent">
+        <div class= "imagediv" id="imagedivsignup">
+        </div>
+
+        <h2>THE SEARCH IS OVER</h2>
+        <P class="slogan">The products you want at the tap of a button</P>
+    </div>
+</div>
+
+
+    <div class="formdiv">
+        <div class="formcontent">
+            <h1>SIGNUP</h1>
+            <form id="form" action="#" method="post">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="username" name="name" placeholder="JaneDoe123">
+                    <label for="userName" id=usernamelb>User name</label>
+                    <label for="userName" class="error"></label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="useremail" name="email" placeholder="name@example.com">
+                    <label for="useremail" id=emaillb>Email address</label>
+                    <label for="useremail" class="error"></label>
+                  </div>
+                  <div class="form-floating">
+                    <input type="password" class="form-control" id="password" name="pass" placeholder="Password">
+                    <label for="password" id=passlb>Password</label>
+                    <label for="password" class="error"></label>
+                </div>
+                <div class="form-floating">
+                    <input type="password" class="form-control" id="confirmpassword" name="confPass"  placeholder="Confirm Password">
+                    <label for="confirmpassword" id=confpasslb>Confirm Password</label>
+                    <label for="confirmpassword" class="error"></label>
+                </div>
+                <div class="buttondiv">
+                    <button type="submit" class="btn btn-primary  btn-lg" name="submit">Signup</button>
+                </div>
+            </form>
+            <p class="redirectphrase">Already have an account?<br> <a href="#">Login Instead</a></p>
+    
+        </div>
+        </div>
+        <script src="/js/signup.js"></script>
+</body>
+</html>
