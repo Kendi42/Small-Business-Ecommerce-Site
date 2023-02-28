@@ -1,28 +1,41 @@
+/*-----------------SETUP--------------------*/
 // Import Statements and general set up
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const sessions= require('express-session');
+const db= require("./dbconnector")
+const dotenv = require("dotenv").config();
 const { readFileSync, writeFileSync } = require('fs')
 const bodyParser = require('body-parser')
 const urlEncoder = bodyParser.urlencoded({extended:true})
 const jsonParser = bodyParser.json()
 const path = require('path')
-
-// Initializing the Express app
-const app = express();
-const PORT = 3000;
-
 // Setting up the routing for the views
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
 // Routing for static files
 app.use(express.static(__dirname + '/public'));
-app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(urlEncoder);
 
 // cookie parser middleware
 app.use(cookieParser());
+// Read json files from user login/signup pages
+app.use(express.json());
+
+// Initializing the Express app and setting the PORT
+const app = express();
+const PORT = process.env.PORT ||3000;
+
+/*-----------------CONNECTING DATABASE--------------------*/
+db.connect((err)=>{
+    if(err) {throw err;}
+    else {
+        console.log("Database Connected Succesfully")
+    }
+})
+
+/*-----------------SESSION MANAGEMENT--------------------*/
 
 // Setting up the express Session
 const oneDay = 1000 * 60 * 60 * 24;
@@ -41,6 +54,7 @@ const mypassword = 'mypassword'
 var session;
 
 
+/*-----------------------PAGE ROUTES------------------------- */
 // Landing page route
 app.get('/', (req, res) => {
     session=req.session;
@@ -69,7 +83,6 @@ app.get('/logout',(req,res) => {
     req.session.destroy();
     res.redirect('/');
 });
-
 
 // Go to login page
 app.get("/login", (req, res) => {
