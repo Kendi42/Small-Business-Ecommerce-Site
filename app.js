@@ -196,6 +196,26 @@ app.get("/admin", (req, res) => {
 	res.render("admin");
 });
 
+// User Table
+app.get("/userstable", (req, res) => {
+	res.render("admintables", {title: "Users"});
+});
+
+// User Table
+app.get("/storestable", (req, res) => {
+	res.render("admintables", {title: "Stores"});
+});
+
+// User Table
+app.get("/orderstable", (req, res) => {
+	res.render("admintables", {title: "Orders"});
+});
+
+// User Table
+app.get("/productstable", (req, res) => {
+	res.render("admintables", {title: "Products"});
+});
+
 /*-----------------------Opening and Closing the Server--------------------------------------*/
 const server= app.listen(PORT, () => console.log(`Server Running at port ${PORT}`));
 
