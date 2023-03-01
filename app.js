@@ -35,7 +35,7 @@ const loginValidationChain = [
 
 // Initializing the Express app and setting the PORT
 const app = express();
-const PORT = process.env.PORT ||3000;
+const PORT = process.env.PORT ||4000;
 
 // Setting up the routing for the views
 app.set("views", path.join(__dirname, "views"));

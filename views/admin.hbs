@@ -4,9 +4,74 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/admin.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <title>Admin Page</title>
 </head>
 <body>
-    <h1>ADMIN PAGE</h1>
+
+    <div class="mainwrapper">
+        <!--Side Navigation-->
+        <div class="sidenav">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="/"><img src="/imgs/small.png" width="40px" height="40px">  Social Market </a>
+                </div>
+                <ul>
+                    <li class="active" ><a href="#"><i class="fas fa-th-large"></i>Overview</a></li>
+                    <li><a href="#"><i class="fas fa-users"></i>Users</a></li>
+                    <li><a href="#"><i class="fas fa-store"></i>Stores</a></li>
+                    <li><a href="#"><i class="fas fa-receipt"></i>Orders</a></li>
+                    <li><a href="#"><i class="fas fa-cart-plus"></i>Products</a></li>
+                </ul>
+                
+                <a href="/" id="logout"><i class="fas fa-arrow-circle-left"></i>Log out</a>
+
+        </div>
+
+        <!--Main Content-->
+        <div class="maincontent">
+            <div class="content">
+                <h1 id="heading">ADMIN DASHBOARD</h1>
+                <div id="summaryinformation">
+                    <h3>Summary</h3>
+                    <div id="summarycontainer">
+                        <div class="summarydivs">
+                            <h3 class="summarylb">Users</h3>
+                            <p class="summarynmbrs">1000</p>
+                        </div>
+                        <div class="summarydivs">
+                            <h3 class="summarylb">Stores</h3>
+                            <p class="summarynmbrs">1000</p>
+                        </div>
+                        <div class="summarydivs">
+                            <h3 class="summarylb">Products</h3>
+                            <p class="summarynmbrs">1000</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="statisticinformation">
+                    <h3>Statistics</h3>
+                    <div id="statisticcontent">
+                        <div id="graphsdiv"></div>
+                        <div id="ordersdiv">
+                            <h3 class="performancetext"> All time<br> Performance </h3>
+                            <h1 id="performancenmbr">100</h1>
+                            <h3 class="performancetext">Succesful <br>Orders</h3>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+
+
+
+
+        </div>
+
+    </div>
+
 </body>
 </html>
