@@ -18,12 +18,20 @@
                 <div class="container-fluid">
                     <a class="navbar-brand" href="/"><img src="/imgs/small.png" width="40px" height="40px">  Social Market </a>
                 </div>
-                <ul>
-                    <li class="active" ><a href="/admin"><i class="fas fa-th-large"></i>Overview</a></li>
-                    <li><a href="/userstable"><i class="fas fa-users"></i>Users</a></li>
-                    <li><a href="/storestable"><i class="fas fa-store"></i>Stores</a></li>
-                    <li><a href="/orderstable"><i class="fas fa-receipt"></i>Orders</a></li>
-                    <li><a href="/productstable"><i class="fas fa-cart-plus"></i>Products</a></li>
+                <ul id="navlist">
+                    <li><a href="/admin"><i class="fas fa-th-large"></i>Overview</a></li>
+                    <li class="{{#if userTrue}}active{{/if}}">
+                        <a href="/userstable"><i class="fas fa-users"></i>Users</a>
+                    </li>
+                    <li class="{{#if storeTrue}}active{{/if}}">
+                        <a href="/storestable"><i class="fas fa-store"></i>Stores</a>
+                    </li>
+                    <li class="{{#if orderTrue}}active{{/if}}">
+                        <a href="/orderstable"><i class="fas fa-receipt"></i>Orders</a>
+                    </li>
+                    <li class="{{#if productTrue}}active{{/if}}">
+                        <a href="/productstable"><i class="fas fa-cart-plus"></i>Products</a>
+                    </li>
                 </ul>
                 
                 <a href="/" id="logout"><i class="fas fa-arrow-circle-left"></i>Log out</a>
@@ -34,6 +42,36 @@
         <div class="maincontent">
             <div class="content">
                 <h1 class="heading">{{title}}</h1>
+                <div id="resultstablediv">
+                    <!-- Displaying the Results-->
+				<table class="table">
+                {{#if userTrue}}
+                <thead>
+                <tr>
+					<th>User ID</th>
+					<th>User Name</th>
+					<th>Email</th>
+                    <th>Action</th>
+					</tr>
+                
+				</thead>
+				<tbody id="resultsbody'">
+					{{#each result}}
+					<tr id="record-{{id}}">
+					<td>{{userID}}</td>
+					<td>{{userName}}</td>
+                    <td>{{userEmail}}</td>
+					<td>
+						<div id="tablebtns">							
+							<button class="btn btn-danger">Delete</button>
+						</div>
+					</td>
+					</tr>
+					{{/each}}
+				</tbody>
+                {{/if}}
+				</table>
+                </div>
 
                 
             </div>
@@ -41,6 +79,8 @@
         </div>
 
     </div>
+    <script src="/js/main.js"></script>
+
 
 </body>
 </html>

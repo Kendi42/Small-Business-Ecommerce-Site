@@ -40,6 +40,7 @@ const PORT = process.env.PORT ||4000;
 // Setting up the routing for the views
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
+
 // Routing for static files
 app.use(express.static(__dirname + '/public'));
 app.use(express.urlencoded({ extended: true }));
@@ -199,22 +200,32 @@ app.get("/admin", (req, res) => {
 
 // User Table
 app.get("/userstable", (req, res) => {
-	res.render("admintables", {title: "Users"});
+  // Getting User information
+  db.query('SELECT * FROM users', function(error, results, fields) {
+    if (error){
+        throw error;
+    }
+    else{
+        console.log("Results", results);
+        console.log("Results length", results.length);
+        res.render("admintables", {title: "User Information", result:results, userTrue:true});
+    }
+  }); 
 });
 
 // User Table
 app.get("/storestable", (req, res) => {
-	res.render("admintables", {title: "Stores"});
+	res.render("admintables", {title: "Stores", storeTrue:true});
 });
 
 // User Table
 app.get("/orderstable", (req, res) => {
-	res.render("admintables", {title: "Orders"});
+	res.render("admintables", {title: "Orders", orderTrue:true});
 });
 
 // User Table
 app.get("/productstable", (req, res) => {
-	res.render("admintables", {title: "Products"});
+	res.render("admintables", {title: "Products", productTrue:true});
 });
 
 /*-----------------------Opening and Closing the Server--------------------------------------*/
