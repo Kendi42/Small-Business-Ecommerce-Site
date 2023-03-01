@@ -194,7 +194,20 @@ app.get("/becomeseller", (req, res) => {
 
 // Admin Page
 app.get("/admin", (req, res) => {
-	res.render("admin");
+  let usercount;
+  db.query('SELECT * FROM users', function(error, results, fields) {
+    if (error){
+        throw error;
+    }
+    else{
+        console.log("Results", results);
+        console.log("Results length", results.length);
+        usercount= results.length;
+        console.log("UserCount", usercount)
+        res.render("admin", {usercount:usercount});
+
+    }
+  }); 
 });
 
 
@@ -226,6 +239,27 @@ app.get("/orderstable", (req, res) => {
 // User Table
 app.get("/productstable", (req, res) => {
 	res.render("admintables", {title: "Products", productTrue:true});
+});
+
+/*-----------------------DELETE AND EDIT FUNCTIONALITY--------------------------------------*/
+/* --------- Deleting Medical records --------*/
+app.delete('/results/:table/:recordID', (req, res) => {
+  console.log("Inside app delete");
+  console.log("Request Params", req.params);
+
+  const table = req.params.table;
+  const resultID = req.params.recordID;
+
+  console.log("ResultID", resultID);
+
+  var sql = "DELETE FROM " + table + " WHERE userID = " + resultID;
+
+  db.query(sql, function(err, result) {
+    if (err) throw err;
+    console.log(result);
+    res.send('User record deleted successfully.');
+  });
+
 });
 
 /*-----------------------Opening and Closing the Server--------------------------------------*/

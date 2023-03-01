@@ -99,6 +99,7 @@ a:hover{
     padding:1em;
     display: flex;
     flex-direction: column;
+    margin-bottom: 2em;
 }
 .summarylb{
     font-weight: 700;
@@ -113,24 +114,21 @@ a:hover{
 
 #statisticcontent{
     display: flex;
+    justify-content: space-between;
 }
-#graphsdiv{
-    background-color: whitesmoke;
-    width:65%;
-    height:45vh ;
-    margin-right: 5%;
 
-}
-#ordersdiv{
+.ordersdiv{
     background-color: #F5E8EF;
     width:30%;
-    height: 45vh;
+    height: 40vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-content: center;
     text-align: center;
     border-radius: 2em;
+    margin-top: 1.5em;
+
 
 }
 .performancetext{
