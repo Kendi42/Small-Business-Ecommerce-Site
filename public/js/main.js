@@ -21,5 +21,4 @@ function deleteRecord(resultTable, recordID){
 
 }
 
-// Select all
 

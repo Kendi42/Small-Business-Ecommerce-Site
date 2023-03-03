@@ -195,7 +195,8 @@ app.get("/becomeseller", (req, res) => {
 // Admin Page
 app.get("/admin", (req, res) => {
   let usercount;
-  db.query('SELECT * FROM users', function(error, results, fields) {
+  let storecount;
+  db.query('SELECT * FROM user', function(error, results, fields) {
     if (error){
         throw error;
     }
@@ -204,7 +205,19 @@ app.get("/admin", (req, res) => {
         console.log("Results length", results.length);
         usercount= results.length;
         console.log("UserCount", usercount)
-        res.render("admin", {usercount:usercount});
+        db.query('SELECT * FROM store', function(error, results, fields){
+          if (error){
+            throw error;
+        }
+        else{
+            console.log("Results", results);
+            console.log("Results length", results.length);
+            storecount= results.length;
+            console.log("StoreCount", storecount)
+            res.render("admin", {usercount:usercount, storecount:storecount});
+        }
+
+        });
 
     }
   }); 
@@ -214,7 +227,7 @@ app.get("/admin", (req, res) => {
 // User Table
 app.get("/userstable", (req, res) => {
   // Getting User information
-  db.query('SELECT * FROM users', function(error, results, fields) {
+  db.query('SELECT * FROM user', function(error, results, fields) {
     if (error){
         throw error;
     }
@@ -228,7 +241,16 @@ app.get("/userstable", (req, res) => {
 
 // User Table
 app.get("/storestable", (req, res) => {
-	res.render("admintables", {title: "Stores", storeTrue:true});
+  db.query('SELECT * FROM store', function(error, results, fields) {
+    if (error){
+        throw error;
+    }
+    else{
+        console.log("Results", results);
+        console.log("Results length", results.length);
+        res.render("admintables", {title: "Stores", result:results, storeTrue:true});
+    }
+  });
 });
 
 // User Table
@@ -251,8 +273,9 @@ app.delete('/results/:table/:recordID', (req, res) => {
   const resultID = req.params.recordID;
 
   console.log("ResultID", resultID);
+  var sql;
+    sql = "DELETE FROM " + table + " WHERE " +table+"ID = " + resultID;
 
-  var sql = "DELETE FROM " + table + " WHERE userID = " + resultID;
 
   db.query(sql, function(err, result) {
     if (err) throw err;

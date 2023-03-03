@@ -57,13 +57,13 @@
 				</thead>
 				<tbody id="resultsbody'">
 					{{#each result}}
-					<tr id="record-users-{{userID}}">
+					<tr id="record-user-{{userID}}">
 					<td>{{userID}}</td>
 					<td>{{userName}}</td>
                     <td>{{userEmail}}</td>
 					<td>
 						<div id="tablebtns">							
-							<button class="btn btn-danger" onclick="deleteRecord('users', '{{this.userID}}')">Delete</button>
+							<button class="btn btn-danger" onclick="deleteRecord('user', '{{this.userID}}')">Delete</button>
 						</div>
 					</td>
 					</tr>
@@ -83,14 +83,14 @@
 				</thead>
                 <tbody id="resultsbody'">
 					{{#each result}}
-					<tr id="record-stores-{{storeID}}">
+					<tr id="record-store-{{storeID}}">
 					<td>{{storeID}}</td>
 					<td>{{storeName}}</td>
                     <td>{{storeCategory}}</td>
                     <td>{{userID}}</td>
 					<td>
 						<div id="tablebtns">							
-							<button class="btn btn-danger" onclick="deleteRecord('stores', '{{this.storeID}}')">Delete</button>
+							<button class="btn btn-danger" onclick="deleteRecord('store', '{{this.storeID}}')">Delete</button>
 						</div>
 					</td>
 					</tr>
