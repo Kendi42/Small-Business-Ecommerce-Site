@@ -70,6 +70,63 @@
 					{{/each}}
 				</tbody>
                 {{/if}}
+                {{#if storeTrue}}
+                <thead>
+                <tr>
+					<th>Store ID</th>
+					<th>Store Name</th>
+					<th>Store Category</th>
+                    <th>User Account</th>
+                    <th>Actions</th>
+
+					</tr>
+				</thead>
+                <tbody id="resultsbody'">
+					{{#each result}}
+					<tr id="record-stores-{{storeID}}">
+					<td>{{storeID}}</td>
+					<td>{{storeName}}</td>
+                    <td>{{storeCategory}}</td>
+                    <td>{{userID}}</td>
+					<td>
+						<div id="tablebtns">							
+							<button class="btn btn-danger" onclick="deleteRecord('stores', '{{this.storeID}}')">Delete</button>
+						</div>
+					</td>
+					</tr>
+					{{/each}}
+				</tbody>
+                {{/if}}
+                {{#if productTrue}}
+                <thead>
+                <tr>
+					<th>Product ID</th>
+					<th>Product Name</th>
+					<th>Category</th>
+                    <th>Cost</th>
+                    <th>Store ID</th>
+                    <th>Actions</th>
+
+					</tr>
+				</thead>
+                <tbody id="resultsbody'">
+					{{#each result}}
+					<tr id="record-products-{{productID}}">
+					<td>{{productID}}</td>
+					<td>{{productName}}</td>
+                    <td>{{productCategory}}</td>
+                    <td>{{productCost}}</td>
+                    <td>{{storeID}}</td>
+
+					<td>
+						<div id="tablebtns">							
+							<button class="btn btn-danger" onclick="deleteRecord('products', '{{this.productID}}')">Delete</button>
+						</div>
+					</td>
+					</tr>
+					{{/each}}
+				</tbody>
+                {{/if}}
 				</table>
                 </div>
 
