@@ -196,6 +196,7 @@ app.get("/becomeseller", (req, res) => {
 app.get("/admin", (req, res) => {
   let usercount;
   let storecount;
+  let productcount;
   db.query('SELECT * FROM user', function(error, results, fields) {
     if (error){
         throw error;
@@ -214,11 +215,20 @@ app.get("/admin", (req, res) => {
             console.log("Results length", results.length);
             storecount= results.length;
             console.log("StoreCount", storecount)
-            res.render("admin", {usercount:usercount, storecount:storecount});
+            db.query('SELECT * FROM product', function(error, results, fields){
+              if (error){
+                throw error;
+            }
+            else{
+                console.log("Results", results);
+                console.log("Results length", results.length);
+                productcount= results.length;
+                console.log("Product Count", productcount)
+                res.render("admin", {usercount:usercount, storecount:storecount, productcount:productcount});
+            }
+            });
         }
-
         });
-
     }
   }); 
 });
@@ -239,7 +249,7 @@ app.get("/userstable", (req, res) => {
   }); 
 });
 
-// User Table
+// Store Table
 app.get("/storestable", (req, res) => {
   db.query('SELECT * FROM store', function(error, results, fields) {
     if (error){
@@ -253,14 +263,23 @@ app.get("/storestable", (req, res) => {
   });
 });
 
-// User Table
+// Order Table
 app.get("/orderstable", (req, res) => {
 	res.render("admintables", {title: "Orders", orderTrue:true});
 });
 
-// User Table
+// Product Table
 app.get("/productstable", (req, res) => {
-	res.render("admintables", {title: "Products", productTrue:true});
+  db.query('SELECT * FROM product', function(error, results, fields) {
+    if (error){
+        throw error;
+    }
+    else{
+        console.log("Results", results);
+        console.log("Results length", results.length);
+        res.render("admintables", {title: "Products", result:results, productTrue:true});
+    }
+  });
 });
 
 /*-----------------------DELETE AND EDIT FUNCTIONALITY--------------------------------------*/

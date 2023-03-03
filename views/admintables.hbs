@@ -111,7 +111,7 @@
 				</thead>
                 <tbody id="resultsbody'">
 					{{#each result}}
-					<tr id="record-products-{{productID}}">
+					<tr id="record-product-{{productID}}">
 					<td>{{productID}}</td>
 					<td>{{productName}}</td>
                     <td>{{productCategory}}</td>
@@ -120,7 +120,7 @@
 
 					<td>
 						<div id="tablebtns">							
-							<button class="btn btn-danger" onclick="deleteRecord('products', '{{this.productID}}')">Delete</button>
+							<button class="btn btn-danger" onclick="deleteRecord('product', '{{this.productID}}')">Delete</button>
 						</div>
 					</td>
 					</tr>
