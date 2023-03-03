@@ -21,5 +21,5 @@ function deleteRecord(resultTable, recordID){
 
 }
 
-// Chart for user growth
+// Select all
 
