@@ -89,7 +89,7 @@ app.post('/userlogin', loginValidationChain, (req,res) => {
         return res.redirect("/admin");
     }
     // Login in
-    db.query('SELECT * FROM users', function(error, results, fields) {
+    db.query('SELECT * FROM user', function(error, results, fields) {
         if (error){
             throw error;
         }
@@ -126,7 +126,7 @@ app.post('/usersignup', signupValidationChain, (req,res) => {
 
   }
   // Make sure email is unique
-  db.query('SELECT * FROM users WHERE userEmail = ?', [req.body.email], (error, results) => {
+  db.query('SELECT * FROM user WHERE userEmail = ?', [req.body.email], (error, results) => {
     if (error) {
         console.error(error);
         res.status(500).send('Server error');
@@ -134,7 +134,7 @@ app.post('/usersignup', signupValidationChain, (req,res) => {
         return res.render('signup', { error: 'Email already exists!' });
     } else {
         // Signup User
-        const sql = 'INSERT INTO users (userName, userEmail, userPass) VALUES (?, ?, ?)';
+        const sql = 'INSERT INTO user (userName, userEmail, userPass) VALUES (?, ?, ?)';
         const values = [req.body.username, req.body.email, req.body.pass];
         db.query(sql, values, (error, results, fields) => {
             if (error) {
