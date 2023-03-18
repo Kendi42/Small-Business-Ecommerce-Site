@@ -92,11 +92,43 @@ a{
     background-color:#E29EC3
 
 }
-.modaltitles{
+#newShopModalLabel{
     font-weight: 600;
+    font-size: 1.8em !important;
+
+}
+
+.stepTitle{
+    font-weight: 600;
+    font-size: 2em;
+    text-align: center;
+    margin-top: 1.2em;
+
+}
+.stepnumber{
+    font-weight: 600;
+    font-size: 0.8em;
+    color:#C63E88
+
 }
 .form-group{
     padding-top: 0.5em;
     padding-bottom: 0.5em;
+    margin-bottom: 1em;
+    font-size: 1.2em;
 
+}
+.progress{
+    margin: 0 auto;
+    height: 2em;
+}
+.progress-bar{
+    background-color: #C63E88;
+
+}
+form{
+    margin-top: 1em;
+}
+.modal-body{
+    padding: 2em;
 }

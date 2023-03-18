@@ -1,0 +1,80 @@
+
+                    <!--p class="stepTitle">2. Delivery Information</p>
+                    <div class="form-group">
+
+                        <label for="storeDeliveryPeriod" class="form-label">What is your average delivery period? </label>
+                        <select class="form-select" name="storeDeliveryPeriod" id="storeDeliveryPeriod">
+                        <option selected disabled value="">Choose...</option>
+                        <option>Same day delivery</option>
+                        <option>Next day delivery </option>
+                        <option>2 to 3 days </option>
+                        <option>4 to 7 days </option>
+                        <option>1 to 2 weeks </option>
+                        <option>2 weeks to 1 month</option>
+                        <option>1 month plus</option>
+                        </select>
+                    </div>
+                     <div class="form-group">
+                    <label>What are your delivery days? </label>
+                    <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="monday" name="monday" id="mondayCheck">
+                    <label class="form-check-label" for="mondayCheck">Monday</label>
+                    </div>
+                    <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="tuesday"  name="tuesday" id="tuesdayCheck">
+                    <label class="form-check-label" for="tuesdayCheck">Tuesday</label>
+                    </div>
+                    <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="wednesday" name="wednesday" id="wednesdayCheck">
+                    <label class="form-check-label" for="wednesdayCheck">Wednesday</label>
+                    </div>
+                    <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="thursday" name="thursday" id="thursdayCheck">
+                    <label class="form-check-label" for="thursdayCheck">Thursday</label>
+                    </div>
+                     <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="friday" name="friday" id="fridayCheck">
+                    <label class="form-check-label" for="fridayCheck"> Friday</label>
+                    </div>
+                     <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="saturday" name="saturday" id="saturdayCheck">
+                    <label class="form-check-label" for="saturdayCheck">Saturday
+                    </label>
+                    </div>
+                     <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="sunday" name="sunday" id="sundayCheck">
+                    <label class="form-check-label" for="sundayCheck">Sunday
+                    </label>
+                    </div>
+                </div>
+                
+                <p class="stepTitle">3. Delivery Charges</p>
+                <p>Enter the delivery price your store will charge to the following zones</p>
+                   <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Locations in Zone 1-Nairobi Central
+                    </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <ul>
+                            <li>Upper Hill</li>
+                            <li>Kilimani</li>  
+                            <li>Hurlingham</li>  
+                            <li>Nairobi West.</li> 
+                        </ul>
+                    </div>
+                    </div>
+                </div>
+                </div>
+                <div class="form-group">
+                     <div class="mb-3 row">
+                        <label for="zone1" class="col-sm-2 col-form-label">Zone 1:</label>
+                        <div class="col-sm-10">
+                        <input type="number" class="form-control" id="zone1" name="zone1" placeholder="Enter price for Zone 1">
+                        </div>
+                    </div>
+                </div>
+                -->
