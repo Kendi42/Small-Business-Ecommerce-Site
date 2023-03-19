@@ -149,3 +149,10 @@ a:hover{
     background-color: #C63E88 !important;
 
 }
+.btn-info{
+    border:solid #E29EC3;
+    background-color: #E29EC3 !important;
+}
+.btn-info :hover{
+    border:solid #C63E88 !important;
+}

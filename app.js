@@ -3,6 +3,7 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const sessions= require('express-session');
+const bcrypt = require('bcrypt');
 const db= require("./dbconnector");
 const dotenv = require("dotenv").config();
 const { readFileSync, writeFileSync } = require('fs');
@@ -75,6 +76,21 @@ app.use(sessions({
 // a variable to save a session
 var session;
 
+// Compare passwords
+async function comparePasswords(inputPassword, hashedPassword) {
+  try {
+    console.log("Input", inputPassword);
+    console.log("Hashed", hashedPassword)
+
+    const result = await bcrypt.compare(inputPassword, hashedPassword);
+    console.log("Ressuuult:", result)
+    return result;
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
+}
+
 // Creating a Session upon Login
 app.post('/userlogin', loginValidationChain, (req,res) => {
     console.log("Request body:",req.body.email, req.body.pass);
@@ -89,28 +105,44 @@ app.post('/userlogin', loginValidationChain, (req,res) => {
         return res.redirect("/admin");
     }
     // Login in
-    db.query('SELECT * FROM user', function(error, results, fields) {
+
+    db.query('SELECT * FROM user', async function(error, results, fields) {
         if (error){
             throw error;
         }
         else{
             console.log("Results", results);
             console.log("Results length", results.length);
+            let foundUser= false;
 
             for (let i = 0; i < results.length; i++) {
-                if ((req.body.email === results[i].userEmail) && (req.body.pass === results[i].userPass)) {
-                    console.log("Email: ", results[i].userEmail);
-                    console.log("Pass: ", results[i].userPass);
+              console.log("i: ", i);
+              console.log("Email match? ",req.body.email === results[i].userEmail );
+              if (req.body.email === results[i].userEmail) {
+                console.log("Inside if statement cause email match is true")
+                const passwordsMatch= await comparePasswords(req.body.pass, results[i].userPass);
+                console.log("PassMatch", passwordsMatch);
+                if(passwordsMatch){
+                  console.log("Email: ", results[i].userEmail);
+                  console.log("Pass: ", results[i].userPass);
                   session = req.session;
                   session.userid = results[i].userID;
                   console.log(req.session);
                   console.log(results[i].userID)
                   req.session.loggedIn = true;
                   console.log("req.session.loggedIn",req.session.loggedIn );
+                  foundUser= true;
+                  console.log("Found user", foundUser);
                   return res.render('landing', {loggedIn: req.session.loggedIn});
                 }
+                }  
+                console.log("No email match, back to the for loop")              
               }
+              if(!foundUser){
+                console.log("Found user in if statement", foundUser);
+                console.log("No user found. Sending error")
                 return res.render('login', { error: 'Invalid email or password!' });
+              }
         }
       });   
 });
@@ -133,9 +165,27 @@ app.post('/usersignup', signupValidationChain, (req,res) => {
     } else if (results.length > 0) {
         return res.render('signup', { error: 'Email already exists!' });
     } else {
+
+        // Encrypt user password
+        const saltRounds = 10;
+        const plainPassword = req.body.pass;
+        let encryptedPass;
+        console.log("Plain Passwprd: " ,plainPassword);
+
+        bcrypt.hash(plainPassword, saltRounds, (error, hashedPassword) => {
+          if (error) {
+            console.error(error);
+            return;
+          }
+          else{
+              // Use the hashed password for whatever you need it for
+            encryptedPass= hashedPassword;
+            console.log("Encrypted Passowrd", encryptedPass);
+
         // Signup User
+        console.log("About to signup a user");
         const sql = 'INSERT INTO user (userName, userEmail, userPass) VALUES (?, ?, ?)';
-        const values = [req.body.username, req.body.email, req.body.pass];
+        const values = [req.body.username, req.body.email, encryptedPass];
         db.query(sql, values, (error, results, fields) => {
             if (error) {
             console.error(error);
@@ -145,6 +195,9 @@ app.post('/usersignup', signupValidationChain, (req,res) => {
             console.log("User created successfully");
             return res.render('login');
         });
+      }
+    });
+
         }
   }); 
 });
@@ -160,6 +213,83 @@ app.get("/logout", (req, res, next) => {
 	res.redirect("/");
     next();
 });
+
+
+// Updating User Details
+app.post('/updateuserstable/:userID', (req, res) => {
+  console.log("Inside user update post method");
+  let {userID }= req.params;
+  console.log("User ID", userID);
+  let { updatedUserName } = req.body;
+  console.log("Updated Information", updatedUserName);
+
+   // Updating UserName
+   console.log("About to update user name");
+   const sql = 'UPDATE user SET userName = ? WHERE userID = ?';
+   const values = [updatedUserName, userID];
+   db.query(sql, values, (error, results, fields) => {
+       if (error) {
+       console.error(error);
+       console.log("Failed to update user information");
+       return res.redirect('/userstable');
+       }
+       console.log("User updated successfully");
+       return res.redirect('/userstable');
+   });
+
+});
+
+
+// Updating Store Details
+app.post('/updatestorestable/:storeID', (req, res) => {
+  console.log("Inside store update post method");
+  let {storeID }= req.params;
+  console.log("Store ID", storeID);
+  let { updatedStoreName, updatedStoreCat} = req.body;
+  console.log("Updated Information", updatedStoreName, updatedStoreCat );
+
+  // Updating Store Information
+  console.log("About to update store info");
+  const sql = 'UPDATE store SET storeName = ? , storeCategory =? WHERE storeID = ?';
+  const values = [updatedStoreName, updatedStoreCat, storeID ];
+  db.query(sql, values, (error, results, fields) => {
+      if (error) {
+      console.error(error);
+      console.log("Failed to update store information");
+      return res.redirect('/storestable');
+      }
+      console.log("User updated successfully");
+      return res.redirect('/storestable');
+  });
+
+});
+
+// Updating Product Details
+app.post('/updateproductstable/:productID', (req, res) => {
+  console.log("Inside product update post method");
+  let {productID }= req.params;
+  console.log("Product ID", productID);
+  let { updatedProductName, updatedProductCat, updatedProductPrice } = req.body;
+  console.log("Updated Information", updatedProductName, updatedProductCat, updatedProductPrice);
+
+  // Updating UserName
+  console.log("About to update product info");
+  const sql = 'UPDATE product SET productName = ? , productCategory = ? , productCost = ? WHERE productID = ?';
+  const values = [updatedProductName, updatedProductCat, updatedProductPrice, productID];
+  db.query(sql, values, (error, results, fields) => {
+      if (error) {
+      console.error(error);
+      console.log("Failed to update product information");
+      return res.redirect('/productstable');
+      }
+      console.log("Product updated successfully");
+      return res.redirect('/productstable');
+  });
+
+   
+
+});
+
 
 /*-----------------------PAGE ROUTES: GET METHODS------------------------- */
 // Landing page route

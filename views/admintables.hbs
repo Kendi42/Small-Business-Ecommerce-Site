@@ -62,11 +62,46 @@
 					<td>{{userName}}</td>
                     <td>{{userEmail}}</td>
 					<td>
-						<div id="tablebtns">							
+						<div id="tablebtns">
+                            <button class="btn btn-info" data-bs-toggle="modal"
+                            data-bs-target="#editUserModal{{userID}}">Edit</button>						
 							<button class="btn btn-danger" onclick="deleteRecord('user', '{{this.userID}}')">Delete</button>
 						</div>
 					</td>
 					</tr>
+
+                    <!-- Edit User Modal -->
+                    <div class="modal fade" id="editUserModal{{userID}}" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-xl">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editUserModalLabel">User Details</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form method="POST" action="/updateuserstable/{{userID}}">
+                                <div class="mb-3">
+                                    <label for="userIDInput" class="form-label">User ID</label>
+                                    <input type="text" class="form-control" id="staticuserID"  name="staticuserID" value="{{userID}}" disabled readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="userEmailInput" class="form-label">User Email</label>
+                                    <input type="text" class="form-control" id="staticuserEmail"  name="staticuserEmail" value="{{userEmail}}" disabled readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="userNameInput" class="form-label">User Name</label>
+                                    <input type="text" class="form-control" id="updatedUserName"  name="updatedUserName" value="{{userName}}">
+                                </div>
+                                
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+                                 <button type="submit" class="btn btn-info">Save changes</button>
+                            </div>
+                            </form>
+                             </div>
+                         </div>
+                    </div>
 					{{/each}}
 				</tbody>
                 {{/if}}
@@ -89,11 +124,50 @@
                     <td>{{storeCategory}}</td>
                     <td>{{userID}}</td>
 					<td>
-						<div id="tablebtns">							
+						<div id="tablebtns">
+                            <button class="btn btn-info" data-bs-toggle="modal"
+                            data-bs-target="#editStoreModal{{storeID}}">Edit</button>								
 							<button class="btn btn-danger" onclick="deleteRecord('store', '{{this.storeID}}')">Delete</button>
 						</div>
 					</td>
 					</tr>
+
+                     <!-- Edit Store Modal -->
+                    <div class="modal fade" id="editStoreModal{{storeID}}" tabindex="-1" aria-labelledby="editStoreModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-xl">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editStoreModalLabel">Store Details</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form method="POST" action="/updatestorestable/{{storeID}}">
+                                <div class="mb-3">
+                                    <label for="storeIDInput" class="form-label">Store ID</label>
+                                    <input type="text" class="form-control" id="staticstoreID"  name="staticstoreID" value="{{storeID}}" disabled readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="userAccountInput" class="form-label">User Account</label>
+                                    <input type="text" class="form-control" id="staticuserAccount"  name="staticuserAccount" value="{{userID}}" disabled readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="StoreNameInput" class="form-label">Store Name</label>
+                                    <input type="text" class="form-control" id="updatedStoreName"  name="updatedStoreName" value="{{storeName}}">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="StoreCatInput" class="form-label">Store Category</label>
+                                    <input type="text" class="form-control" id="updatedStoreCat"  name="updatedStoreCat" value="{{storeCategory}}">
+                                </div>
+                                
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+                                 <button type="submit" class="btn btn-info">Save changes</button>
+                            </div>
+                            </form>
+                             </div>
+                         </div>
+                    </div>
 					{{/each}}
 				</tbody>
                 {{/if}}
@@ -119,11 +193,53 @@
                     <td>{{storeID}}</td>
 
 					<td>
-						<div id="tablebtns">							
+						<div id="tablebtns">
+                            <button class="btn btn-info" data-bs-toggle="modal"
+                            data-bs-target="#editProductModal{{productID}}">Edit</button>							
 							<button class="btn btn-danger" onclick="deleteRecord('product', '{{this.productID}}')">Delete</button>
 						</div>
 					</td>
 					</tr>
+                     <!-- Edit Product Modal -->
+                    <div class="modal fade" id="editProductModal{{productID}}" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-xl">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editProductModalLabel">Product Details</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form method="POST" action="/updateproductstable/{{productID}}">
+                                <div class="mb-3">
+                                    <label for="productIDInput" class="form-label">Product ID</label>
+                                    <input type="text" class="form-control" id="staticproductID"  name="staticproductID" value="{{productID}}" disabled readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="associatedStoreInput" class="form-label">Associated Store ID</label>
+                                    <input type="text" class="form-control" id="staticstoreAccount"  name="statistoreAccount" value="{{storeID}}" disabled readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="ProductNameInput" class="form-label">Product Name</label>
+                                    <input type="text" class="form-control" id="updatedProductName"  name="updatedProductName" value="{{productName}}">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="ProductCatInput" class="form-label">Product Category</label>
+                                    <input type="text" class="form-control" id="updatedProductCat"  name="updatedProductCat" value="{{productCategory}}">
+                                </div>
+                                 <div class="mb-3">
+                                    <label for="ProductProceInput" class="form-label">Product Price</label>
+                                    <input type="text" class="form-control" id="updatedProductPrice"  name="updatedProductPrice" value="{{productCost}}">
+                                </div>
+                                
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+                                 <button type="submit" class="btn btn-info">Save changes</button>
+                            </div>
+                            </form>
+                             </div>
+                         </div>
+                    </div>
 					{{/each}}
 				</tbody>
                 {{/if}}
@@ -137,6 +253,8 @@
 
     </div>
     <script src="/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
 
 
 </body>
