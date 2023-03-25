@@ -2,6 +2,7 @@
 // Import Statements and general set up
 const express = require("express");
 const cookieParser = require("cookie-parser");
+const fileUpload = require('express-fileupload');
 const sessions= require('express-session');
 const bcrypt = require('bcrypt');
 const db= require("./dbconnector");
@@ -51,6 +52,9 @@ app.use(urlEncoder);
 app.use(cookieParser());
 // Read json files from user login/signup pages
 app.use(express.json());
+
+// handling file upload
+app.use(fileUpload());
 
 
 
@@ -292,12 +296,33 @@ app.post('/updateproductstable/:productID', (req, res) => {
 
 // Creating a store
 app.post('/newstore', (req, res) => {
-console.log("session from new store", session.userid)
-console.log("data from forms", req.body);
-
+let image;
+if (!req.files || !req.files.storeImage) {
+    return res.status(400).send('No file uploaded');
+  }
+else{
+  image= req.files.storeImage.data;
+}
+let newstore= req.body;
+newstore.userID= session.userid;
+console.log("newstore", newstore);
 // Add data to database
+console.log("About to create new store");
 
+const sql = 'INSERT INTO store (storeName, storeCategory, userID, storeDescription, storeImage, storeDeliveryPeriod, deliveryDay, zone1charge, zone2charge, zone3charge, zone4charge, zone5charge) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+const storeCategoryString = newstore.storeCategory.join(',');
+const deliveryDayString = newstore.deliveryDay.join(',');
 
+const values = [newstore.storeName, storeCategoryString, newstore.userID, newstore.storeDescription, image, newstore.storeDeliveryPeriod, deliveryDayString, newstore.zone1charge, newstore.zone2charge, newstore.zone3charge, newstore.zone4charge, newstore.zone5charge];
+db.query(sql, values, (error, results, fields) => {
+    if (error) {
+    console.error(error);
+    console.log("Failed to create store");
+    return res.redirect('/sellerdashboard');
+    }
+    console.log("Store created successfully");
+    return res.redirect('/sellerdashboard');
+});
 
 });
 

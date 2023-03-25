@@ -93,7 +93,7 @@
                             </li>
                         </ul>
                         <!-- Step Wise Form Content -->
-                        <form  id='createstoreform'method="POST" action="/newstore">
+                        <form  id='createstoreform' method="POST" action="/newstore" enctype="multipart/form-data" >
                             <!-- Step 1 Content -->
                             <section id="step-1" class="form-step">
                                 <h2 class="font-normal">Store Details</h2>
@@ -102,6 +102,12 @@
                                     <div class="form-group">
                                         <label for="storeName" class="form-label">What's your new store's name?</label>
                                         <input type="text" class="form-control" name="storeName" id="storeName" placeholder="Store name">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="storeDescription" class="form-label">How would you describe your store?</label>
+                                        <textarea class="form-control" id="storeDescription" name="storeDescription" placeholder="Describe your store" rows="4"></textarea>
+
                                     </div>
 
                                     <div class="form-group">
@@ -127,6 +133,14 @@
                                     <label class="form-check-label" for="stationaryCheck"> Stationary</label>
                                     </div>
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="storeImage" class="form-label">Upload store display picture</label>
+                                    <input class="form-control" type="file" id="storeImage" name="storeImage">
+
+                                </div>
+
+
                                 </div>
                                 <div class="modal-footer">
                                     <button class="button btn-navigate-form-step" type="button" step_number="2">Next</button>
@@ -316,6 +330,56 @@
             </div>
             
             <div id="shopsdiv">
+                <div class="container">
+                    <div class="row justify-content-start">
+                        <div class="col-sm-6 col-md-3 mb-4">
+                        <div class="card custom-card-width">
+                            <div class="rounded-circle overflow-hidden mx-auto mt-4" style="width: 80px; height: 80px;">
+                            <img src="/imgs/cupcake.jpeg" alt="Store Image" class="w-100 h-100 object-fit-cover">
+                            </div>
+                            <div class="card-body text-center">
+                            <h4 class="card-title font-weight-bold mb-2">Store Name</h4>
+                            <p class="card-text text-muted mb-0">Store Category</p>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3 mb-4">
+                        <div class="card custom-card-width">
+                            <div class="rounded-circle overflow-hidden mx-auto mt-4" style="width: 80px; height: 80px;">
+                            <img src="/imgs/cupcake.jpeg" alt="Store Image" class="w-100 h-100 object-fit-cover">
+                            </div>
+                            <div class="card-body text-center">
+                            <h4 class="card-title font-weight-bold mb-2">Store Name</h4>
+                            <p class="card-text text-muted mb-0">Store Category</p>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3 mb-4">
+                        <div class="card custom-card-width">
+                            <div class="rounded-circle overflow-hidden mx-auto mt-4" style="width: 80px; height: 80px;">
+                            <img src="/imgs/cupcake.jpeg" alt="Store Image" class="w-100 h-100 object-fit-cover">
+                            </div>
+                            <div class="card-body text-center">
+                            <h4 class="card-title font-weight-bold mb-2">Store Name</h4>
+                            <p class="card-text text-muted mb-0">Store Category</p>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3 mb-4">
+                        <div class="card custom-card-width">
+                            <div class="rounded-circle overflow-hidden mx-auto mt-4" style="width: 80px; height: 80px;">
+                            <img src="/imgs/cupcake.jpeg" alt="Store Image" class="w-100 h-100 object-fit-cover">
+                            </div>
+                            <div class="card-body text-center">
+                            <h4 class="card-title font-weight-bold mb-2">Store Name</h4>
+                            <p class="card-text text-muted mb-0">Store Category</p>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+
+               
             </div>
         </div>
 

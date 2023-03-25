@@ -293,3 +293,12 @@ ul.form-stepper li a .form-stepper-circle {
     padding-top: 1em;
     padding-bottom: 1em;
 }
+
+#shopsdiv{
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+.custom-card-width {
+    max-width: 400px;
+  }
