@@ -59,59 +59,6 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                 <div class="modal-body">
-                    <!--p class="stepnumber">Step 1 of 3</p>
-
-                    <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar" style="width: 1%"></div>
-                    </div>
-                     <p class="stepTitle">1. Store Information</p>
-
-                    <form>
-                    <div class="form-group">
-                        <label for="storeName" class="form-label">What's your new store's name?</label>
-                        <input type="text" class="form-control" name="storeName" id="storeName" placeholder="Store name">
-                    </div>
-
-                    <div class="form-group">
-                    <label>What kinds of products will be available in your store?</label>
-                    <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="food" name="food" id="foodCheck">
-                    <label class="form-check-label" for="fooodCheck">Food and Drink</label>
-                    </div>
-                    <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="clothes"  name="clothes" id="clothesCheck">
-                    <label class="form-check-label" for="clothesCheck">Clothing and Shoes</label>
-                    </div>
-                    <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="jewelry" name="jewelry" id="jewelryCheck">
-                    <label class="form-check-label" for="jewelryCheck">Jewelry</label>
-                    </div>
-                    <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="books" name="books" id="booksCheck">
-                    <label class="form-check-label" for="thursdayCheck">Books</label>
-                    </div>
-                     <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="stationary" name="stationary" id="stationaryCheck">
-                    <label class="form-check-label" for="stationaryCheck"> Stationary</label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Does your store offer delivery, pickup or both?</label>
-                    <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="delivery" name="delivery" id="deliveryCheck">
-                    <label class="form-check-label" for="deliveryCheck">Delivery</label>
-                    </div>
-                    <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="pickup"  name="pickup" id="pickupCheck">
-                    <label class="form-check-label" for="pickupCheck">Pickup</label>
-                    </div>
-                    <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="bothDelPick" name="bothDelPick" id="bothDelPickCheck">
-                    <label class="form-check-label" for="bothDelPickCheck">Both Delivery and Pickup</label>
-                    </div>
-
-                </div-->
                 <div>
                     <h1>Create New Store</h1>
                     <div id="multi-step-form-container">
@@ -146,7 +93,7 @@
                             </li>
                         </ul>
                         <!-- Step Wise Form Content -->
-                        <form method="POST">
+                        <form  id='createstoreform'method="POST" action="/newstore">
                             <!-- Step 1 Content -->
                             <section id="step-1" class="form-step">
                                 <h2 class="font-normal">Store Details</h2>
@@ -160,23 +107,23 @@
                                     <div class="form-group">
                                     <label>What kinds of products will be available in your store?</label>
                                     <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="food" name="food" id="foodCheck">
+                                    <input class="form-check-input" type="checkbox" value="food" name="storeCategory" id="foodCheck">
                                     <label class="form-check-label" for="fooodCheck">Food and Drink</label>
                                     </div>
                                     <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="clothes"  name="clothes" id="clothesCheck">
+                                    <input class="form-check-input" type="checkbox" value="clothes"  name="storeCategory" id="clothesCheck">
                                     <label class="form-check-label" for="clothesCheck">Clothing and Shoes</label>
                                     </div>
                                     <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="jewelry" name="jewelry" id="jewelryCheck">
+                                    <input class="form-check-input" type="checkbox" value="jewelry" name="storeCategory" id="jewelryCheck">
                                     <label class="form-check-label" for="jewelryCheck">Jewelry</label>
                                     </div>
                                     <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="books" name="books" id="booksCheck">
+                                    <input class="form-check-input" type="checkbox" value="books" name="storeCategory" id="booksCheck">
                                     <label class="form-check-label" for="thursdayCheck">Books</label>
                                     </div>
                                     <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="stationary" name="stationary" id="stationaryCheck">
+                                    <input class="form-check-input" type="checkbox" value="stationary" name="storeCategory" id="stationaryCheck">
                                     <label class="form-check-label" for="stationaryCheck"> Stationary</label>
                                     </div>
                                 </div>
@@ -206,32 +153,32 @@
                                     <div class="form-group">
                                     <label>What are your delivery days? </label>
                                     <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="monday" name="monday" id="mondayCheck">
+                                    <input class="form-check-input" type="checkbox" value="monday" name="deliveryDay" id="mondayCheck">
                                     <label class="form-check-label" for="mondayCheck">Monday</label>
                                     </div>
                                     <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="tuesday"  name="tuesday" id="tuesdayCheck">
+                                    <input class="form-check-input" type="checkbox" value="tuesday"  name="deliveryDay" id="tuesdayCheck">
                                     <label class="form-check-label" for="tuesdayCheck">Tuesday</label>
                                     </div>
                                     <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="wednesday" name="wednesday" id="wednesdayCheck">
+                                    <input class="form-check-input" type="checkbox" value="wednesday" name="deliveryDay" id="wednesdayCheck">
                                     <label class="form-check-label" for="wednesdayCheck">Wednesday</label>
                                     </div>
                                     <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="thursday" name="thursday" id="thursdayCheck">
+                                    <input class="form-check-input" type="checkbox" value="thursday" name="deliveryDay" id="thursdayCheck">
                                     <label class="form-check-label" for="thursdayCheck">Thursday</label>
                                     </div>
                                     <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="friday" name="friday" id="fridayCheck">
+                                    <input class="form-check-input" type="checkbox" value="friday" name="deliveryDay" id="fridayCheck">
                                     <label class="form-check-label" for="fridayCheck"> Friday</label>
                                     </div>
                                     <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="saturday" name="saturday" id="saturdayCheck">
+                                    <input class="form-check-input" type="checkbox" value="saturday" name="deliveryDay" id="saturdayCheck">
                                     <label class="form-check-label" for="saturdayCheck">Saturday
                                     </label>
                                     </div>
                                     <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="sunday" name="sunday" id="sundayCheck">
+                                    <input class="form-check-input" type="checkbox" value="sunday" name="deliveryDay" id="sundayCheck">
                                     <label class="form-check-label" for="sundayCheck">Sunday
                                     </label>
                                     </div>
@@ -253,46 +200,46 @@
                                     <div class="mb-3 row">
                                         <label for="zone1Input" class="col-sm-2 col-form-label">Zone 1: </label>
                                         <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="zone1Input">
+                                        <input type="text" class="form-control" name="zone1charge" id="zone1Input">
                                         </div>
                                     </div>
                                      
                                     <div class="mb-3 row">
                                         <label for="zone2Input" class="col-sm-2 col-form-label">Zone 2: </label>
                                         <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="zone2Input">
+                                        <input type="text" class="form-control" name="zone2charge" id="zone2Input">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
                                         <label for="zone3Input" class="col-sm-2 col-form-label">Zone 3: </label>
                                         <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="zone3Input">
+                                        <input type="text" class="form-control" name="zone3charge" id="zone3Input">
                                         </div>
                                     </div>
                                      
                                     <div class="mb-3 row">
                                         <label for="zone4Input" class="col-sm-2 col-form-label">Zone 4: </label>
                                         <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="zone4Input">
+                                        <input type="text" class="form-control"  name="zone4charge"id="zone4Input">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
                                         <label for="zone5Input" class="col-sm-2 col-form-label">Zone 5: </label>
                                         <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="zone5Input">
+                                        <input type="text" class="form-control"  name="zone5charge"id="zone5Input">
                                         </div>
                                     </div>
                                     <br>
-                                    <label>Find delivery zone details below </label>
-
+                                    <label>Find the areas in each delivery zone below </label>
+                                    
                                      <div class="accordion" id="accordionExample">
                                         <div class="accordion-item">
                                             <h2 class="accordion-header" id="headingOne">
-                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                                                Delivery Zone Details
                                             </button>
                                             </h2>
-                                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                             <div class="accordion-body">
                                                 <div class="accordion accordion-flush" id="accordionFlushExample">
                                                     <div class="accordion-item">

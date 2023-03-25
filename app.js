@@ -290,6 +290,17 @@ app.post('/updateproductstable/:productID', (req, res) => {
 
 });
 
+// Creating a store
+app.post('/newstore', (req, res) => {
+console.log("session from new store", session.userid)
+console.log("data from forms", req.body);
+
+// Add data to database
+
+
+
+});
+
 
 /*-----------------------PAGE ROUTES: GET METHODS------------------------- */
 // Landing page route
