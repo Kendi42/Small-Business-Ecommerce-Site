@@ -28,6 +28,29 @@
     
         <div id="yourshopssection">
             <h3 id="mystoreslb">MY STORES</h3>
+
+
+            
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Multi-Stage Form Modal</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    
+                </div>
+                
+                </div>
+            </div>
+            </div>
+
+
             <div id="newshopdiv">
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newShopModal">New Shop</button>
             </div>
@@ -35,10 +58,8 @@
             <div class="modal fade" id="newShopModal" tabindex="-1" aria-labelledby="newShopModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                
-                
                 <div class="modal-body">
-                    <p class="stepnumber">Step 1 of 3</p>
+                    <!--p class="stepnumber">Step 1 of 3</p>
 
                     <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
                         <div class="progress-bar" style="width: 1%"></div>
@@ -90,14 +111,260 @@
                     <label class="form-check-label" for="bothDelPickCheck">Both Delivery and Pickup</label>
                     </div>
 
-                </div>
-                <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary">Next</button>
+                </div-->
+                <div>
+                    <h1>Create New Store</h1>
+                    <div id="multi-step-form-container">
+                        <!-- Form Steps / Progress Bar -->
+                        <ul class="form-stepper form-stepper-horizontal text-center mx-auto pl-0">
+                            <!-- Step 1 -->
+                            <li class="form-stepper-active text-center form-stepper-list" step="1">
+                                <a class="mx-2">
+                                    <span class="form-stepper-circle">
+                                        <span>1</span>
+                                    </span>
+                                    <div class="label">Store Details</div>
+                                </a>
+                            </li>
+                            <!-- Step 2 -->
+                            <li class="form-stepper-unfinished text-center form-stepper-list" step="2">
+                                <a class="mx-2">
+                                    <span class="form-stepper-circle text-muted">
+                                        <span>2</span>
+                                    </span>
+                                    <div class="label text-muted">Delivery Information</div>
+                                </a>
+                            </li>
+                            <!-- Step 3 -->
+                            <li class="form-stepper-unfinished text-center form-stepper-list" step="3">
+                                <a class="mx-2">
+                                    <span class="form-stepper-circle text-muted">
+                                        <span>3</span>
+                                    </span>
+                                    <div class="label text-muted">Delivery Charges</div>
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- Step Wise Form Content -->
+                        <form method="POST">
+                            <!-- Step 1 Content -->
+                            <section id="step-1" class="form-step">
+                                <h2 class="font-normal">Store Details</h2>
+                                <!-- Step 1 input fields -->
+                                <div class="mt-3">
+                                    <div class="form-group">
+                                        <label for="storeName" class="form-label">What's your new store's name?</label>
+                                        <input type="text" class="form-control" name="storeName" id="storeName" placeholder="Store name">
+                                    </div>
+
+                                    <div class="form-group">
+                                    <label>What kinds of products will be available in your store?</label>
+                                    <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="food" name="food" id="foodCheck">
+                                    <label class="form-check-label" for="fooodCheck">Food and Drink</label>
+                                    </div>
+                                    <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="clothes"  name="clothes" id="clothesCheck">
+                                    <label class="form-check-label" for="clothesCheck">Clothing and Shoes</label>
+                                    </div>
+                                    <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="jewelry" name="jewelry" id="jewelryCheck">
+                                    <label class="form-check-label" for="jewelryCheck">Jewelry</label>
+                                    </div>
+                                    <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="books" name="books" id="booksCheck">
+                                    <label class="form-check-label" for="thursdayCheck">Books</label>
+                                    </div>
+                                    <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="stationary" name="stationary" id="stationaryCheck">
+                                    <label class="form-check-label" for="stationaryCheck"> Stationary</label>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="button btn-navigate-form-step" type="button" step_number="2">Next</button>
+                                </div>
+                            </section>
+                            <!-- Step 2 Content, default hidden on page load. -->
+                            <section id="step-2" class="form-step d-none">
+                                <h2 class="font-normal">Delivery Information</h2>
+                                <!-- Step 2 input fields -->
+                                <div class="mt-3">
+                                    <div class="form-group">
+                                        <label for="storeDeliveryPeriod" class="form-label">What is your average delivery period? </label>
+                                        <select class="form-select" name="storeDeliveryPeriod" id="storeDeliveryPeriod">
+                                        <option selected disabled value="">Choose...</option>
+                                        <option>Same day delivery</option>
+                                        <option>Next day delivery </option>
+                                        <option>2 to 3 days </option>
+                                        <option>4 to 7 days </option>
+                                        <option>1 to 2 weeks </option>
+                                        <option>2 weeks to 1 month</option>
+                                        <option>1 month plus</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                    <label>What are your delivery days? </label>
+                                    <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="monday" name="monday" id="mondayCheck">
+                                    <label class="form-check-label" for="mondayCheck">Monday</label>
+                                    </div>
+                                    <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="tuesday"  name="tuesday" id="tuesdayCheck">
+                                    <label class="form-check-label" for="tuesdayCheck">Tuesday</label>
+                                    </div>
+                                    <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="wednesday" name="wednesday" id="wednesdayCheck">
+                                    <label class="form-check-label" for="wednesdayCheck">Wednesday</label>
+                                    </div>
+                                    <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="thursday" name="thursday" id="thursdayCheck">
+                                    <label class="form-check-label" for="thursdayCheck">Thursday</label>
+                                    </div>
+                                    <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="friday" name="friday" id="fridayCheck">
+                                    <label class="form-check-label" for="fridayCheck"> Friday</label>
+                                    </div>
+                                    <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="saturday" name="saturday" id="saturdayCheck">
+                                    <label class="form-check-label" for="saturdayCheck">Saturday
+                                    </label>
+                                    </div>
+                                    <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="sunday" name="sunday" id="sundayCheck">
+                                    <label class="form-check-label" for="sundayCheck">Sunday
+                                    </label>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="button btn-navigate-form-step" type="button" step_number="1">Prev</button>
+                                    <button class="button btn-navigate-form-step" type="button" step_number="3">Next</button>
+                                </div>
+                            </section>
+                            <!-- Step 3 Content, default hidden on page load. -->
+                            <section id="step-3" class="form-step d-none">
+                                <h2 class="font-normal">Delivery Charges</h2>
+                                
+                                <!-- Step 3 input fields -->
+                                <br>
+                                <label>What are your stores delivery charges to the following delivery zones? </label>
+                                
+                                <div class="mt-3">
+                                    <div class="mb-3 row">
+                                        <label for="zone1Input" class="col-sm-2 col-form-label">Zone 1: </label>
+                                        <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="zone1Input">
+                                        </div>
+                                    </div>
+                                     
+                                    <div class="mb-3 row">
+                                        <label for="zone2Input" class="col-sm-2 col-form-label">Zone 2: </label>
+                                        <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="zone2Input">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label for="zone3Input" class="col-sm-2 col-form-label">Zone 3: </label>
+                                        <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="zone3Input">
+                                        </div>
+                                    </div>
+                                     
+                                    <div class="mb-3 row">
+                                        <label for="zone4Input" class="col-sm-2 col-form-label">Zone 4: </label>
+                                        <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="zone4Input">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 row">
+                                        <label for="zone5Input" class="col-sm-2 col-form-label">Zone 5: </label>
+                                        <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="zone5Input">
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <label>Find delivery zone details below </label>
+
+                                     <div class="accordion" id="accordionExample">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="headingOne">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                               Delivery Zone Details
+                                            </button>
+                                            </h2>
+                                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <div class="accordion accordion-flush" id="accordionFlushExample">
+                                                    <div class="accordion-item">
+                                                        <h2 class="accordion-header" id="flush-headingOne">
+                                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                                            Zone 1
+                                                        </button>
+                                                        </h2>
+                                                        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                                        <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="accordion-item">
+                                                        <h2 class="accordion-header" id="flush-headingTwo">
+                                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                                                            Zone 2
+                                                        </button>
+                                                        </h2>
+                                                        <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                                                        <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="accordion-item">
+                                                        <h2 class="accordion-header" id="flush-headingThree">
+                                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                                                            Zone 3
+                                                        </button>
+                                                        </h2>
+                                                        <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                                                        <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="accordion-item">
+                                                        <h2 class="accordion-header" id="flush-headingFour">
+                                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                                                            Zone 4
+                                                        </button>
+                                                        </h2>
+                                                        <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
+                                                        <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="accordion-item">
+                                                        <h2 class="accordion-header" id="flush-headingFive">
+                                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
+                                                            Zone 5
+                                                        </button>
+                                                        </h2>
+                                                        <div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingFive" data-bs-parent="#accordionFlushExample">
+                                                        <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                
+                                       
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="button btn-navigate-form-step" type="button" step_number="2">Prev</button>
+                                    <button class="button submit-btn" type="submit">Create</button>
+                                </div>
+                            </section>
+                        </form>
+                    </div>
                 </div>
                 </form>
                 </div>
-                </div>
+            </div>
             </div>
             </div>
             
