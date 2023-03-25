@@ -332,50 +332,20 @@
             <div id="shopsdiv">
                 <div class="container">
                     <div class="row justify-content-start">
-                        <div class="col-sm-6 col-md-3 mb-4">
-                        <div class="card custom-card-width">
-                            <div class="rounded-circle overflow-hidden mx-auto mt-4" style="width: 80px; height: 80px;">
-                            <img src="/imgs/cupcake.jpeg" alt="Store Image" class="w-100 h-100 object-fit-cover">
+                       {{#each stores}}
+                            <div class="col-sm-6 col-md-3 mb-4">
+                                <div class="card custom-card-width">
+                                <div class="rounded-circle overflow-hidden mx-auto mt-4" style="width: 80px; height: 80px;">
+                                    <img src="{{this.image}}" alt="Store Image" class="w-100 h-100 object-fit-cover">
+                                </div>
+                                <div class="card-body text-center">
+                                    <h4 class="card-title font-weight-bold mb-2">{{this.name}}</h4>
+                                    <p class="card-text text-muted mb-0">{{this.category}}</p>
+                                </div>
+                                </div>
                             </div>
-                            <div class="card-body text-center">
-                            <h4 class="card-title font-weight-bold mb-2">Store Name</h4>
-                            <p class="card-text text-muted mb-0">Store Category</p>
-                            </div>
-                        </div>
-                        </div>
-                        <div class="col-sm-6 col-md-3 mb-4">
-                        <div class="card custom-card-width">
-                            <div class="rounded-circle overflow-hidden mx-auto mt-4" style="width: 80px; height: 80px;">
-                            <img src="/imgs/cupcake.jpeg" alt="Store Image" class="w-100 h-100 object-fit-cover">
-                            </div>
-                            <div class="card-body text-center">
-                            <h4 class="card-title font-weight-bold mb-2">Store Name</h4>
-                            <p class="card-text text-muted mb-0">Store Category</p>
-                            </div>
-                        </div>
-                        </div>
-                        <div class="col-sm-6 col-md-3 mb-4">
-                        <div class="card custom-card-width">
-                            <div class="rounded-circle overflow-hidden mx-auto mt-4" style="width: 80px; height: 80px;">
-                            <img src="/imgs/cupcake.jpeg" alt="Store Image" class="w-100 h-100 object-fit-cover">
-                            </div>
-                            <div class="card-body text-center">
-                            <h4 class="card-title font-weight-bold mb-2">Store Name</h4>
-                            <p class="card-text text-muted mb-0">Store Category</p>
-                            </div>
-                        </div>
-                        </div>
-                        <div class="col-sm-6 col-md-3 mb-4">
-                        <div class="card custom-card-width">
-                            <div class="rounded-circle overflow-hidden mx-auto mt-4" style="width: 80px; height: 80px;">
-                            <img src="/imgs/cupcake.jpeg" alt="Store Image" class="w-100 h-100 object-fit-cover">
-                            </div>
-                            <div class="card-body text-center">
-                            <h4 class="card-title font-weight-bold mb-2">Store Name</h4>
-                            <p class="card-text text-muted mb-0">Store Category</p>
-                            </div>
-                        </div>
-                        </div>
+                            {{/each}}
+                       
                     </div>
                     </div>
 

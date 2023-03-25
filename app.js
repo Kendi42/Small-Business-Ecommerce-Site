@@ -350,7 +350,19 @@ app.get("/signup", (req, res) => {
 
 // Go to seller dashboard
 app.get("/sellerdashboard", (req, res) => {
-	res.render("sellerdashboard");
+  const sql = 'SELECT storeName, storeCategory, storeImage FROM store WHERE userID = ?';
+  const values = [session.userid];
+  db.query(sql, values, (err, results) => {
+    if (err) throw err;
+    const stores = results.map(store => ({
+      name: store.storeName,
+      category: store.storeCategory,
+      image: `data:image/png;base64,${store.storeImage.toString('base64')}`
+    }));
+	res.render("sellerdashboard", {stores});
+
+});
+ 
 });
 
 // Go to become a seller page
