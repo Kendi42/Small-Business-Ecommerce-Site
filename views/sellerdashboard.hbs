@@ -27,7 +27,7 @@
         </div>
     
         <div id="yourshopssection">
-            <h3 id="mystoreslb">MY STORES</h3>
+            <h3 id="mystoreslb">STORES</h3>
 
 
             
@@ -50,10 +50,6 @@
             </div>
             </div>
 
-
-            <div id="newshopdiv">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newShopModal">New Shop</button>
-            </div>
             <!-- New Shop Modal-->
             <div class="modal fade" id="newShopModal" tabindex="-1" aria-labelledby="newShopModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
@@ -332,8 +328,16 @@
             <div id="shopsdiv">
                 <div class="container">
                     <div class="row justify-content-start">
+                        <div class="col-sm-6 col-md-3 mb-4">
+                        <div class="card custom-card-width" id="addStoreCard">
+                          <i class="fas fa-add"></i>
+                        </div>
+                        </div>
+                       
+
                        {{#each stores}}
                             <div class="col-sm-6 col-md-3 mb-4">
+                                <a href="/storepage/{{this.id}}">
                                 <div class="card custom-card-width">
                                 <div class="rounded-circle overflow-hidden mx-auto mt-4" style="width: 80px; height: 80px;">
                                     <img src="{{this.image}}" alt="Store Image" class="w-100 h-100 object-fit-cover">
@@ -343,6 +347,7 @@
                                     <p class="card-text text-muted mb-0">{{this.category}}</p>
                                 </div>
                                 </div>
+                                </a>
                             </div>
                             {{/each}}
                        

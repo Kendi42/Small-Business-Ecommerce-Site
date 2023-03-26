@@ -75,7 +75,7 @@ a{
     padding-top: 2em;
 }
 #mystoreslb{
-    font-size: 2rem;
+    font-size: 2.5rem;
     font-weight:600;
 }
 #newshopdiv{
@@ -302,3 +302,27 @@ ul.form-stepper li a .form-stepper-circle {
 .custom-card-width {
     max-width: 400px;
   }
+#addStoreCard{
+    background-color: #fafafa;
+    height: 210px;
+}
+#addStoreCard i{
+    margin: auto auto;
+    font-size: 5em;
+    color: #cdcdcd;
+}
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+    border: 1px solid #FAFAFA;
+
+  }
+
+.card:hover {
+    background-color: #f8f8f8;
+    border: 1px solid #e8e8e8;
+  }
+
+.card:active {
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+  }
+  

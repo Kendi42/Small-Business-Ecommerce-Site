@@ -309,10 +309,27 @@ console.log("newstore", newstore);
 // Add data to database
 console.log("About to create new store");
 
-const sql = 'INSERT INTO store (storeName, storeCategory, userID, storeDescription, storeImage, storeDeliveryPeriod, deliveryDay, zone1charge, zone2charge, zone3charge, zone4charge, zone5charge) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-const storeCategoryString = newstore.storeCategory.join(',');
-const deliveryDayString = newstore.deliveryDay.join(',');
+let storeCategoryString;
+let deliveryDayString;
+if(Array.isArray(newstore.storeCategory)){
+  storeCategoryString = newstore.storeCategory.join(',');
+}
+else{
+  storeCategoryString = newstore.storeCategory
 
+}
+console.log("storeCategory", storeCategoryString);
+
+if(Array.isArray(newstore.deliveryDay)){
+  deliveryDayString = newstore.deliveryDay.join(',');
+}
+else{
+  deliveryDayString = newstore.deliveryDay;
+}
+console.log("deliveryDay", deliveryDayString);
+console.log("Value is category string", storeCategoryString);
+
+const sql = 'INSERT INTO store (storeName, storeCategory, userID, storeDescription, storeImage, storeDeliveryPeriod, deliveryDay, zone1charge, zone2charge, zone3charge, zone4charge, zone5charge) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 const values = [newstore.storeName, storeCategoryString, newstore.userID, newstore.storeDescription, image, newstore.storeDeliveryPeriod, deliveryDayString, newstore.zone1charge, newstore.zone2charge, newstore.zone3charge, newstore.zone4charge, newstore.zone5charge];
 db.query(sql, values, (error, results, fields) => {
     if (error) {
@@ -350,11 +367,12 @@ app.get("/signup", (req, res) => {
 
 // Go to seller dashboard
 app.get("/sellerdashboard", (req, res) => {
-  const sql = 'SELECT storeName, storeCategory, storeImage FROM store WHERE userID = ?';
+  const sql = 'SELECT storeID, storeName, storeCategory, storeImage FROM store WHERE userID = ?';
   const values = [session.userid];
   db.query(sql, values, (err, results) => {
     if (err) throw err;
     const stores = results.map(store => ({
+      id: store.storeID,
       name: store.storeName,
       category: store.storeCategory,
       image: `data:image/png;base64,${store.storeImage.toString('base64')}`
@@ -364,6 +382,13 @@ app.get("/sellerdashboard", (req, res) => {
 });
  
 });
+
+app.get("/storepage/:id", (req, res) => {
+  let {id }= req.params;
+
+  res.render("storepage", {id:id});
+});
+
 
 // Go to become a seller page
 app.get("/becomeseller", (req, res) => {
