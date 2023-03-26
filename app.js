@@ -385,8 +385,19 @@ app.get("/sellerdashboard", (req, res) => {
 
 app.get("/storepage/:id", (req, res) => {
   let {id }= req.params;
+  console.log("storeID", id);
+  const sql = 'SELECT storeName, storeDescription, storeImage FROM store WHERE storeID = ?';
+  const values = [id];
 
-  res.render("storepage", {id:id});
+  db.query(sql, values, (err, results) => {
+    if (err) throw err;
+    console.log("Results", results)
+    console.log("StoreName", results[0].storeName);
+    console.log("Results 0", results[0])
+    let image= `data:image/png;base64,${results[0].storeImage.toString('base64')}`
+	  res.render("storepage", {storeName:results[0].storeName, storeDescription:results[0].storeDescription, storeImage:image});
+  });
+
 });
 
 

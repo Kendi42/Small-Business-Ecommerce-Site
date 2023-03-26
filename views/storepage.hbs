@@ -32,16 +32,16 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/sellerdashboard">Seller Dashboard</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">African Bookstore</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{this.storeName}}</li>
                 </ol>
                 </nav>
             <div class="profile-container">
                 <div class="profile-image">
-                    <img src="https://via.placeholder.com/150" alt="Store Image" class="rounded-circle">
+                    <img src="{{this.storeImage}}" alt="Store Image" class="rounded-circle">
                 </div>
                 <div class="profile-info">
-                    <h2 class="profile-name">African Bookstore</h2>
-                    <p class="profile-bio">A hub of the best African literature</p>
+                    <h2 class="profile-name">{{this.storeName}}</h2>
+                    <p class="profile-bio">{{this.storeDescription}}</p>
                 </div>
             </div>
             <h3 id="myproductslb">Products</h3>
