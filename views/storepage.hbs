@@ -21,27 +21,26 @@
                     <li><a href="#"><i class="fas fa-cart-plus"></i>Orders</a></li>
                     <li><a href="#"><i class="fas fa-gear"></i> Settings</a></li>
                 </ul>
-                <a href="/" id="logout"><i class="fas fa-arrow-circle-left"></i>Log out</a>
+                <a href="/logout" id="logout"><i class="fas fa-arrow-circle-left"></i>Log out</a>
 
         </div>
 
         <!--Main Content-->
-
         <div class="maincontent">
             <!--Top Navigation-->
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/sellerdashboard">Seller Dashboard</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{this.storeName}}</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{storeinfo.storeName}}</li>
                 </ol>
                 </nav>
             <div class="profile-container">
                 <div class="profile-image">
-                    <img src="{{this.storeImage}}" alt="Store Image" class="rounded-circle">
+                    <img src="{{storeinfo.storeImage}}" alt="Store Image" class="rounded-circle">
                 </div>
                 <div class="profile-info">
-                    <h2 class="profile-name">{{this.storeName}}</h2>
-                    <p class="profile-bio">{{this.storeDescription}}</p>
+                    <h2 class="profile-name">{{storeinfo.storeName}}</h2>
+                    <p class="profile-bio">{{storeinfo.storeDescription}}</p>
                 </div>
             </div>
             <hr>  
@@ -64,73 +63,66 @@
                             <div class="modal-content">
                             <div class="modal-body">
                                 <h1>Create New Product</h1>
-                                <form id='createproductform' method="POST" action="/newproduct" enctype="multipart/form-data">
+                                <form id='createproductform' method="POST" action="/newproduct/{{storeinfo.storeID}}" enctype="multipart/form-data">
                                 <div class="mb-3">
-                                    <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                                    <label for="productNameInput" class="form-label">What is  the product name?</label>
+                                    <input type="text" class="form-control" id="productNameInput" name="productName" placeholder="Product name">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    <label for="productPriceInput" class="form-label">What is  the price of the product?</label>
+                                    <input type="number" class="form-control" id="productPriceInput" name="productCost" placeholder="Product Cost">
                                 </div>
-                                </form>
+                                <div class="form-group">
+                                        <label for="productCategoryInput" class="form-label">What category does the product fall into? </label>
+                                        <select class="form-select" name="productCategory" id="productCategoryInput">
+                                            <option selected disabled value="">Choose...</option>
+                                            <option>Food and Drink</option>
+                                            <option>Clothing</option>
+                                            <option>Shoes</option>
+                                            <option>Jewelry</option>
+                                            <option>Books</option>
+                                            <option>Stationary</option>
+                                        </select>
+                                    </div>
+                                <div class="mb-3">
+                                    <label for="productDescriptionInput" class="form-label">Give a description of the product</label>
+                                    <textarea class="form-control" id="productDescriptionInput" name="productDescription" rows="3"></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="productStockInput" class="form-label">How much of the product is in stock?</label>
+                                    <input type="number" class="form-control" id="productStockInput" name="productStock" placeholder="Product quantity">
+                                </div>
+                                <div class="form-group">
+                                    <label for="productImage" class="form-label">Upload product image</label>
+                                    <input class="form-control" type="file" id="productImage" name="productImage">
+                                </div>
+    
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </div>
+                            </form>
                             </div>
                         </div>
                         </div>
                 
                         <!-- Dynamically generated Product-->
+                        {{#each products}}
                         <div class="col-sm-6 col-md-3 mb-4">
                         <div class="card custom-card-width">
-                            <img src="/imgs/cupcake.jpeg" class="card-img-top" alt="Product Image">
+                            <img src="{{this.pimage}}" class="card-img-top" alt="Product Image">
                                 <div class="card-body">
                                     <div class="d-flex align-items-center">
-                                        <img src="/imgs/hat.jpg" alt="Store Profile Pic" class="rounded-circle mr-2" style="width: 40px; height: 40px;">
-                                        <p class="card-text mb-0" id="cardstorename">Store Name</p>
+                                        <img src="{{../storeinfo.storeImage}}" alt="Store Profile Pic" class="rounded-circle mr-2" style="width: 40px; height: 40px;">
+                                        <p class="card-text mb-0" id="cardstorename">{{../storeinfo.storeName}}</p>
                                     </div>
-                                    <h5 class="card-title mt-2">Lemon and Rasbery Cupcakes</h5>
-                                    <p class="card-text">Ksh 100</p>
+                                    <h5 class="card-title mt-2">{{this.pname}}</h5>
+                                    <p class="card-text">{{this.pcost}}</p>
                                     </div>
                                 </div>
                         </div>
-
-                         <div class="col-sm-6 col-md-3 mb-4">
-                        <div class="card custom-card-width">
-                            <img src="/imgs/cupcake.jpeg" class="card-img-top" alt="Product Image">
-                                <div class="card-body">
-                                    <div class="d-flex align-items-center">
-                                        <img src="/imgs/hat.jpg" alt="Store Profile Pic" class="rounded-circle mr-2" style="width: 40px; height: 40px;">
-                                        <p class="card-text mb-0" id="cardstorename">Store Name</p>
-                                    </div>
-                                    <h5 class="card-title mt-2">Lemon and Rasbery Cupcakes</h5>
-                                    <p class="card-text">Ksh 100</p>
-                                    </div>
-                                </div>
-                        </div>
-                        <div class="col-sm-6 col-md-3 mb-4">
-                        <div class="card custom-card-width">
-                            <img src="/imgs/cupcake.jpeg" class="card-img-top" alt="Product Image">
-                                <div class="card-body">
-                                    <div class="d-flex align-items-center">
-                                        <img src="/imgs/hat.jpg" alt="Store Profile Pic" class="rounded-circle mr-2" style="width: 40px; height: 40px;">
-                                        <p class="card-text mb-0" id="cardstorename">Store Name</p>
-                                    </div>
-                                    <h5 class="card-title mt-2">Lemon and Rasbery Cupcakes</h5>
-                                    <p class="card-text">Ksh 100</p>
-                                    </div>
-                                </div>
-                        </div>
-
-                       {{#each products}}
-                            <div class="col-sm-6 col-md-3 mb-4">
-                                
-                                
-                            </div>
-                            {{/each}}
+                        {{/each}}
                        
                     </div>
                     </div>

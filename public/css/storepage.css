@@ -121,12 +121,13 @@ a:hover{
 }
 
 .custom-card-width {
-    max-width: 400px;
-    max-height: 410px;
+    max-width: 25rem;
+    max-height: 26rem;
+    min-height: 26rem;
   }
 #addProductCard{
     background-color: #fafafa;
-    height: 410px;
+    height: 26rem;
 }
 #addProductCard i{
     margin: auto auto;
@@ -151,7 +152,12 @@ a:hover{
 hr{
     color: #cdcdcd;
 }
-  
+
+.card-img-top{
+    max-width: 25rem;
+    max-height: 17rem;
+    min-height: 17rem;
+}
 #cardstorename{
     margin-left: 0.5em;
 
@@ -160,5 +166,38 @@ hr{
 #productscard{
     box-shadow: none;
     border: none;
+}
+
+.modal-body{
+    padding: 2em;
+}
+
+.modal-body h1 {
+    text-align: center;
+}
+.modal-body label{
+    font-size: 1.2em;
+
+}
+
+form{
+    margin-top: 2em;
+}
+
+.form-group{
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    margin-bottom: 1em;
+
+}
+
+.btn-primary {
+    border: 1px solid #C63E88;
+    background-color: #C63E88;
+}
+
+.btn-secondary {
+    border: 1px solid #414141;
+    background-color: #414141;
 }
 

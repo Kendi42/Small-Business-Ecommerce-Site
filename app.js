@@ -218,6 +218,7 @@ app.get("/logout", (req, res, next) => {
     next();
 });
 
+/*-----------------------Admin: Updating User, Stores and Products------------------------- */
 
 // Updating User Details
 app.post('/updateuserstable/:userID', (req, res) => {
@@ -294,6 +295,9 @@ app.post('/updateproductstable/:productID', (req, res) => {
 
 });
 
+/*-----------------------Creating Products and Stores------------------------- */
+
+
 // Creating a store
 app.post('/newstore', (req, res) => {
 let image;
@@ -340,6 +344,43 @@ db.query(sql, values, (error, results, fields) => {
     console.log("Store created successfully");
     return res.redirect('/sellerdashboard');
 });
+
+});
+
+// Creating a new Product
+app.post('/newproduct/:storeID', (req, res) => {
+  let {storeID }= req.params;
+  let image;
+  if (!req.files || !req.files.productImage) {
+      return res.status(400).send('No file uploaded');
+    }
+  else{
+    image= req.files.productImage.data;
+  }
+
+  let newproduct= req.body;
+  newproduct.storeID= session.userid;
+  newproduct.creationDate= new Date().toJSON().slice(0, 10);;
+  newproduct.storeID= storeID;
+  console.log("newproduct", newproduct);
+  console.log("image", image);
+  // Add data to database
+  console.log("About to create new product");
+
+  const sql = 'INSERT INTO product (productName, productDescription, productCost, productCategory, storeID, productStock, dateCreated, productImage) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+  const values = [newproduct.productName,newproduct.productDescription,newproduct.productCost,newproduct.productCategory,newproduct.storeID,newproduct.productStock,newproduct.creationDate,image];
+  db.query(sql, values, (error, results, fields) => {
+      if (error) {
+      console.error(error);
+      console.log("Failed to create product");
+      return res.redirect('/storepage');
+      }
+      console.log("Store created successfully");
+      return res.redirect(`/storepage/${storeID}`);
+  });
+
+
+
 
 });
 
@@ -395,7 +436,21 @@ app.get("/storepage/:id", (req, res) => {
     console.log("StoreName", results[0].storeName);
     console.log("Results 0", results[0])
     let image= `data:image/png;base64,${results[0].storeImage.toString('base64')}`
-	  res.render("storepage", {storeName:results[0].storeName, storeDescription:results[0].storeDescription, storeImage:image});
+    const storeinfo={ storeID:id, storeName:results[0].storeName, storeDescription:results[0].storeDescription, storeImage:image}
+
+    const sql = 'SELECT productID, productName, productCost, productImage FROM product WHERE storeID = ?';
+    const values = [id];
+    db.query(sql, values, (err, results) => {
+      if (err) throw err;
+      const products = results.map(product => ({
+        pid: product.productID,
+        pname: product.productName,
+        pcost: product.productCost,
+        pimage: `data:image/png;base64,${product.productImage.toString('base64')}`
+      }));
+
+      res.render("storepage", {storeinfo, products} );  
+  });
   });
 
 });
