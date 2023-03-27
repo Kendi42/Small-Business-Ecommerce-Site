@@ -21,17 +21,20 @@ function deleteRecord(resultTable, recordID){
 
 }
 
-// Card that triggers modal
-const addStoreCard = document.getElementById('addStoreCard');
-
-// Add a click event listener to the addStoreCard element
-addStoreCard.addEventListener('click', () => {
-  // Get the newShopModal element
+function newStore(){
   const newShopModal = document.getElementById('newShopModal');
-  
-  // Trigger the modal
   new bootstrap.Modal(newShopModal).toggle();
-});
+  return;
+}
+
+
+function newProduct(){
+  const newProductModal = document.getElementById('newProductModal');
+  new bootstrap.Modal(newProductModal).toggle();
+  return;
+}
+
+
 
 
 // CREATING A NEW STORE STEP BY STEP FORM

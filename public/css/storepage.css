@@ -115,7 +115,7 @@ a:hover{
     font-weight:600;
     margin-bottom: 1em;
 }
-#shopsdiv{
+#productsdiv{
     margin-top: 2em;
     margin-bottom: 2em;
 }
@@ -124,11 +124,11 @@ a:hover{
     max-width: 400px;
     max-height: 410px;
   }
-#addStoreCard{
+#addProductCard{
     background-color: #fafafa;
     height: 410px;
 }
-#addStoreCard i{
+#addProductCard i{
     margin: auto auto;
     font-size: 5em;
     color: #cdcdcd;
@@ -160,6 +160,5 @@ hr{
 #productscard{
     box-shadow: none;
     border: none;
-
 }
 

@@ -44,20 +44,47 @@
                     <p class="profile-bio">{{this.storeDescription}}</p>
                 </div>
             </div>
-            <hr>
+            <hr>  
 
             <h3 id="myproductslb">Products</h3>
-            <div id="shopsdiv">
+            <div id="productsdiv">
                 <div class="container">
                     <div class="row justify-content-start">
+                         <!-- Add Products Card-->
+
                         <div class="col-sm-6 col-md-3 mb-4">
-                        <div class="card custom-card-width" id="addStoreCard">
+                        <div class="card custom-card-width" id="addProductCard" onclick="newProduct()">
                           <i class="fas fa-add"></i>
                         </div>
                         </div>
+
+                         <!-- Modal -->
+                        <div class="modal fade" id="newProductModal" tabindex="-1" aria-labelledby="newProductModalLabel" aria-hidden="true">
+                        <div class="modal-dialog  modal-lg">
+                            <div class="modal-content">
+                            <div class="modal-body">
+                                <h1>Create New Product</h1>
+                                <form id='createproductform' method="POST" action="/newproduct" enctype="multipart/form-data">
+                                <div class="mb-3">
+                                    <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
                 
-                      
-                         <div class="col-sm-6 col-md-3 mb-4">
+                        <!-- Dynamically generated Product-->
+                        <div class="col-sm-6 col-md-3 mb-4">
                         <div class="card custom-card-width">
                             <img src="/imgs/cupcake.jpeg" class="card-img-top" alt="Product Image">
                                 <div class="card-body">
@@ -117,6 +144,9 @@
 
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
+    <script src="/js/main.js"></script>
 
 </body>
 </html>
