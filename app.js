@@ -137,7 +137,7 @@ app.post('/userlogin', loginValidationChain, (req,res) => {
                   console.log("req.session.loggedIn",req.session.loggedIn );
                   foundUser= true;
                   console.log("Found user", foundUser);
-                  return res.render('landing', {loggedIn: req.session.loggedIn, landingHome:true});
+                  return res.redirect('/');
                 }
                 }  
                 console.log("No email match, back to the for loop")              
@@ -389,16 +389,34 @@ app.post('/newproduct/:storeID', (req, res) => {
 // Landing page route
 app.get('/', (req, res) => {
     session=req.session;
-    if(session.userid){
-        res.render('landing', {loggedIn: req.session.loggedIn, landingHome:true});
-    }else{
-        res.render('landing', { root: __dirname, landingHome:true});
-    }
+    db.query('SELECT p.productID, p.productName, p.productCost, p.productImage, s.storeID, s.storeName, s.storeImage FROM product p INNER JOIN store s ON p.storeID = s.storeID', function(error, results, fields) {
+      if (error) {
+        throw error;
+      } else {
+        console.log("Results", results);
+        console.log("Results length", results.length);
+              
+        const products = results.map(product => ({
+          productID: product.productID,
+          productName: product.productName,
+          productCost: product.productCost,
+          productImage: `data:image/png;base64,${product.productImage.toString('base64')}`,
+          storeID: product.storeID,
+          storeName: product.storeName,
+          storeImage: `data:image/png;base64,${product.storeImage.toString('base64')}`
+        }));
+              
+        if (session.userid) {
+          res.render('landing', { loggedIn: req.session.loggedIn, landingHome:true, products:products });
+        } else {
+          res.render('landing', { root: __dirname, landingHome:true, products:products });
+        }
+      }
+    });
   });
 
   app.get('/landingstores', (req, res) => {
     session=req.session;
-    let storeDetails;
     db.query('SELECT storeID, storeName, storeCategory, storeImage  FROM store', function(error, results, fields) {
       if (error){
           throw error;
@@ -576,6 +594,82 @@ app.get("/productstable", (req, res) => {
     }
   });
 });
+
+
+/*-----------------------SEARCH AND FILTER FUNCTIONALITY--------------------------------------*/
+app.get('/searchproduct', function(req, res) {
+  console.log("In server side search product")
+  const searchTerm = req.query.search; 
+  console.log("req.query", req.query)
+  console.log("Search term", searchTerm)
+  const sql = `SELECT p.productID, p.productName, p.productCategory, p.productCost, p.productImage, s.storeID, s.storeName, s.storeImage 
+               FROM product p 
+               INNER JOIN store s ON p.storeID = s.storeID 
+               WHERE p.productName LIKE '%${searchTerm}%' OR p.productCategory LIKE '%${searchTerm}%'`; 
+
+  db.query(sql, function(error, results, fields) {
+    if (error) {
+      throw error;
+    } else {
+      console.log("Results", results);
+      console.log("Results length", results.length);
+            
+      const products = results.map(product => ({
+        productID: product.productID,
+        productName: product.productName,
+        productCost: product.productCost,
+        productImage: `data:image/png;base64,${product.productImage.toString('base64')}`,
+        storeID: product.storeID,
+        storeName: product.storeName,
+        storeImage: `data:image/png;base64,${product.storeImage.toString('base64')}`
+      }));
+            
+      if (session.userid) {
+        res.render('landing', { loggedIn: req.session.loggedIn, landingHome:true, products:products, searchTerm:searchTerm});
+      } else {
+        res.render('landing', { root: __dirname, landingHome:true, products:products, searchTerm:searchTerm });
+      }
+    }
+  });
+});
+
+
+app.get('/searchstore', function(req, res) {
+  console.log("In server side search store")
+  const searchTerm = req.query.search; 
+  console.log("req.query", req.query)
+  console.log("Search term", searchTerm)
+  const sql = `SELECT storeID, storeName, storeCategory, storeImage
+               FROM store
+               WHERE storeName LIKE '%${searchTerm}%' OR storeCategory LIKE '%${searchTerm}%'`; 
+
+  db.query(sql, function(error, results, fields) {
+    if (error) {
+      throw error;
+    } else {
+      console.log("Results", results);
+      console.log("Results length", results.length);
+            
+      const stores = results.map(store => ({
+        storeID: store.storeID,
+        storeName: store.storeName,
+        storeCategory: store.storeCategory,
+        storeImage: `data:image/png;base64,${store.storeImage.toString('base64')}`
+      }));
+
+      console.log("Stores", stores)
+            
+      if (session.userid) {
+        res.render('landing', { loggedIn: req.session.loggedIn, landingStore:true, storeDetails:stores, searchTerm:searchTerm});
+      } else {
+        res.render('landing', { root: __dirname, landingStore:true, storeDetails:stores, searchTerm:searchTerm });
+      }
+    }
+  });
+});
+
+
+
 
 /*-----------------------DELETE AND EDIT FUNCTIONALITY--------------------------------------*/
 /* --------- Deleting Medical records --------*/

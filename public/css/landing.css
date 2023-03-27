@@ -126,7 +126,7 @@ i{
 
 .searchbox{
     height: 7vh;
-    width:40%;
+    width:100%;
     display:flex;
     cursor:pointer;
     padding:10px 20px;
@@ -146,6 +146,9 @@ i{
     transition:0.8s;
     background:transparent;
     padding-left: 1em;
+}
+.searchbox i{
+    color: #cdcdcd;
 }
 
 #categorydiv{
@@ -221,7 +224,8 @@ i{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 2em;
+    flex-direction: column;
+    align-items: center;
 }
 
 #yourshopssection{
@@ -236,7 +240,6 @@ i{
     text-align: center;
     font-size: 4rem;
     font-weight: 700;
-    padding-bottom: 0.5em;
     color: #ffffff;
 }
 
@@ -247,6 +250,7 @@ i{
 
 .custom-card-width {
     max-width: 400px;
+
   }
 .card {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
@@ -263,3 +267,19 @@ i{
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
   }
   
+
+#productsdiv{
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+.card-img-top{
+    max-width: 25rem;
+    max-height: 17rem;
+    min-height: 17rem;
+}
+#cardstorename{
+    margin-left: 0.5em;
+}
+
+

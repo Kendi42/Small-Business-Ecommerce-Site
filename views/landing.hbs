@@ -56,49 +56,39 @@
                     <!--Landing Message-->
                     <h1 id="landingmsg">Discover the best of Kenya’s<br>Small Businesses</br></h1>
                     <p id="landingtext">Find all the products you've been searching for from our <br>vibrant community of small business owners</br></p>
+                    
+                    <form action="/searchproduct" method="get">
                     <div class="searchbox">
-                        <i class="fas fa-search"></i><input type="text" placeholder="Search products and stores">
+                        <i class="fas fa-search"></i><input type="text" name="search" placeholder="Search products....." {{#if searchTerm}} value="{{searchTerm}}"{{/if}}>{{#if searchTerm}}<a href="/"><i class="fas fa-x"></i></a>{{/if}}
                     </div>
+                    </form>
                    
                 </div>
             
             </div>
             <div id="productcontainer">
-                <h3 style="padding-bottom: 4vh;">Product Recommendations</h3>
-                <div id="products">
-                    <div class="card" style="width: 16rem;">
-                        <img src="/imgs/cupcake.jpeg" class="card-img-top" alt="Rasbery Cupcakes">
-                        <div class="card-body">
-                          <h5 class="card-title">Raspberry Cupcakes</h5>
-                          <p class="card-text">Ksh 50</p>
-                          <a href="#" class="btn btn-primary">View seller</a>
+                <h3>Product Recommendations</h3>
+                <div id="productsdiv">
+                  <div class="container">
+                    <div class="row justify-content-start">
+                   <!-- Dynamically generated Product-->
+                        {{#each products}}
+                        <div class="col-sm-6 col-md-3 mb-4">
+                        <div class="card custom-card-width">
+                            <img src="{{this.productImage}}" class="card-img-top" alt="Product Image">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <img src="{{this.storeImage}}" alt="Store Profile Pic" class="rounded-circle mr-2" style="width: 40px; height: 40px;">
+                                        <p class="card-text mb-0" id="cardstorename">{{this.storeName}}</p>
+                                    </div>
+                                    <h5 class="card-title mt-2">{{this.productName}}</h5>
+                                    <p class="card-text">{{this.productCost}}</p>
+                                    </div>
+                                </div>
                         </div>
-                      </div>
-
-                      <div class="card" style="width: 16rem;">
-                        <img src="/imgs/b.jpg" class="card-img-top" alt="Assorted Bracelets">
-                        <div class="card-body">
-                          <h5 class="card-title">Assorted Bracelets</h5>
-                          <p class="card-text">Ksh 500</p>
-                          <a href="#" class="btn btn-primary">View seller</a>
-                        </div>
-                      </div>
-                      <div class="card" style="width: 16rem;">
-                        <img src="/imgs/anime.webp" class="card-img-top" alt="Rasbery Lemon Cupcake">
-                        <div class="card-body">
-                          <h5 class="card-title">Anime Sticker pack</h5>
-                          <p class="card-text">Ksh 150</p>
-                          <a href="#" class="btn btn-primary">View seller</a>
-                        </div>
-                      </div>
-                      <div class="card" style="width: 16rem;">
-                        <img src="/imgs/hat.jpg" class="card-img-top" alt="Sisal Hat">
-                        <div class="card-body">
-                          <h5 class="card-title">Sisal Hat</h5>
-                          <p class="card-text">Ksh 400</p>
-                          <a href="#" class="btn btn-primary">View seller</a>
-                        </div>
-                      </div>
+                        {{/each}}
+                  </div>
+                  </div>
                 </div>
             </div>
             {{/if}}
@@ -106,6 +96,11 @@
               <div id="storepagecontent">
                 <div id="imagediv">
                    <h1 id="dashboardtitle">DISCOVER THE BEST</h1>
+                   <form action="/searchstore" method="get">
+                    <div class="searchbox">
+                        <i class="fas fa-search"></i><input type="text" name="search" placeholder="Search stores....." {{#if searchTerm}} value="{{searchTerm}}"{{/if}}>{{#if searchTerm}}<a href="/landingstores"><i class="fas fa-x"></i></a>{{/if}}
+                    </div>
+                    </form>
                 </div>
                 <div id="yourshopssection">
                   <h3 id="mystoreslb">ALL STORES</h3>
