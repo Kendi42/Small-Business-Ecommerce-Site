@@ -137,7 +137,7 @@ app.post('/userlogin', loginValidationChain, (req,res) => {
                   console.log("req.session.loggedIn",req.session.loggedIn );
                   foundUser= true;
                   console.log("Found user", foundUser);
-                  return res.render('landing', {loggedIn: req.session.loggedIn});
+                  return res.render('landing', {loggedIn: req.session.loggedIn, landingHome:true});
                 }
                 }  
                 console.log("No email match, back to the for loop")              
@@ -390,10 +390,36 @@ app.post('/newproduct/:storeID', (req, res) => {
 app.get('/', (req, res) => {
     session=req.session;
     if(session.userid){
-        res.render('landing', {loggedIn: req.session.loggedIn});
+        res.render('landing', {loggedIn: req.session.loggedIn, landingHome:true});
     }else{
-        res.render('landing', { root: __dirname });
+        res.render('landing', { root: __dirname, landingHome:true});
     }
+  });
+
+  app.get('/landingstores', (req, res) => {
+    session=req.session;
+    let storeDetails;
+    db.query('SELECT storeID, storeName, storeCategory, storeImage  FROM store', function(error, results, fields) {
+      if (error){
+          throw error;
+      }
+      else{
+          console.log("Results", results);
+          console.log("Results length", results.length);
+          const stores = results.map(store => ({
+            storeID: store.storeID,
+            storeName: store.storeName,
+            storeCategory: store.storeCategory,
+            storeImage: `data:image/png;base64,${store.storeImage.toString('base64')}`
+          }));
+
+          if(session.userid){
+            res.render('landing', {loggedIn: req.session.loggedIn, landingStore:true, storeDetails:stores});
+          }else{
+              res.render('landing', { root: __dirname, landingStore:true, storeDetails:stores });
+          }
+      }
+    });
   });
 
 // Go to login page

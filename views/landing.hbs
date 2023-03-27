@@ -17,10 +17,10 @@
                     <a class="navbar-brand" href="/"><img src="/imgs/small.png" width="40px" height="40px">  Social Market </a>
                 </div>
                 <ul>
-                    <li class="active" ><a href="#"><i class="fas fa-house"></i>Home</a></li>
-                    <li><a href="#"><i class="fas fa-store"></i>Stores</a></li>
-                    <li><a href="#"><i class="fas fa-heart"></i>Liked</a></li>
-                    <li><a href="#"><i class="fas fa-receipt"></i>History</a></li>
+                    <a href="/"><li class="{{#if landingHome}}active{{/if}}"><i class="fas fa-house"></i>Home</li></a>
+                    <a href="/landingstores"><li class="{{#if landingStore}}active{{/if}}"><i class="fas fa-store"></i>Stores</li></a>
+                    <a href="#"><li><i class="fas fa-heart"></i>Liked</li></a>
+                    <a href="#"><li><i class="fas fa-receipt"></i>History</li></a>
                 </ul>
         </div>
 
@@ -28,6 +28,8 @@
 
         <div class="maincontent">
             <!--Top Navigation-->
+           
+
             <nav>
                 {{#if loggedIn}}
                 <a class="navbtn" id="sellerbtn" href="/sellerdashboard" role="button">Seller Dashboard</a>
@@ -38,7 +40,7 @@
                 <a class="navbtn" id="login" href="/login" role="button">Login</a>
                 {{/if}}
                </nav>
-
+            {{#if landingHome}}
             <div id="imagecontainer"
                 style="background-image: url('/imgs/landingimg.jpg');">
                 <div class="color-overlay">
@@ -99,6 +101,43 @@
                       </div>
                 </div>
             </div>
+            {{/if}}
+            {{#if landingStore}}
+              <div id="storepagecontent">
+                <div id="imagediv">
+                   <h1 id="dashboardtitle">DISCOVER THE BEST</h1>
+                </div>
+                <div id="yourshopssection">
+                  <h3 id="mystoreslb">ALL STORES</h3>
+                </div>
+
+                <div id="shopsdiv">
+                <div class="container">
+                    <div class="row justify-content-start">
+                       {{#each storeDetails}}
+                            <div class="col-sm-6 col-md-4 mb-4">
+                                <a href="/visitstore/{{this.storeID}}">
+                                <div class="card custom-card-width">
+                                <div class="rounded-circle overflow-hidden mx-auto mt-4" style="width: 80px; height: 80px;">
+                                    <img src="{{this.storeImage}}" alt="Store Image" class="w-100 h-100 object-fit-cover">
+                                </div>
+                                <div class="card-body text-center">
+                                    <h4 class="card-title font-weight-bold mb-2">{{this.storeName}}</h4>
+                                    <p class="card-text text-muted mb-0">{{this.storeCategory}}</p>
+                                </div>
+                                </div>
+                                </a>
+                            </div>
+                        {{/each}}
+                       
+                    </div>
+                    </div>
+
+               
+            </div>
+
+
+            {{/if}}
         </div>
     </div>
 

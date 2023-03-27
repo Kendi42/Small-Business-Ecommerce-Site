@@ -79,7 +79,7 @@ a{
 .active {
     background-color:#C63E88;
 }
-.active a{
+.active{
     color: white;
 }
 i{
@@ -204,3 +204,62 @@ i{
     border: #414141 !important;
     background-color: #414141 !important;
 }
+
+
+#storepagecontent{
+    width: 81vw;
+    height: 100vh;
+}
+
+
+#imagediv{
+    background-image: url(/imgs/pink8.svg);
+    
+    background-size: cover;
+    width:100%;
+    height:30vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2em;
+}
+
+#yourshopssection{
+    padding-top: 2em;
+}
+#mystoreslb{
+    font-size: 2.5rem;
+    font-weight:600;
+}
+
+#dashboardtitle{
+    text-align: center;
+    font-size: 4rem;
+    font-weight: 700;
+    padding-bottom: 0.5em;
+    color: #ffffff;
+}
+
+#shopsdiv{
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+.custom-card-width {
+    max-width: 400px;
+  }
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+    border: 1px solid #FAFAFA;
+
+  }
+
+.card:hover {
+    background-color: #f8f8f8;
+    border: 1px solid #e8e8e8;
+  }
+
+.card:active {
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+  }
+  
