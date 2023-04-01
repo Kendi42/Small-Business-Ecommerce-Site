@@ -1,0 +1,65 @@
+
+.topnav{
+    height: 10vh;
+    width:100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    align-items: center;
+    padding-left:0.3em;
+    padding-right:0.3em;
+
+
+}
+.navbtn{
+  border-radius: 8px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  height: 40px;
+  line-height: 20px;
+  outline: none;
+  padding: 10px 16px;
+  text-align: center;
+  margin:0.5em;
+
+}
+#sellerbtn{
+    background-color: #C63E88;
+    margin-right:12em;
+}
+#login{
+    color: #C63E88;
+    background-color:#E29EC3;
+}
+#signup{
+    background-color:rgba(0, 0, 0, 0.1);
+    color:#414141;
+}
+
+a{
+    color:black;
+    text-decoration: none;
+    font-size: 1.3em;
+
+}
+
+.cart{
+    margin-right: 1.5em;
+    color: #C63E88;
+}
+.cart a{
+    padding: 0.7em;
+    border-radius: 20px;
+    
+}
+.cart :hover{
+    color: #E29EC3;
+    background-color: #fafafa;
+}
+.cart :active{
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+}

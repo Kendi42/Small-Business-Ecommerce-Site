@@ -314,7 +314,7 @@ app.post('/newproduct/:storeID', (req, res) => {
 // Landing page route
 app.get('/', (req, res) => {
     session=req.session;
-    db.query('SELECT p.productID, p.productName, p.productCost, p.productImage, s.storeID, s.storeName, s.storeImage FROM product p INNER JOIN store s ON p.storeID = s.storeID', function(error, results, fields) {
+    db.query('SELECT p.productID, p.productName, p.productCost, p.productDescription, p.productImage, s.storeID, s.storeName, s.storeImage FROM product p INNER JOIN store s ON p.storeID = s.storeID', function(error, results, fields) {
       if (error) {
         throw error;
       } else {
@@ -325,6 +325,7 @@ app.get('/', (req, res) => {
           productID: product.productID,
           productName: product.productName,
           productCost: product.productCost,
+          productDescription: product.productDescription,
           productImage: `data:image/png;base64,${product.productImage.toString('base64')}`,
           storeID: product.storeID,
           storeName: product.storeName,
@@ -475,6 +476,40 @@ app.get("/storesettings/:id", (req, res) => {
 
 });
 
+app.get("/visitstore/:id", (req, res) => {
+  let {id }= req.params;
+    console.log("storeID", id);
+    console.log("Inside vidit store")
+
+  const sql = 'SELECT storeName, storeDescription, storeImage FROM store WHERE storeID = ?';
+  const values = [id];
+
+  db.query(sql, values, (err, results) => {
+    if (err) throw err;
+    console.log("Results", results)
+    console.log("StoreName", results[0].storeName);
+    console.log("Results 0", results[0])
+    let image= `data:image/png;base64,${results[0].storeImage.toString('base64')}`
+    const storeinfo={ storeID:id, storeName:results[0].storeName, storeDescription:results[0].storeDescription, storeImage:image}
+    const sql = 'SELECT productID, productName, productCost, productImage, productDescription FROM product WHERE storeID = ?';
+    const values = [id];
+    db.query(sql, values, (err, results) => {
+      if (err) throw err;
+      const products = results.map(product => ({
+        pid: product.productID,
+        pname: product.productName,
+        pcost: product.productCost,
+        pimage: `data:image/png;base64,${product.productImage.toString('base64')}`, 
+        pDescription: product.productDescription
+      }));
+
+      res.render("storeuserview", {storeinfo, products, storeID:id, loggedIn: req.session.loggedIn} );  
+  });
+  });
+
+
+
+});
 
 
 // Go to become a seller page
@@ -522,6 +557,8 @@ app.get("/admin", (req, res) => {
     }
   }); 
 });
+
+
 
 
 // User Table
