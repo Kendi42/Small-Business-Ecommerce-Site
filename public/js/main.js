@@ -35,8 +35,15 @@ function newProduct(){
 }
 
 
+// Generating  Reports
+
+function userReport(){
+  
+  console.log("Inside User report func");
+  console.log("Data", data);
 
 
+}
 // CREATING A NEW STORE STEP BY STEP FORM
 
 const navigateToFormStep = (stepNumber) => {
@@ -81,8 +88,8 @@ document.querySelectorAll(".btn-navigate-form-step").forEach((formNavigationBtn)
 const form = document.getElementById('createstoreform');
 
 form.addEventListener('submit', function(event) {
+  console.log("In main.js")
   event.preventDefault();
-
   // Get the selected delivery days
   const deliveryDays = Array.from(form.querySelectorAll('input[name="deliveryDay"]:checked')).map(input => input.value);
 
@@ -93,23 +100,31 @@ form.addEventListener('submit', function(event) {
 
   // Convert the object to JSON
   const deliveryDaysJSON = JSON.stringify(deliveryDaysObj);
-
   console.log(deliveryDaysJSON);
-
-
-  // Get the selected store categories
-  const storeCategories = Array.from(form.querySelectorAll('input[name="storeCategory"]:checked')).map(input => input.value);
-
-  // Create a new object with the key "delivery days" and the array of selected days as the value
-  const storeCategoriesObj = {
-    "store categories": storeCategories
-  };
-
-  // Convert the object to JSON
-  const storeCategoriesJSON = JSON.stringify(storeCategoriesObj);
-
-  console.log(storeCategoriesJSON);
 
   // Submit the form data to the server
   form.submit();
+});
+
+
+// SUBMIT DATA: FORMAT CHECKBOX INPUT
+const editform= document.getElementById('editstoreform');
+
+editform.addEventListener('submit', function(event) {
+  console.log("In main.js")
+  event.preventDefault();
+  // Get the selected delivery days
+  const deliveryDays = Array.from(editform.querySelectorAll('input[name="deliveryDay"]:checked')).map(input => input.value);
+
+  // Create a new object with the key "delivery days" and the array of selected days as the value
+  const deliveryDaysObj = {
+    "delivery days": deliveryDays
+  };
+
+  // Convert the object to JSON
+  const deliveryDaysJSON = JSON.stringify(deliveryDaysObj);
+  console.log(deliveryDaysJSON);
+
+  // Submit the form data to the server
+  editform.submit();
 });

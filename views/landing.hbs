@@ -46,12 +46,16 @@
                 <div class="color-overlay">
                     <!--Category Slider-->
                     <div id="categorydiv">
-                        <button type="button" class="categorybtn" id="explore">Explore</button>
-                        <button type="button" class="categorybtn" id="food">Food and Drink</button>
-                        <button type="button" class="categorybtn" id="apparel">Apparel</button>
-                        <button type="button" class="categorybtn" id="jewelry">Jewelry</button>
-                        <button type="button" class="categorybtn" id="stationery">Stationery</button>
-                        <button type="button" class="categorybtn" id="books">Books</button>
+                      <form action="/filterproduct" method="get">
+                        <button type="submit" class="categorybtn" name="category" value="Explore">Explore</button>
+                        <button type="submit" class="categorybtn" name="category" value="Food and Drink">Food/Drink</button>
+                        <button type="submit" class="categorybtn" name="category" value="Clothing">Clothes</button>
+                        <button type="submit" class="categorybtn" name="category" value="Jewelry">Jewelry</button>
+                        <button type="submit" class="categorybtn" name="category" value="Shoes">Shoes</button>
+                        <button type="submit" class="categorybtn" name="category" value="Books">Books</button>
+                      </form>
+
+                        
                     </div>
                     <!--Landing Message-->
                     <h1 id="landingmsg">Discover the best of Kenya’s<br>Small Businesses</br></h1>

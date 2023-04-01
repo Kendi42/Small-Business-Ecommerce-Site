@@ -17,9 +17,15 @@
                     <a class="navbar-brand" href="/"><img src="/imgs/small.png" width="40px" height="40px">  Social Market </a>
                 </div>
                 <ul>
-                    <li class="active" ><a href="#"><i class="fas fa-store"></i>Store Page</a></li>
-                    <li><a href="#"><i class="fas fa-cart-plus"></i>Orders</a></li>
-                    <li><a href="#"><i class="fas fa-gear"></i> Settings</a></li>
+                    <li class="{{#if HomeTrue}}active{{/if}}">
+                        <a href="/storepage/{{this.storeID}}"><i class="fas fa-store"></i>Store Page</a>
+                    </li>
+                    <li class="{{#if OrdersTrue}} active{{/if}}">
+                        <a href="/storeorders/{{this.storeID}}"><i class="fas fa-cart-plus"></i>Orders</a>
+                    </li>
+                    <li class="{{#if SettingsTrue}}active{{/if}}">
+                        <a href="/storesettings/{{this.storeID}}"><i class="fas fa-gear"></i> Settings</a>
+                    </li>
                 </ul>
                 <a href="/logout" id="logout"><i class="fas fa-arrow-circle-left"></i>Log out</a>
 
@@ -44,8 +50,8 @@
                 </div>
             </div>
             <hr>  
-
-            <h3 id="myproductslb">Products</h3>
+            {{#if HomeTrue}}
+            <h3 class="myproductslb">Products</h3>
             <div id="productsdiv">
                 <div class="container">
                     <div class="row justify-content-start">
@@ -81,7 +87,6 @@
                                             <option>Shoes</option>
                                             <option>Jewelry</option>
                                             <option>Books</option>
-                                            <option>Stationary</option>
                                         </select>
                                     </div>
                                 <div class="mb-3">
@@ -126,9 +131,342 @@
                        
                     </div>
                     </div>
-
-               
             </div>
+            {{/if}}
+
+            {{#if SettingsTrue}}
+            <div id="settingsHeading">
+                <h3 class="myproductslb">Settings</h3>
+                <div id="settingsbtndiv">
+
+                    <button type="button" class="btn btn-primary" id="editButton">
+                        <i class="fas fa-pen"></i>Edit Details
+                    </button>
+
+
+                    <button class="btn btn-secondary" type="button"  data-bs-toggle="modal" data-bs-target="#deleteStoreModal">
+                       <i class="fas fa-trash"></i> Delete Store
+                    </button>
+                </div>
+
+
+            </div>
+            <div id="settingsdiv">
+            <div id="storeinfo">
+
+                <form id="editstoreform" method="POST" action="/updatestoreinfo/{{storeinfo.storeID}}" enctype="multipart/form-data" >
+                    <h2 class="font-normal">Store Details</h2>
+
+                     <div class="mt-3">
+                        <div class="form-group">
+                            <label for="storeName" class="form-label">What's your new store's name?</label>
+                            <input type="text" class="form-control" name="storeName" id="storeName" placeholder="Store name" value="{{storeinfo.storeName}}" disabled readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="storeDescription" class="form-label">How would you describe your store?</label>
+                            <textarea class="form-control" id="storeDescription" name="storeDescription" placeholder="Describe your store" rows="4" disabled readonly>{{storeinfo.storeDescription}}</textarea>
+
+
+                        </div>
+
+                        <div class="form-group">
+                        <label>What kinds of products will be available in your store?</label>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="storeCategory" id="foodCheck" value="food" disabled readonly>
+                            <label class="form-check-label" for="foodCheck">Food and Drink</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="storeCategory" id="clothesCheck" value="clothes" disabled readonly>
+                            <label class="form-check-label" for="clothesCheck">Clothing</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="storeCategory" id="shoesCheck" value="shoes" disabled readonly>
+                            <label class="form-check-label" for="shoesCheck">Shoes</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="storeCategory" id="jewelryCheck" value="jewelry" disabled readonly>
+                            <label class="form-check-label" for="jewelryCheck">Jewelry</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="storeCategory" id="booksCheck" value="books" disabled readonly>
+                            <label class="form-check-label" for="booksCheck">Books</label>
+                        </div>     
+                       
+                    </div>
+
+                    </div>
+                    <script>
+                        let storeCategory = "{{storeinfo.storeCategory}}";
+                        let radiocheck = document.querySelector(`input[type="radio"][value="${storeCategory}"]`);
+                        radiocheck.checked = true;
+                    </script>
+
+                    <div class="form-group">
+                        <label for="storeImage" class="form-label">Store display picture</label>
+                        <input class="form-control" type="file" id="storeImage" name="storeImage" disabled readonly>
+                        <br>
+                    </div>
+
+
+                    <h2 class="font-normal">Delivery Information</h2>
+
+                    <div class="mt-3">
+                        <div class="form-group">
+                            <label for="storeDeliveryPeriod" class="form-label">What is your average delivery period? </label>
+                            <select class="form-select" name="storeDeliveryPeriod" id="storeDeliveryPeriod" disabled readonly value="{{storeinfo.storeDeliveryPeriod}}">
+                            <option selected disabled value="{{storeinfo.storeDeliveryPeriod}}">{{storeinfo.storeDeliveryPeriod}}</option>
+                            <option > Same day delivery</option>
+                            <option >Next day delivery </option>
+                            <option >2 to 3 days </option>
+                            <option >4 to 7 days </option>
+                            <option >1 to 2 weeks </option>
+                            <option >2 weeks to 1 month</option>
+                            <option >1 month plus</option>
+                            </select>
+                            <input type="hidden" name="originalStoreDeliveryPeriod" value="{{storeinfo.storeDeliveryPeriod}}">
+                        </div>
+                        <script>
+                            const storeDeliveryPeriod = document.querySelector('#storeDeliveryPeriod');
+                            const originalStoreDeliveryPeriod = document.querySelector('input[name="originalStoreDeliveryPeriod"]');
+
+                            storeDeliveryPeriod.addEventListener('change', function() {
+                                originalStoreDeliveryPeriod.value = storeDeliveryPeriod.value;
+                            });
+                            </script>
+                        <div class="form-group">
+                        <label>What are your delivery days? </label>
+                        <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="monday" name="deliveryDay" id="mondayCheck" disabled readonly {{#if storeinfo.deliveryDay.monday}} checked {{/if}} >
+                        <label class="form-check-label" for="mondayCheck">Monday</label>
+                        </div>
+                        <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="tuesday"  name="deliveryDay" id="tuesdayCheck" disabled readonly  {{#if storeinfo.deliveryDay.tuesday}} checked {{/if}}>
+                        <label class="form-check-label" for="tuesdayCheck">Tuesday</label>
+                        </div>
+                        <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="wednesday" name="deliveryDay" id="wednesdayCheck" disabled readonly  {{#if storeinfo.deliveryDay.wednesday}} checked {{/if}}>
+                        <label class="form-check-label" for="wednesdayCheck">Wednesday</label>
+                        </div>
+                        <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="thursday" name="deliveryDay" id="thursdayCheck" disabled readonly {{#if storeinfo.deliveryDay.thursday}} checked {{/if}}>
+                        <label class="form-check-label" for="thursdayCheck">Thursday</label>
+                        </div>
+                        <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="friday" name="deliveryDay" id="fridayCheck" disabled readonly {{#if storeinfo.deliveryDay.friday}} checked {{/if}}>
+                        <label class="form-check-label" for="fridayCheck"> Friday</label>
+                        </div>
+                        <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="saturday" name="deliveryDay" id="saturdayCheck" disabled readonly {{#if storeinfo.deliveryDay.saturday}} checked {{/if}}>
+                        <label class="form-check-label" for="saturdayCheck">Saturday
+                        </label>
+                        </div>
+                        <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="sunday" name="deliveryDay" id="sundayCheck" disabled readonly {{#if storeinfo.deliveryDay.sunday}} checked {{/if}}>
+                        <label class="form-check-label" for="sundayCheck">Sunday
+                        </label>
+                        </div>
+                     </div>
+
+                    <h2 class="font-normal">Delivery Charges</h2>   
+
+                    <div class="accordion" id="accordionExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                Delivery Zone Details
+                            </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <div class="accordion accordion-flush" id="accordionFlushExample">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="flush-headingOne">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                            Zone 1
+                                        </button>
+                                        </h2>
+                                        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="flush-headingTwo">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                                            Zone 2
+                                        </button>
+                                        </h2>
+                                        <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.</div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="flush-headingThree">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                                            Zone 3
+                                        </button>
+                                        </h2>
+                                        <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="flush-headingFour">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                                            Zone 4
+                                        </button>
+                                        </h2>
+                                        <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="flush-headingFive">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
+                                            Zone 5
+                                        </button>
+                                        </h2>
+                                        <div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingFive" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+                                        </div>
+                                    </div>
+                                    </div>
+                            </div>
+                            </div>
+                        </div>
+                        </div>     
+                        <div class="mt-3">
+                            <div class="mb-3 row">
+                                <label for="zone1Input" class="col-sm-2 col-form-label">Zone 1: </label>
+                                <div class="col-sm-10">
+                                <input type="text" class="form-control" name="zone1charge" id="zone1Input"  value="{{storeinfo.zone1charge}}" disabled readonly>
+                                </div>
+                            </div>
+                                
+                            <div class="mb-3 row">
+                                <label for="zone2Input" class="col-sm-2 col-form-label">Zone 2: </label>
+                                <div class="col-sm-10">
+                                <input type="text" class="form-control" name="zone2charge" id="zone2Input" value="{{storeinfo.zone2charge}}" disabled readonly>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label for="zone3Input" class="col-sm-2 col-form-label">Zone 3: </label>
+                                <div class="col-sm-10">
+                                <input type="text" class="form-control" name="zone3charge" id="zone3Input" value="{{storeinfo.zone3charge}}" disabled readonly>
+                                </div>
+                            </div>
+                                
+                            <div class="mb-3 row">
+                                <label for="zone4Input" class="col-sm-2 col-form-label">Zone 4: </label>
+                                <div class="col-sm-10">
+                                <input type="text" class="form-control"  name="zone4charge"id="zone4Input" value="{{storeinfo.zone4charge}}" disabled readonly>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label for="zone5Input" class="col-sm-2 col-form-label">Zone 5: </label>
+                                <div class="col-sm-10">
+                                <input type="text" class="form-control"  name="zone5charge"id="zone5Input" value="{{storeinfo.zone5charge}}" disabled readonly>
+                                </div>
+                            </div>
+                            </div>
+                             <br>
+                            <br>
+                            <div id="editsubmitdiv">
+                                 <button class=" btn btn-primary" type="submit" disabled> Save Changes</button>
+                            </div>
+                            <br>
+                            <br>
+
+                </form>
+                <script>
+                    const editButton = document.querySelector('#editButton');
+                    const inputs = document.querySelectorAll('input[disabled]');
+                    const textareas=  document.querySelectorAll('textarea[disabled]');
+                    const selects =  document.querySelectorAll('select[disabled]');
+                    const buttons= document.querySelectorAll('button[disabled]');
+                    
+
+                    let isEditable = false;
+
+                    editButton.addEventListener('click', function() {
+                        if (isEditable) {
+                            editButton.innerHTML = '<i class="fas fa-pen"></i> Edit Details';
+                         } else {
+                            editButton.innerHTML = '<i class="fas fa-book"></i> Read Only';
+                        }
+                        isEditable = !isEditable;
+
+                        inputs.forEach(input => {
+                        input.disabled = !isEditable;
+                        input.readOnly = !isEditable;
+
+                        });
+                        textareas.forEach(textarea => {
+                        textarea.disabled =!isEditable;
+                        textarea.readOnly =!isEditable;
+
+                        });
+                        selects.forEach(select => {
+                        select.disabled = !isEditable;
+                        select.readOnly = !isEditable;
+
+                        });
+                        buttons.forEach(button => {
+                        button.disabled = !isEditable;
+                        });
+
+                    });
+                </script>
+                <script>
+                    const editform= document.getElementById('editstoreform');
+                    editform.addEventListener('submit', function(event) {
+                    console.log("In edit script")
+                    event.preventDefault();
+                    // Get the selected delivery days
+                    const deliveryDays = Array.from(editform.querySelectorAll('input[name="deliveryDay"]:checked')).map(input => input.value);
+
+                    // Create a new object with the key "delivery days" and the array of selected days as the value
+                    const deliveryDaysObj = {
+                        "delivery days": deliveryDays
+                    };
+
+                    // Convert the object to JSON
+                    const deliveryDaysJSON = JSON.stringify(deliveryDaysObj);
+                    console.log("edited delivery days", deliveryDaysJSON);
+
+                    // Submit the form data to the server
+                    editform.submit();
+                    });
+
+
+                </script>
+               
+            <!-- Delete Store Modal -->
+            <div class="modal fade" id="deleteStoreModal" tabindex="-1" role="dialog" aria-labelledby="deleteStoreModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteStoreModalLabel">Delete Store</h5>
+                </div>
+                <div class="modal-body">
+                     <h2 class="font-normal">Are you sure you want to delete this store?</h2> 
+                     <br>
+                    <p>This will delte the entire store and all the products within it. </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="confirmDeleteBtn">Delete</button>
+                </div>
+                </div>
+            </div>
+            </div>
+                </div>
+
+            </div>
+
+            {{/if}}
 
 
                             
@@ -138,7 +476,6 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
-    <script src="/js/main.js"></script>
 
 </body>
 </html>

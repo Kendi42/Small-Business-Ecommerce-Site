@@ -218,82 +218,7 @@ app.get("/logout", (req, res, next) => {
     next();
 });
 
-/*-----------------------Admin: Updating User, Stores and Products------------------------- */
 
-// Updating User Details
-app.post('/updateuserstable/:userID', (req, res) => {
-  console.log("Inside user update post method");
-  let {userID }= req.params;
-  console.log("User ID", userID);
-  let { updatedUserName } = req.body;
-  console.log("Updated Information", updatedUserName);
-
-   // Updating UserName
-   console.log("About to update user name");
-   const sql = 'UPDATE user SET userName = ? WHERE userID = ?';
-   const values = [updatedUserName, userID];
-   db.query(sql, values, (error, results, fields) => {
-       if (error) {
-       console.error(error);
-       console.log("Failed to update user information");
-       return res.redirect('/userstable');
-       }
-       console.log("User updated successfully");
-       return res.redirect('/userstable');
-   });
-
-});
-
-
-// Updating Store Details
-app.post('/updatestorestable/:storeID', (req, res) => {
-  console.log("Inside store update post method");
-  let {storeID }= req.params;
-  console.log("Store ID", storeID);
-  let { updatedStoreName, updatedStoreCat} = req.body;
-  console.log("Updated Information", updatedStoreName, updatedStoreCat );
-
-  // Updating Store Information
-  console.log("About to update store info");
-  const sql = 'UPDATE store SET storeName = ? , storeCategory =? WHERE storeID = ?';
-  const values = [updatedStoreName, updatedStoreCat, storeID ];
-  db.query(sql, values, (error, results, fields) => {
-      if (error) {
-      console.error(error);
-      console.log("Failed to update store information");
-      return res.redirect('/storestable');
-      }
-      console.log("User updated successfully");
-      return res.redirect('/storestable');
-  });
-
-});
-
-// Updating Product Details
-app.post('/updateproductstable/:productID', (req, res) => {
-  console.log("Inside product update post method");
-  let {productID }= req.params;
-  console.log("Product ID", productID);
-  let { updatedProductName, updatedProductCat, updatedProductPrice } = req.body;
-  console.log("Updated Information", updatedProductName, updatedProductCat, updatedProductPrice);
-
-  // Updating UserName
-  console.log("About to update product info");
-  const sql = 'UPDATE product SET productName = ? , productCategory = ? , productCost = ? WHERE productID = ?';
-  const values = [updatedProductName, updatedProductCat, updatedProductPrice, productID];
-  db.query(sql, values, (error, results, fields) => {
-      if (error) {
-      console.error(error);
-      console.log("Failed to update product information");
-      return res.redirect('/productstable');
-      }
-      console.log("Product updated successfully");
-      return res.redirect('/productstable');
-  });
-
-   
-
-});
 
 /*-----------------------Creating Products and Stores------------------------- */
 
@@ -476,11 +401,12 @@ app.get("/storepage/:id", (req, res) => {
 
   db.query(sql, values, (err, results) => {
     if (err) throw err;
-    console.log("Results", results)
-    console.log("StoreName", results[0].storeName);
-    console.log("Results 0", results[0])
+    //console.log("Results", results)
+    //console.log("StoreName", results[0].storeName);
+    //console.log("Results 0", results[0])
     let image= `data:image/png;base64,${results[0].storeImage.toString('base64')}`
     const storeinfo={ storeID:id, storeName:results[0].storeName, storeDescription:results[0].storeDescription, storeImage:image}
+    
 
     const sql = 'SELECT productID, productName, productCost, productImage FROM product WHERE storeID = ?';
     const values = [id];
@@ -493,11 +419,62 @@ app.get("/storepage/:id", (req, res) => {
         pimage: `data:image/png;base64,${product.productImage.toString('base64')}`
       }));
 
-      res.render("storepage", {storeinfo, products} );  
+      res.render("storepage", {storeinfo, products, HomeTrue:true, storeID:id} );  
   });
   });
 
 });
+
+app.get("/storeorders/:id", (req, res) => {
+  let {id }= req.params;
+  console.log("storeID", id);
+
+  const sql = 'SELECT * FROM store WHERE storeID = ?';
+  const values = [id];
+
+  db.query(sql, values, (err, results) => {
+    if (err) throw err;
+    //console.log("Results", results)
+    //console.log("StoreName", results[0].storeName);
+    //console.log("Results 0", results[0])
+    let image= `data:image/png;base64,${results[0].storeImage.toString('base64')}`
+    const storeinfo=results[0];
+    storeinfo.storeImage= image;
+    res.render("storepage", {storeinfo, OrdersTrue:true, storeID:id} );  
+
+  });
+
+
+});
+
+app.get("/storesettings/:id", (req, res) => {
+  let {id }= req.params;
+  console.log("storeID", id);
+
+  const sql = 'SELECT * FROM store WHERE storeID = ?';
+  const values = [id];
+
+  db.query(sql, values, (err, results) => {
+    if (err) throw err;
+    //console.log("Results", results)
+    //console.log("StoreName", results[0].storeName);
+    //console.log("Results 0", results[0])
+    let image= `data:image/png;base64,${results[0].storeImage.toString('base64')}`
+    const storeinfo=results[0];
+    storeinfo.storeImage= image;
+    const deliveryDaysArray = storeinfo.deliveryDay.split(',');
+    const deliveryDaysObject = deliveryDaysArray.reduce((obj, day) => {
+      obj[day] = true;
+      return obj;
+    }, {});
+    storeinfo.deliveryDay= deliveryDaysObject;
+    //console.log(storeinfo);
+    res.render("storepage", {storeinfo, SettingsTrue:true, storeID:id} );  
+
+  });
+
+});
+
 
 
 // Go to become a seller page
@@ -669,10 +646,97 @@ app.get('/searchstore', function(req, res) {
 });
 
 
+app.get('/filterproduct', function(req, res) {
+  const category = req.query.category; 
+  console.log("category", category);
 
+  if(category== 'Explore'){
+    res.redirect('/');
+  }
+
+  const sql = `SELECT p.productID, p.productName, p.productCost, p.productImage, s.storeID, s.storeName, s.storeImage 
+               FROM product p 
+               INNER JOIN store s ON p.storeID = s.storeID 
+               WHERE p.productCategory = '${category}'`; 
+
+  db.query(sql, function(error, results, fields) {
+    if (error) {
+      throw error;
+    } else {
+      console.log("Results", results);
+      console.log("Results length", results.length);
+            
+      const products = results.map(product => ({
+        productID: product.productID,
+        productName: product.productName,
+        productCost: product.productCost,
+        productImage: `data:image/png;base64,${product.productImage.toString('base64')}`,
+        storeID: product.storeID,
+        storeName: product.storeName,
+        storeImage: `data:image/png;base64,${product.storeImage.toString('base64')}`
+      }));
+            
+      if (session.userid) {
+        res.render('landing', { loggedIn: req.session.loggedIn, landingHome:true, products:products });
+      } else {
+        res.render('landing', { root: __dirname, landingHome:true, products:products });
+      }
+    }
+  });
+});
 
 /*-----------------------DELETE AND EDIT FUNCTIONALITY--------------------------------------*/
-/* --------- Deleting Medical records --------*/
+
+/*----------------------- USER SIDE--------------------------------------*/
+app.post('/updatestoreinfo/:storeID', (req, res) => {
+  let {storeID}= req.params;
+  let { updatedStore } = req.body;
+  console.log("storeID", storeID)
+  console.log("updatedStore", updatedStore)
+  console.log(req.body);
+  console.log( req.files);
+  const updatedStoreinfo= req.body;
+  console.log("Updated", updatedStoreinfo);
+  let sql; 
+  let values;
+  if(Array.isArray(updatedStoreinfo.deliveryDay)){
+    deliveryDayString = updatedStoreinfo.deliveryDay.join(',');
+  }
+  else{
+    deliveryDayString = updatedStoreinfo.deliveryDay;
+  }
+  console.log("deliveryDay", deliveryDayString);
+
+  if (!req.files || !req.files.storeImage) {
+    console.log("No Image Uploaded")
+    sql = 'UPDATE store SET storeName= ?, storeCategory= ?, storeDescription = ?, storeDeliveryPeriod= ? , deliveryDay = ?, zone1charge = ? , zone2charge = ? , zone3charge = ? , zone4charge = ? , zone5charge = ? WHERE storeID = ?' ;
+    values = [updatedStoreinfo.storeName, updatedStoreinfo.storeCategory, updatedStoreinfo.storeDescription,updatedStoreinfo.originalStoreDeliveryPeriod, deliveryDayString, updatedStoreinfo.zone1charge, updatedStoreinfo.zone2charge, updatedStoreinfo.zone3charge, updatedStoreinfo.zone4charge, updatedStoreinfo.zone5charge, storeID];
+
+  }
+else{
+  console.log("Image Uploaded")
+  let image= req.files.storeImage.data;
+  sql = 'UPDATE store SET storeName= ?, storeCategory= ?, storeDescription = ?, storeImage = ?, storeDeliveryPeriod= ? , deliveryDay = ?, zone1charge = ? , zone2charge = ? , zone3charge = ? , zone4charge = ? , zone5charge = ?  WHERE storeID = ?';
+    values = [updatedStoreinfo.storeName, updatedStoreinfo.storeCategory, updatedStoreinfo.storeDescription, image , updatedStoreinfo.storeDeliveryPeriod, deliveryDayString, updatedStoreinfo.zone1charge, updatedStoreinfo.zone2charge, updatedStoreinfo.zone3charge, updatedStoreinfo.zone4charge, updatedStoreinfo.zone5charge, storeID];
+}
+ 
+  db.query(sql, values, (error, results, fields) => {
+    if (error) {
+    console.error(error);
+    console.log("Failed to update store information");
+    return res.redirect(`/storesettings/${storeID}`);
+    }
+    console.log("User updated successfully");
+    return res.redirect(`/storesettings/${storeID}`);
+  });
+
+});
+
+
+
+
+/*----------------------- ADMIN TABLES--------------------------------------*/
+/* --------- Deleting records --------*/
 app.delete('/results/:table/:recordID', (req, res) => {
   console.log("Inside app delete");
   console.log("Request Params", req.params);
@@ -690,6 +754,84 @@ app.delete('/results/:table/:recordID', (req, res) => {
     console.log(result);
     res.send('User record deleted successfully.');
   });
+
+});
+
+
+/*---Admin: Updating User, Stores and Products---- */
+
+// Updating User Details
+app.post('/updateuserstable/:userID', (req, res) => {
+  console.log("Inside user update post method");
+  let {userID }= req.params;
+  console.log("User ID", userID);
+  let { updatedUserName } = req.body;
+  console.log("Updated Information", updatedUserName);
+
+   // Updating UserName
+   console.log("About to update user name");
+   const sql = 'UPDATE user SET userName = ? WHERE userID = ?';
+   const values = [updatedUserName, userID];
+   db.query(sql, values, (error, results, fields) => {
+       if (error) {
+       console.error(error);
+       console.log("Failed to update user information");
+       return res.redirect('/userstable');
+       }
+       console.log("User updated successfully");
+       return res.redirect('/userstable');
+   });
+
+});
+
+
+// Updating Store Details
+app.post('/updatestorestable/:storeID', (req, res) => {
+  console.log("Inside store update post method");
+  let {storeID }= req.params;
+  console.log("Store ID", storeID);
+  let { updatedStoreName, updatedStoreCat} = req.body;
+  console.log("Updated Information", updatedStoreName, updatedStoreCat );
+
+  // Updating Store Information
+  console.log("About to update store info");
+  const sql = 'UPDATE store SET storeName = ? , storeCategory =? WHERE storeID = ?';
+  const values = [updatedStoreName, updatedStoreCat, storeID ];
+  db.query(sql, values, (error, results, fields) => {
+      if (error) {
+      console.error(error);
+      console.log("Failed to update store information");
+      return res.redirect('/storestable');
+      }
+      console.log("User updated successfully");
+      return res.redirect('/storestable');
+  });
+
+});
+
+// Updating Product Details
+app.post('/updateproductstable/:productID', (req, res) => {
+  console.log("Inside product update post method");
+  let {productID }= req.params;
+  console.log("Product ID", productID);
+  let { updatedProductName, updatedProductCat, updatedProductPrice } = req.body;
+  console.log("Updated Information", updatedProductName, updatedProductCat, updatedProductPrice);
+
+  // Updating UserName
+  console.log("About to update product info");
+  const sql = 'UPDATE product SET productName = ? , productCategory = ? , productCost = ? WHERE productID = ?';
+  const values = [updatedProductName, updatedProductCat, updatedProductPrice, productID];
+  db.query(sql, values, (error, results, fields) => {
+      if (error) {
+      console.error(error);
+      console.log("Failed to update product information");
+      return res.redirect('/productstable');
+      }
+      console.log("Product updated successfully");
+      return res.redirect('/productstable');
+  });
+
+   
 
 });
 

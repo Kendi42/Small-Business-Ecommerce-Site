@@ -110,10 +110,9 @@ a:hover{
     margin: 10px 0 0 0;
   }
   
-  #myproductslb{
+  .myproductslb{
     font-size: 2.5rem;
     font-weight:600;
-    margin-bottom: 1em;
 }
 #productsdiv{
     margin-top: 2em;
@@ -175,10 +174,7 @@ hr{
 .modal-body h1 {
     text-align: center;
 }
-.modal-body label{
-    font-size: 1.2em;
 
-}
 
 form{
     margin-top: 2em;
@@ -201,3 +197,37 @@ form{
     background-color: #414141;
 }
 
+
+#settingsHeading{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  align-items: center;
+}
+
+
+#settingsbtndiv{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 3em; 
+
+    
+}
+
+#editsubmitdiv{
+
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+
+}
+
+#editsubmitdiv .btn-primary{
+
+    border: 1px solid #C63E88;
+    background-color: #C63E88;
+
+}
