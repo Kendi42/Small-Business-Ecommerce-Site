@@ -84,6 +84,65 @@ document.querySelectorAll(".btn-navigate-form-step").forEach((formNavigationBtn)
     });
 });
 
+
+// Openign Cart Navigation Drawer
+function openCart() {
+  var offcanvasElement = document.getElementById('cartOffcanvas');
+  var offcanvas = new bootstrap.Offcanvas(offcanvasElement);
+  offcanvas.show();
+}
+
+
+// Closing Modal
+function closeModal(pid) {
+  const modalId = "#moreinfomodal-" + pid;
+  const modal = document.querySelector(modalId);
+  const modalInstance = bootstrap.Modal.getInstance(modal);
+  modalInstance.hide();
+  }
+
+
+// Adding Products to Cart
+function addtocart(pid) {
+  // Make a POST request to the server to add the product to the cart
+  console.log("Inside main js add to cart")
+  fetch('/addToCart', {
+    method: 'POST',
+    body: JSON.stringify({ pid: pid }),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(response => {
+      // Handle the response from the server
+      if (response.ok) {
+        console.log('Product added to cart successfully');
+      } else {
+        console.error('Error adding product to cart:', response.statusText);
+      }
+    })
+    .catch(error => {
+      console.error('Error adding product to cart:', error);
+    });
+
+  // Close the modal
+  closeModal(pid);
+
+  // Open the cart drawer
+  openCart();
+}
+
+function loginWarning(pid){
+  console.log("In login warning")
+  closeModal(pid);
+
+  var myModal = document.getElementById("loginwarningModal");
+  var modal = new bootstrap.Modal(myModal);
+  modal.show();
+
+}
+
+
 // SUBMIT DATA: FORMAT CHECKBOX INPUT
 const form = document.getElementById('createstoreform');
 

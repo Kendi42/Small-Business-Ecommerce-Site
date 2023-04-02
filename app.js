@@ -303,11 +303,37 @@ app.post('/newproduct/:storeID', (req, res) => {
       console.log("Store created successfully");
       return res.redirect(`/storepage/${storeID}`);
   });
-
-
-
-
 });
+
+// Add to Cart
+app.post('/addToCart', (req, res) => {
+  const pid = req.body.pid;
+  const quantity= 1;
+  const userID= req.session.userid;
+  const now = new Date();
+  const timestamp = now.toISOString().slice(0, 19).replace('T', ' ');
+  if(req.session.loggedIn == true){
+
+    console.log("About to add to cart");
+
+  const sql = 'INSERT INTO cart (userID, productID, quantity, timestamp) VALUES (?, ?, ?, ?)';
+  const values = [userID, pid, quantity, timestamp];
+  db.query(sql, values, (error, results, fields) => {
+      if (error) {
+      console.error(error);
+      console.log("Failed to add to cart");
+      res.status(400).json({ error: 'Unable to add product to cart' });
+
+      }
+      console.log("Add to cart was successful");
+      res.status(200).json({ message: 'Product added to cart successfully' });
+    });
+  }
+  else{
+    return res.redirect("/login");
+  }
+});
+
 
 
 /*-----------------------PAGE ROUTES: GET METHODS------------------------- */
@@ -506,9 +532,6 @@ app.get("/visitstore/:id", (req, res) => {
       res.render("storeuserview", {storeinfo, products, storeID:id, loggedIn: req.session.loggedIn} );  
   });
   });
-
-
-
 });
 
 
