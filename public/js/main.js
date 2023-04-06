@@ -143,6 +143,8 @@ function loginWarning(pid){
 }
 
 
+
+
 // SUBMIT DATA: FORMAT CHECKBOX INPUT
 const form = document.getElementById('createstoreform');
 

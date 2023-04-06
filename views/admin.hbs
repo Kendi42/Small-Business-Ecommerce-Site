@@ -44,20 +44,101 @@
                         </div>
                         <div class="summarydivs">
                             <h3 class="summarylb">Stores</h3>
-                            <p class="summarynmbrs">{{storecount}}</p>
+                            <p class="summarynmbrs">31</p>
                         </div>
                         <div class="summarydivs">
                             <h3 class="summarylb">Products</h3>
-                            <p class="summarynmbrs">{{productcount}}</p>
+                            <p class="summarynmbrs">30</p>
                         </div>
                     </div>
                 </div>
                 <div id="statisticinformation">
                     <h3>Graphs</h3>
-                    <div id="statisticcontent">
-                        
+                    <br>
+                    <h3 style="font-size:1.2em;"> Distribution of Store Categories</h3>
+                                        <br>
 
+                    <div id="statisticcontent">
+                        <canvas id="pie-chart"></canvas>
                     </div>
+                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                    <script>
+                        const data = {
+                        labels: ['Books', 'Jewelry', 'Clothes', 'Shoes', 'Food/Drink'],
+                        datasets: [{
+                            data: [10, 15, 8, 12, 5],
+                            backgroundColor: [
+                            'rgba(198, 62, 136, 0.6)',
+                            'rgba(198, 62, 136, 0.8)',
+                            'rgba(198, 62, 136, 1)',
+                            'rgba(198, 62, 136, 0.4)',
+                            'rgba(198, 62, 136, 0.2)',
+                            ],
+                            borderColor: [
+                            'rgba(198, 62, 136, 1)',
+                            'rgba(198, 62, 136, 1)',
+                            'rgba(198, 62, 136, 1)',
+                            'rgba(198, 62, 136, 1)',
+                            'rgba(198, 62, 136, 1)',
+                            ],
+                            borderWidth: 1
+                        }]
+                        };
+
+                        // Get the canvas element and create the chart
+                        const ctx = document.getElementById('pie-chart').getContext('2d');
+                        const pieChart = new Chart(ctx, {
+                        type: 'pie',
+                        data: data,
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false
+                        }
+                        });
+                       
+                    </script>
+
+                    <br>
+                    <h3 style="font-size:1.2em;"> Distribution of Product Categories</h3>
+                    <br>
+                    
+
+                    <div id="statisticcontent2">
+                        <canvas id="pie-chart2"></canvas>
+                    </div>
+                    <script>
+                        const data2 = {
+                        labels: ['Books', 'Jewelry', 'Clothes', 'Shoes', 'Food/Drink'],
+                        datasets: [{
+                            data: [15, 10, 20, 1, 4],
+                            backgroundColor: [
+                            'rgba(198, 62, 136, 0.8)',
+                            'rgba(198, 62, 136, 0.6)',
+                            'rgba(198, 62, 136, 0.4)',
+                            'rgba(198, 62, 136, 0.2)',
+                            'rgba(198, 62, 136, 0.1)'],
+                            borderColor: [
+                            'rgba(198, 62, 136, 1)',
+                            'rgba(198, 62, 136, 1)',
+                            'rgba(198, 62, 136, 1)',
+                            'rgba(198, 62, 136, 1)',
+                            'rgba(198, 62, 136, 1)',
+                            ],
+                            borderWidth: 1
+                        }]
+                        };
+
+                        // Get the canvas element and create the chart
+                        const ctx2 = document.getElementById('pie-chart2').getContext('2d');
+                        const pieChart2 = new Chart(ctx2, {
+                        type: 'pie',
+                        data: data2,
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false
+                        }
+                        });
+                    </script>
                 </div>
 
             </div>

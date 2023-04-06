@@ -545,6 +545,10 @@ app.get("/admin", (req, res) => {
   let usercount;
   let storecount;
   let productcount;
+  let scount = {};
+  let pcount = {};
+
+
   db.query('SELECT * FROM user', function(error, results, fields) {
     if (error){
         throw error;
@@ -562,7 +566,20 @@ app.get("/admin", (req, res) => {
             console.log("Results", results);
             console.log("Results length", results.length);
             storecount= results.length;
+            const storecategories = results.map(result => result.storeCategory);
+
+            storecategories.forEach(category => {
+              if (scount[category]) {
+                scount[category]++;
+              } else {
+                scount[category] = 1;
+              }
+            });
+
+
             console.log("StoreCount", storecount)
+            console.log("Scount", scount)
+
             db.query('SELECT * FROM product', function(error, results, fields){
               if (error){
                 throw error;
@@ -571,7 +588,20 @@ app.get("/admin", (req, res) => {
                 console.log("Results", results);
                 console.log("Results length", results.length);
                 productcount= results.length;
+                const productcategories = results.map(result => result.productCategory);
+                productcategories.forEach(category => {
+                  if (pcount[category]) {
+                    pcount[category]++;
+                  } else {
+                    pcount[category] = 1;
+                  }
+                });
+
                 console.log("Product Count", productcount)
+                console.log("Pcount", pcount)
+                console.log("Scount", scount)
+
+
                 res.render("admin", {usercount:usercount, storecount:storecount, productcount:productcount});
             }
             });
