@@ -102,19 +102,26 @@ function openCart(storeID) {
 
     // Render the cart items using the parsed data
     const cartItemsHTML = cartData.items.map(item => `
-      <li class="list-group-item d-flex justify-content-between lh-sm">
-        <div>
-          <h6 class="my-0">${item.productName}</h6>
+    <li class="list-group-item d-flex flex-column  justify-content-between align-items-start align-items-sm-center" id="cartItem-${item.cartID}">
+    <div class="d-flex justify-content-between align-items-start align-items-sm-center w-100 mb-2 mb-sm-0">
+      <div>
+        <h6 class="my-0">${item.productName}</h6>
+      </div>
+      <div>
+        <button class="btn btn-outline-danger btn-sm ml-3" id="removeItemBtn-${item.cartID}" onclick="deleteCartItem(${item.cartID})"><i class="fas fa-trash"></i></button>
+      </div>
+    </div>
+    <div class="d-flex justify-content-between align-items-center w-100">
+      <div class="mr-3">
+        <div class="input-group input-group-sm">
+          <button class="btn btn-outline-secondary" type="button" id="quantityMinusBtn">-</button>
+          <input type="text" class="form-control" aria-label="Product quantity" value="${item.quantity}" id="quantityInput-${item.cartID}" readonly>
+          <button class="btn btn-outline-secondary" type="button" id="quantityPlusBtn">+</button>
         </div>
-        <div id="quantityandprice">
-          <div class="input-group input-group-sm mb-3" >
-            <button class="btn btn-outline-secondary" type="button" id="quantityMinusBtn">-</button>
-            <input type="text" class="form-control" aria-label="Product quantity" value="${item.quantity}" readonly>
-            <button class="btn btn-outline-secondary" type="button" id="quantityPlusBtn">+</button>
-          </div>
-          <strong>${item.total}</strong>
-        </div>
-      </li>
+      </div>
+      <strong class="item-total">${item.total}</strong>
+    </div>
+  </li>
     `).join('');
 
     // Update the offcanvas body with the rendered cart items
@@ -123,7 +130,7 @@ function openCart(storeID) {
         ${cartItemsHTML}
         <li class="list-group-item d-flex justify-content-between">
           <span>Total (KSH)</span>
-          <strong>${cartData.total}</strong>
+          <strong id="cartTotal" >${cartData.total}</strong>
         </li>
       </ul>
       <button class="w-100 btn btn-primary btn-lg" type="submit">Checkout</button>
@@ -132,6 +139,92 @@ function openCart(storeID) {
     // Initialize the offcanvas
     const offcanvas = new bootstrap.Offcanvas(offcanvasElement);
     offcanvas.show();
+
+    const minusBtns = document.querySelectorAll('#quantityMinusBtn');
+    const plusBtns = document.querySelectorAll('#quantityPlusBtn');
+
+    minusBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const inputField = btn.parentElement.querySelector('input');
+        const newQuantity = parseInt(inputField.value) - 1;
+
+        if (newQuantity >= 0) {
+          inputField.value = newQuantity;
+          updateCart(inputField.id.split('-')[1], newQuantity, storeID);
+        }
+      });
+    });
+
+    plusBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const inputField = btn.parentElement.querySelector('input');
+        const newQuantity = parseInt(inputField.value) + 1;
+
+        inputField.value = newQuantity;
+        updateCart(inputField.id.split('-')[1], newQuantity, storeID);
+      });
+    });
+
+  })
+  .catch(error => console.error(error));
+
+}
+
+function deleteCartItem(itemID){
+  console.log("Inside Delete cart item")
+  console.log("cart id", itemID)
+
+  fetch(`/removeitem/${itemID}`, {
+		method: 'DELETE'
+	  })
+	  .then((response) => {
+		console.log("Inside then response");
+		// Remove the table row from the DOM
+		const row = document.getElementById(`cartItem-${itemID}`);
+		if (row) {
+			row.remove();
+			console.log("Row removed");
+		}
+	})
+	  .catch(error => {
+		console.error('Error deleting record:', error);
+	  });
+
+
+}
+
+function updateCart(itemID, newQuantity, storeID) {
+  fetch(`/updatecart/${itemID}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      quantity: newQuantity
+    })
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log('Cart updated:', data);
+
+    // Send a request to get the updated cart data
+    fetch(`/viewcart/${storeID}`)
+      .then(response => response.text())
+      .then(data => {
+        // Parse the JSON string into a JavaScript object
+        const cartData = JSON.parse(data);
+        console.log("Cart Data", cartData)
+
+        // Update the cart and item totals based on the updated data
+        const cartTotalElement = document.querySelector('#cartTotal');
+        cartTotalElement.textContent = `${cartData.total}`;
+
+        const itemTotalElements = document.querySelectorAll('.item-total');
+        itemTotalElements.forEach((element, index) => {
+          element.textContent = `${cartData.items[index].total}`;
+        });
+      })
+      .catch(error => console.error(error));
   })
   .catch(error => console.error(error));
 }

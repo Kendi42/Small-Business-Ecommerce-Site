@@ -340,6 +340,45 @@ app.post('/addToCart', (req, res) => {
 });
 
 
+// Update to Cart
+app.post('/updatecart/:id', (req, res) => {
+  console.log("Inside Update cart");
+  let {id }= req.params;
+  let quantity= req.body.quantity
+  console.log("cart ID", id)
+  console.log("req.body", req.body.quantity)
+
+  const sql = 'UPDATE cart SET quantity= ? WHERE cartID = ?';
+  const values = [quantity, id];
+  db.query(sql, values, (error, results, fields) => {
+    if (error) {
+      console.error(error);
+      res.status(500).json({ success: false, message: 'Error updating cart' });
+    } else {
+      console.log('Cart updated:', results);
+      res.json(results);
+    }
+    });
+});
+
+// delete from cart
+
+app.delete('/removeitem/:cartID', (req, res) => {
+  console.log("Inside app delete for cart");
+  console.log("Request Params", req.params);
+  let {cartID }= req.params;
+
+  const sql = "DELETE FROM cart WHERE cartID = ? ";
+  values=[cartID]
+
+  db.query(sql, values, (error, results, fields) => {
+    if (error) throw error;
+    console.log(results);
+    res.send('Cart record deleted successfully.');
+  });
+
+});
+
 
 /*-----------------------PAGE ROUTES: GET METHODS------------------------- */
 // Landing page route
@@ -535,7 +574,16 @@ app.get("/visitstore/:id", (req, res) => {
         pDescription: product.productDescription
       }));
 
-      res.render("storeuserview", {storeinfo, products, storeID:id, loggedIn: req.session.loggedIn} );  
+    const sql = 'SELECT COUNT(*) FROM cart WHERE storeID = ? AND userID = ?';
+    const values = [id, req.session.userid];
+    db.query(sql, values, (err, results) => {
+      if (err) throw err;
+      console.log("Results from count", results)
+      const [{ 'COUNT(*)': count }] = results;
+      console.log("counttt", count); 
+
+      res.render("storeuserview", {storeinfo, products, storeID:id, loggedIn: req.session.loggedIn, cartCount:count} );  
+    });
   });
   });
 });
@@ -573,6 +621,7 @@ db.query(sql, values, (err, results) => {
   });
 });
 });
+
 
 
 

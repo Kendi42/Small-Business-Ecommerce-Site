@@ -292,8 +292,15 @@ form{
     background-color:#E29EC3 !important;
 }
 
-#quantityandprice{
-    display: flex;
+#outerlistdiv {
     gap:2em;
-    width: 40%;
 }
+.list-group-item .input-group{
+    width: 5.5em;
+}
+
+
+.list-group-item i{
+    margin-right:0em;    
+}
+
