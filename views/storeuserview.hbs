@@ -16,7 +16,7 @@
                 <a class="navbar-brand  me-auto" href="/"><img src="/imgs/small.png" width="40px" height="40px">  Social Market </a>
                 {{#if loggedIn}}
                 <div class="cart">
-                    <a onclick="openCart()"><i class="fas fa-shopping-cart"></i>Cart (0)</a>
+                    <a onclick="openCart({{storeinfo.storeID}})"><i class="fas fa-shopping-cart"></i>Cart (0)</a>
                 </div>
                 <a class="navbtn" id="login" href="/logout" role="button">Logout</a>
                 
@@ -43,17 +43,16 @@
             </div>
             <hr>  
 
-
-
             <div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
                 <div class="offcanvas-header">
                     <h5 class="offcanvas-title" id="cartOffcanvasLabel">Cart</h5>
                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
-                <div class="offcanvas-body">
-                    <!-- Cart content here -->
+                <div class="offcanvas-body" id="offcanvas-body">
+
                 </div>
             </div>
+
             <h3 class="myproductslb">Products</h3>
             <div id="productsdiv">
                 <div class="container">
@@ -98,7 +97,7 @@
                                             <p class="lead">{{this.pDescription}}</p>
                                             <div id="productinfobtndiv">
                                                 {{#if ../loggedIn}}
-                                                 <a onclick="addtocart({{this.pid}})" type="button" class="btn btn-primary">ADD TO CART</a>
+                                                 <a onclick="addtocart({{this.pid}}, {{../storeinfo.storeID}})" type="button" class="btn btn-primary">ADD TO CART</a>
                                                  {{else}}
                                                 <a onclick="loginWarning({{this.pid}})" type="button" class="btn btn-primary">ADD TO CART</a>
                                                  {{/if}}

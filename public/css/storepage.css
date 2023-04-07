@@ -291,3 +291,9 @@ form{
 .btn-primary :hover{
     background-color:#E29EC3 !important;
 }
+
+#quantityandprice{
+    display: flex;
+    gap:2em;
+    width: 40%;
+}

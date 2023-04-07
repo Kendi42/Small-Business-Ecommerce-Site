@@ -14,6 +14,8 @@ const jsonParser = bodyParser.json();
 const path = require('path');
 const { resume } = require("./dbconnector");
 
+
+
 // Server Side Validation
 const { body, validationResult } = require('express-validator');
 const loginValidationChain = [
@@ -307,7 +309,10 @@ app.post('/newproduct/:storeID', (req, res) => {
 
 // Add to Cart
 app.post('/addToCart', (req, res) => {
+  console.log("req.body", req.body);
   const pid = req.body.pid;
+  const sid= req.body.sid;
+  
   const quantity= 1;
   const userID= req.session.userid;
   const now = new Date();
@@ -316,8 +321,8 @@ app.post('/addToCart', (req, res) => {
 
     console.log("About to add to cart");
 
-  const sql = 'INSERT INTO cart (userID, productID, quantity, timestamp) VALUES (?, ?, ?, ?)';
-  const values = [userID, pid, quantity, timestamp];
+  const sql = 'INSERT INTO cart (userID, productID, storeID, quantity, timestamp) VALUES (?, ?, ?, ?, ?)';
+  const values = [userID, pid, sid, quantity, timestamp];
   db.query(sql, values, (error, results, fields) => {
       if (error) {
       console.error(error);
@@ -503,6 +508,7 @@ app.get("/storesettings/:id", (req, res) => {
 });
 
 app.get("/visitstore/:id", (req, res) => {
+  console.log("Inside visit store")
   let {id }= req.params;
     console.log("storeID", id);
     console.log("Inside vidit store")
@@ -533,6 +539,41 @@ app.get("/visitstore/:id", (req, res) => {
   });
   });
 });
+
+app.get("/viewcart/:storeID", (req, res) => {
+  console.log("Inside app.get view cart")
+  let {storeID}= req.params;
+  let userID = req.session.userid;
+  console.log("ourdata", storeID, userID);
+  const sql = `
+  SELECT c.cartID, c.quantity, p.productName, p.productCost 
+  FROM cart c 
+  JOIN product p ON c.productID = p.productID
+  WHERE c.storeID = ? AND c.userID = ?
+`;
+const values = [storeID, userID];
+db.query(sql, values, (err, results) => {
+  if (err) throw err;
+
+  // Calculate the total for each item
+  results.forEach(item => {
+    item.total = item.quantity * item.productCost;
+  });
+  console.log("Cart results", results);
+
+  // Calculate the cart total
+  const cartTotal = results.reduce((total, item) => total + item.total, 0);
+  console.log("Cart total", cartTotal);
+
+
+  // Render the cart view template with the retrieved data
+  res.json({
+    items: results,
+    total: cartTotal
+  });
+});
+});
+
 
 
 // Go to become a seller page

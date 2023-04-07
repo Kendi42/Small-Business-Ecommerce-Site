@@ -86,10 +86,54 @@ document.querySelectorAll(".btn-navigate-form-step").forEach((formNavigationBtn)
 
 
 // Openign Cart Navigation Drawer
-function openCart() {
-  var offcanvasElement = document.getElementById('cartOffcanvas');
-  var offcanvas = new bootstrap.Offcanvas(offcanvasElement);
-  offcanvas.show();
+function openCart(storeID) {
+  console.log("StoreID for cart", storeID)
+
+  fetch(`/viewcart/${storeID}`)
+  .then(response => response.text())
+  .then(data => {
+    // Set the HTML content of the offcanvas element to the response
+    
+    const offcanvasElement = document.getElementById('cartOffcanvas');
+    const offcanvasElement2 = document.getElementById('offcanvas-body');
+
+    // Parse the JSON string into a JavaScript object
+    const cartData = JSON.parse(data);
+
+    // Render the cart items using the parsed data
+    const cartItemsHTML = cartData.items.map(item => `
+      <li class="list-group-item d-flex justify-content-between lh-sm">
+        <div>
+          <h6 class="my-0">${item.productName}</h6>
+        </div>
+        <div id="quantityandprice">
+          <div class="input-group input-group-sm mb-3" >
+            <button class="btn btn-outline-secondary" type="button" id="quantityMinusBtn">-</button>
+            <input type="text" class="form-control" aria-label="Product quantity" value="${item.quantity}" readonly>
+            <button class="btn btn-outline-secondary" type="button" id="quantityPlusBtn">+</button>
+          </div>
+          <strong>${item.total}</strong>
+        </div>
+      </li>
+    `).join('');
+
+    // Update the offcanvas body with the rendered cart items
+    offcanvasElement2.innerHTML = `
+      <ul class="list-group mb-3">
+        ${cartItemsHTML}
+        <li class="list-group-item d-flex justify-content-between">
+          <span>Total (KSH)</span>
+          <strong>${cartData.total}</strong>
+        </li>
+      </ul>
+      <button class="w-100 btn btn-primary btn-lg" type="submit">Checkout</button>
+    `;
+
+    // Initialize the offcanvas
+    const offcanvas = new bootstrap.Offcanvas(offcanvasElement);
+    offcanvas.show();
+  })
+  .catch(error => console.error(error));
 }
 
 
@@ -103,12 +147,14 @@ function closeModal(pid) {
 
 
 // Adding Products to Cart
-function addtocart(pid) {
+function addtocart(pid, sid) {
   // Make a POST request to the server to add the product to the cart
   console.log("Inside main js add to cart")
+  console.log("pid and sid", pid, sid)
+
   fetch('/addToCart', {
     method: 'POST',
-    body: JSON.stringify({ pid: pid }),
+    body: JSON.stringify({ pid: pid, sid:sid }),
     headers: {
       'Content-Type': 'application/json'
     }
@@ -117,6 +163,10 @@ function addtocart(pid) {
       // Handle the response from the server
       if (response.ok) {
         console.log('Product added to cart successfully');
+              // Close the modal
+        closeModal(pid);
+        // Open the cart drawer
+        openCart(sid);
       } else {
         console.error('Error adding product to cart:', response.statusText);
       }
@@ -124,12 +174,6 @@ function addtocart(pid) {
     .catch(error => {
       console.error('Error adding product to cart:', error);
     });
-
-  // Close the modal
-  closeModal(pid);
-
-  // Open the cart drawer
-  openCart();
 }
 
 function loginWarning(pid){
