@@ -12,7 +12,12 @@ const bodyParser = require('body-parser');
 const urlEncoder = bodyParser.urlencoded({extended:true})
 const jsonParser = bodyParser.json();
 const path = require('path');
+const prettyjson = require('prettyjson');
 const { resume } = require("./dbconnector");
+
+const options = {
+  noColor: true
+};
 
 
 
@@ -1018,6 +1023,25 @@ app.post('/updateproductstable/:productID', (req, res) => {
 
 });
 
+
+/*-----------------------PAYMENT WITH MPESA API--------------------------------------*/
+app.post('/hooks/mpesa', (req, res) => {
+  console.log('-----------Received M-Pesa webhook-----------');
+	
+  // format and dump the request payload recieved from safaricom in the terminal
+  console.log(prettyjson.render(req.body, options));
+  console.log("request body", req.body);
+
+  console.log('-----------------------');
+	
+  let message = {
+	  "ResponseCode": "00000000",
+	  "ResponseDesc": "success"
+	};
+	
+  // respond to safaricom servers with a success message
+  res.json(message);
+});
 /*-----------------------Opening and Closing the Server--------------------------------------*/
 const server= app.listen(PORT, () => console.log(`Server Running at port ${PORT}`));
 
