@@ -119,7 +119,11 @@
                                             <h3>Description</h3>
                                             <p class="lead">{{this.productDescription}}</p>
                                             <div id="productinfobtndiv">
+                                                 {{#if ../loggedIn}}
                                                  <a href="/visitstore/{{this.storeID}}" onclick="addtocart({{this.productID}}, {{this.storeID}})" type="button" class="btn btn-primary">ADD TO CART</a>
+                                                 {{else}}
+                                                <a onclick="loginWarning({{this.productID}})" type="button" class="btn btn-primary">ADD TO CART</a>
+                                                 {{/if}}
                                             </div>
 
                                         </div>
@@ -135,6 +139,25 @@
                         </div>
                         </div>
                         {{/each}}
+
+                         <!-- Modal -->
+                        <div class="modal fade" id="loginwarningModal" tabindex="-1" aria-labelledby="loginwarningLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="loginwarningLabel">Login</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                             <p>You need to login before you can add items to your cart. Click the button below to go to the login page.</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <a href="/login" type="button" class="btn btn-primary">Login</a>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
                   </div>
                   </div>
                 </div>

@@ -108,7 +108,7 @@ function openCart(storeID) {
         <h6 class="my-0">${item.productName}</h6>
       </div>
       <div>
-        <button class="btn btn-outline-danger btn-sm ml-3" id="removeItemBtn-${item.cartID}" onclick="deleteCartItem(${item.cartID})"><i class="fas fa-trash"></i></button>
+        <button class="btn btn-outline-danger btn-sm ml-3" id="removeItemBtn-${item.cartID}" onclick="deleteCartItem(${item.cartID}, ${item.quantity}, ${storeID}  )"><i class="fas fa-trash"></i></button>
       </div>
     </div>
     <div class="d-flex justify-content-between align-items-center w-100">
@@ -170,7 +170,7 @@ function openCart(storeID) {
 
 }
 
-function deleteCartItem(itemID){
+function deleteCartItem(itemID, quantity, storeID){
   console.log("Inside Delete cart item")
   console.log("cart id", itemID)
 
@@ -184,6 +184,12 @@ function deleteCartItem(itemID){
 		if (row) {
 			row.remove();
 			console.log("Row removed");
+      updateCart(itemID, quantity, storeID)
+      // Decrement cart number
+      const cartCountHTML = document.getElementById('cartCount');
+      const cartCount = parseInt(cartCountHTML.textContent);
+      cartCountHTML.textContent = `${cartCount - 1}`;
+
 		}
 	})
 	  .catch(error => {
@@ -256,6 +262,10 @@ function addtocart(pid, sid) {
       // Handle the response from the server
       if (response.ok) {
         console.log('Product added to cart successfully');
+        // Increment cart number
+        const cartCountHTML = document.getElementById('cartCount');
+        const cartCount = parseInt(cartCountHTML.textContent);
+        cartCountHTML.textContent = `${cartCount + 1}`;
               // Close the modal
         closeModal(pid);
         // Open the cart drawer

@@ -331,7 +331,7 @@ app.post('/addToCart', (req, res) => {
 
       }
       console.log("Add to cart was successful");
-      res.status(200).json({ message: 'Product added to cart successfully' });
+      res.status(200).json({ message: 'Product added to cart successfully'});
     });
   }
   else{
@@ -369,7 +369,7 @@ app.delete('/removeitem/:cartID', (req, res) => {
   let {cartID }= req.params;
 
   const sql = "DELETE FROM cart WHERE cartID = ? ";
-  values=[cartID]
+  values=[cartID];
 
   db.query(sql, values, (error, results, fields) => {
     if (error) throw error;

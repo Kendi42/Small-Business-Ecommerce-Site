@@ -16,7 +16,7 @@
                 <a class="navbar-brand  me-auto" href="/"><img src="/imgs/small.png" width="40px" height="40px">  Social Market </a>
                 {{#if loggedIn}}
                 <div class="cart">
-                    <a onclick="openCart({{storeinfo.storeID}})"><i class="fas fa-shopping-cart"></i>Cart ({{cartCount}})</a>
+                    <a onclick="openCart({{storeinfo.storeID}})"><i class="fas fa-shopping-cart"></i>Cart ( <span id="cartCount">{{cartCount}}</span>)</a>
                 </div>
                 <a class="navbtn" id="login" href="/logout" role="button">Logout</a>
                 
