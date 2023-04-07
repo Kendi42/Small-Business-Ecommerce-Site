@@ -622,7 +622,10 @@ db.query(sql, values, (err, results) => {
 });
 });
 
-
+// Go to checkout page
+app.get("/checkout", (req, res) => {
+	res.render("checkout");
+});
 
 
 // Go to become a seller page

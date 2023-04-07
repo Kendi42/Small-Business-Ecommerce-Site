@@ -1,0 +1,60 @@
+body{
+    background-color: #fafafa;
+}
+
+#checkoutcontent{
+    width: 98vw;
+    height: 70vh;
+    margin: auto;
+    background-color: transparent;
+    padding: 2em;
+}
+
+.navbar-brand{
+    font-size: 1.4em;
+    font-weight: 600;
+}
+
+.topnav{
+    display: flex;
+    justify-content: space-between; 
+}
+
+
+
+  .box {
+    border: 1px solid #ededed;
+    padding: 20px;
+    background-color: white;
+  }
+
+  .box h2 {
+    margin-top: 0;
+    font-weight: 400;
+  }
+
+  .box .content {
+    margin-top: 10px;
+  }
+
+  .box.full-height {
+    height: 100%;
+  }
+  .content ul{
+    height: 100%;
+  }
+
+  #checkoutprice{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .btn-primary {
+    border: 1px solid #C63E88;
+    background-color: #C63E88;
+}
+
+.btn-primary:hover {
+    border: 1px solid #E29EC3;
+    background-color: #E29EC3;
+}
