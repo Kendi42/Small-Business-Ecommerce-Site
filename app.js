@@ -384,6 +384,14 @@ app.delete('/removeitem/:cartID', (req, res) => {
 
 });
 
+app.post('/placeorder', (req, res) => {
+
+  console.log("Inside place order");
+  console.log("Req.body", req.body)
+});
+
+
+
 
 /*-----------------------PAGE ROUTES: GET METHODS------------------------- */
 // Landing page route
@@ -628,8 +636,35 @@ db.query(sql, values, (err, results) => {
 });
 
 // Go to checkout page
-app.get("/checkout", (req, res) => {
-	res.render("checkout");
+app.get("/checkout/:storeID", (req, res) => {
+  let {storeID}= req.params;
+  let userID = req.session.userid;
+  console.log("ourdata", storeID, userID);
+  const sql = `
+  SELECT c.cartID, c.quantity, p.productName, p.productCost 
+  FROM cart c 
+  JOIN product p ON c.productID = p.productID
+  WHERE c.storeID = ? AND c.userID = ?
+`;
+const values = [storeID, userID];
+
+db.query(sql, values, (err, results) => {
+  if (err) throw err;
+
+  // Calculate the total for each item
+  results.forEach(item => {
+    item.total = item.quantity * item.productCost;
+  });
+  console.log("Cart results", results);
+
+  // Calculate the cart total
+  const cartTotal = results.reduce((total, item) => total + item.total, 0);
+  console.log("Cart total", cartTotal);
+  res.render("checkout", {items:results, cartTotal:cartTotal, storeID:storeID});
+});
+
+
+
 });
 
 

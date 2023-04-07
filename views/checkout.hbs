@@ -15,9 +15,12 @@
 
     <nav class="topnav">
                 <a class="navbar-brand  me-auto" href="/"><img src="/imgs/small.png" width="40px" height="40px">  Social Market </a>
-                <a class="navbtn" id="login" href="/logout" role="button">Logout</a>
+                <div>
+                    <a class="navbtn" id="signup" href="/visitstore/{{storeID}}" role="button">Back to Store</a>
+                    <a class="navbtn" id="login" href="/logout" role="button">Logout</a>
+                </div>
     </nav>
-    <form>
+    <form method="POST" action="/placeorder" >
   <div class="row" id="checkoutcontent">
     <div class="col-md-6">
     <p>Delivery Information</p>
@@ -30,14 +33,16 @@
         <input type="text" class="form-control" id="streetname" name="streetname" required>
       </div>
       <div class="form-group mb-3">
-        <label for="buildingname">Building Name</label>
-        <input type="text" class="form-control" id="buildingname" name="buildingname" required>
+        
+        <label for="housenumber">House Number</label>
+        <input type="text" class="form-control" id="housenumber" name="housenumber" required>
       </div>
     </div>
     <div class="col-md-6">
       <div class="form-group mb-3">
-        <label for="housenumber">House Number</label>
-        <input type="text" class="form-control" id="housenumber" name="housenumber" required>
+        <label for="buildingname">Building Name</label>
+        <input type="text" class="form-control" id="buildingname" name="buildingname" required>
+        
       </div>
       <div class="form-group mb-3">
         <label for="phone">Contact Phone Number</label>
@@ -60,7 +65,7 @@
             <span class="input-group-text">
                 <img src="/imgs/mpesalogo.png" alt="MPESA Logo" height="20">
             </span>
-            <input type="tel" class="form-control" placeholder="MPESA Phone Number" aria-label="MPESA Phone Number" aria-describedby="mpesa-logo">
+            <input type="tel" class="form-control" placeholder="MPESA Phone Number" name="mpesaPhoneNumber" aria-label="MPESA Phone Number" aria-describedby="mpesa-logo">
             </div>
         </div>
       </div>
@@ -70,25 +75,29 @@
       <div class="box full-height">
         <div class="content">
          <ul class="list-group mb-3">
+            {{#each items}}
             <li class="list-group-item d-flex flex-column  justify-content-between align-items-start align-items-sm-center">
             <div class="d-flex justify-content-between align-items-start align-items-sm-center w-100 mb-2 mb-sm-0">
             <div style="margin-right:10em; width:100%">
-                <h5>Product Naame</h5>
+                <h5>{{this.productName}}</h5>
             </div>
             </div>
             <div class="d-flex justify-content-between align-items-center w-100">
-            <div><p>Quantity: 2</p>
+            <div><p>Quantity: {{this.quantity}}</p>
             </div>
-            <strong class="item-total">40</strong>
+            <strong class="item-total">{{this.total}}</strong>
             </div>
         </li>
+        {{/each}}
         <li class="list-group-item d-flex justify-content-between">
              <h5>Total (KSH)</h5>
-            <strong id="cartTotal" >40</strong>
+            <strong id="cartTotal" >{{cartTotal}}</strong>
+            <input type="hidden" name="cartTotal" value="{{cartTotal}}">
+
         </li>
         </ul>        
         <br>
-        <a href="/placeorder" type="button" class="w-100 btn btn-primary btn-lg" type="submit">Place Order</a>
+        <button class="w-100 btn btn-primary btn-lg" type="submit">Place Order</button>
         </div>
       </div>
     </div>

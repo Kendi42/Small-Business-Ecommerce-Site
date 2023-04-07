@@ -133,7 +133,7 @@ function openCart(storeID) {
           <strong id="cartTotal" >${cartData.total}</strong>
         </li>
       </ul>
-      <a href="/checkout" type="button" class="w-100 btn btn-primary btn-lg" type="submit">Checkout</a>
+      <a href="/checkout/${storeID}" type="button" class="w-100 btn btn-primary btn-lg" type="submit">Checkout</a>
     `;
 
     // Initialize the offcanvas
