@@ -20,7 +20,7 @@
                     <a class="navbtn" id="login" href="/logout" role="button">Logout</a>
                 </div>
     </nav>
-    <form method="POST" action="/placeorder" >
+    <form method="POST" action="/placeorder/{{storeID}}" >
   <div class="row" id="checkoutcontent">
     <div class="col-md-6">
     <p>Delivery Information</p>
@@ -61,12 +61,21 @@
     <p style="margin-top: 30px">Payment Information</p>
       <div class="box">
         <div class="content">
-            <div class="input-group mb-3">
+
+        <div class="form-check">
+        <input class="form-check-input" type="radio" name="paymentmode" id="flexRadioDefault2">
+        <label class="form-check-label" for="flexRadioDefault2"> Payment on Delivery
+        </label>
+        </div>
+            <!--div class="input-group mb-3">
+
+
             <span class="input-group-text">
+
                 <img src="/imgs/mpesalogo.png" alt="MPESA Logo" height="20">
             </span>
             <input type="tel" class="form-control" placeholder="MPESA Phone Number" name="mpesaPhoneNumber" aria-label="MPESA Phone Number" aria-describedby="mpesa-logo">
-            </div>
+            </div-->
         </div>
       </div>
     </div>

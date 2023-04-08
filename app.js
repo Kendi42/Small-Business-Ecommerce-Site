@@ -14,6 +14,10 @@ const jsonParser = bodyParser.json();
 const path = require('path');
 const prettyjson = require('prettyjson');
 const { resume } = require("./dbconnector");
+const axios = require('axios');
+const uuid = require('uuid').v4;
+
+
 
 const options = {
   noColor: true
@@ -23,6 +27,7 @@ const options = {
 
 // Server Side Validation
 const { body, validationResult } = require('express-validator');
+const { randomUUID } = require("crypto");
 const loginValidationChain = [
     body('email').isEmail().withMessage('Invalid email address'),
     body('pass').notEmpty().withMessage('Password is required')
@@ -384,10 +389,43 @@ app.delete('/removeitem/:cartID', (req, res) => {
 
 });
 
-app.post('/placeorder', (req, res) => {
+app.post('/placeorder/:storeID', (req, res) => {
 
   console.log("Inside place order");
   console.log("Req.body", req.body)
+  let {storeID }= req.params;
+  let userID= req.session.userid;
+  const now = new Date();
+  const timestamp = now.toISOString().slice(0, 19).replace('T', ' ');
+  let userinfo= req.body;
+  let orderID=  uuid();
+  console.log("orderID", orderID)
+  console.log(storeID, userID, userinfo);
+  console.log("About to add to place order");
+  const sql = 'INSERT INTO placedorder(orderID, storeID, userID, streetName, buildingName, houseNumber, contactPhone, deliveryIntructions, paymentMethod, orderTotal) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+  const values = [orderID, storeID, userID, userinfo.streetname, userinfo.buildingname, userinfo.housenumber, userinfo.phone, userinfo.deliveryinstructions, "Pay on Delivery", userinfo.cartTotal];
+  db.query(sql, values, (error, results, fields) => {
+      if (error) {
+      console.error(error);
+      console.log("Failed to place order");
+      res.status(400).json({ error: 'Unable to place order' });
+      }
+
+      const sql = 'INSERT INTO orderdetails (productID, productQuantity, orderID) SELECT productID, quantity, ? AS orderID FROM cart WHERE storeID = ? AND userID= ?';
+      const values = [orderID, storeID, userID]
+      db.query(sql, values, (error, results, fields) => {
+        if (error) {
+        console.error(error);
+        console.log("Failed to place order");
+        res.status(400).json({ error: 'Unable to place order' });
+        }
+  
+      console.log("Place order succesful");
+      res.redirect("/")
+    });
+  });
+
+
 });
 
 
@@ -1060,22 +1098,55 @@ app.post('/updateproductstable/:productID', (req, res) => {
 
 
 /*-----------------------PAYMENT WITH MPESA API--------------------------------------*/
-app.post('/hooks/mpesa', (req, res) => {
+app.post('/hooks/mpesa', async (req, res) => {
   console.log('-----------Received M-Pesa webhook-----------');
 	
-  // format and dump the request payload recieved from safaricom in the terminal
-  console.log(prettyjson.render(req.body, options));
-  console.log("request body", req.body);
+  try {
+    // Collect payment details from the user
+    console.log("Req.body", req.body)
+    const phoneNumber= req.body.mpesaPhoneNumber;
+    const amount = req.body.cartTotal;
 
-  console.log('-----------------------');
-	
-  let message = {
-	  "ResponseCode": "00000000",
-	  "ResponseDesc": "success"
-	};
-	
-  // respond to safaricom servers with a success message
-  res.json(message);
+    // Set up the HTTP POST request
+    const url = 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
+    const accessToken = 'LGeU1skiUnBVh61crfcLp9Is8BVG';
+    const timestamp = moment().format('YYYYMMDDHHmmss');
+    const businessShortCode = '244337';
+    const password = Buffer.from(`${businessShortCode}${passkey}${timestamp}`).toString('base64');
+    const callbackUrl = 'YOUR_CALLBACK_URL';
+    const transactionDesc = 'YOUR_TRANSACTION_DESCRIPTION';
+    const accountReference = 'YOUR_ACCOUNT_REFERENCE';
+
+    // Make the HTTP POST request
+    const response = await axios.post(
+      url,
+      {
+        BusinessShortCode: businessShortCode,
+        Password: password,
+        Timestamp: timestamp,
+        TransactionType: 'CustomerPayBillOnline',
+        Amount: amount,
+        PartyA: phoneNumber,
+        PartyB: businessShortCode,
+        PhoneNumber: phoneNumber,
+        CallBackURL: callbackUrl,
+        AccountReference: accountReference,
+        TransactionDesc: transactionDesc,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    // Return the response from MPESA API to the client
+    res.send(response.data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error Processing Payment!');
+  }
 });
 /*-----------------------Opening and Closing the Server--------------------------------------*/
 const server= app.listen(PORT, () => console.log(`Server Running at port ${PORT}`));
