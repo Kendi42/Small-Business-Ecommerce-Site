@@ -288,7 +288,15 @@
                                         </button>
                                         </h2>
                                         <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                                        <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
+                                        <div class="accordion-body">
+                                            <ul>
+                                                <li>Central Business District</li>
+                                                <li>Upper Hill</li>
+                                                <li>Kilimani</li>
+                                                <li>Hurlingham</li>
+                                                <li>Kileleshwa</li>
+                                            </ul>
+                                        </div>
                                         </div>
                                     </div>
                                     <div class="accordion-item">
@@ -298,7 +306,15 @@
                                         </button>
                                         </h2>
                                         <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-                                        <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.</div>
+                                        <div class="accordion-body">
+                                            <ul>
+                                                <li>Westlands</li>
+                                                <li>Parklands</li>
+                                                <li>Spring Valley</li>
+                                                <li>Loresho</li>
+                                                <li>Riverside</li>
+                                                </ul>
+                                        </div>
                                         </div>
                                     </div>
                                     <div class="accordion-item">
@@ -308,7 +324,16 @@
                                         </button>
                                         </h2>
                                         <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-                                        <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+                                        <div class="accordion-body">
+                                            <ul>
+                                                <li>Langata</li>
+                                                <li>Karen</li>
+                                                <li>Ngong</li>
+                                                <li>Rongai</li>
+                                                <li>Dagoretti</li>
+                                                </ul>
+
+                                        </div>
                                         </div>
                                     </div>
 
@@ -319,7 +344,15 @@
                                         </button>
                                         </h2>
                                         <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
-                                        <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+                                        <div class="accordion-body">
+                                            <ul>
+                                                <li>Eastleigh</li>
+                                                <li>Pangani</li>
+                                                <li>Buru Buru</li>
+                                                <li>Umoja</li>
+                                                <li>Embakasi</li>
+                                            </ul>
+                                        </div>
                                         </div>
                                     </div>
                                     <div class="accordion-item">
@@ -329,7 +362,15 @@
                                         </button>
                                         </h2>
                                         <div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingFive" data-bs-parent="#accordionFlushExample">
-                                        <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+                                        <div class="accordion-body">
+                                            <ul>
+                                                <li>Muthaiga</li>
+                                                <li>Gigiri</li>
+                                                <li>Lavington</li>
+                                                <li>Muthangari</li>
+                                                <li>Kitusuru</li>
+                                                </ul>
+                                        </div>
                                         </div>
                                     </div>
                                     </div>
@@ -467,6 +508,53 @@
             </div>
 
             {{/if}}
+
+            {{#if OrdersTrue}}
+            <table class="table">
+                <thead>
+                <tr>
+					<th>Order Total</th>
+					<th>Product Name</th>
+                    <th>Delivery Address</th>
+                    <th>Action</th>
+
+					</tr>
+				</thead>
+				<tbody id="resultsbody'">
+                    {{#each details}}
+					<tr>
+					<td>{{orderTotal}}</td>
+                    <td>{{product.productName}}</td>
+                    <td>{{buildingName}}</td>
+
+					<td>
+						<div id="tablebtns">
+                            <button class="btn btn-primary" id="btnfullfill-{{orderID}}" onclick="fulfilled('{{orderID}}')">Fulfil Order</button>						
+						</div>
+                        <script>
+                            function fulfilled(orderID){
+                                console.log("inside fullfileed")
+                                const btn = document.getElementById('btnfullfill-' + orderID);
+                                // Modify the button's text and style properties
+                                btn.textContent = 'Done';
+                                btn.style.backgroundColor = '#E29EC3';
+                                btn.style.border = '#E29EC3';
+
+                            }
+                        </script>
+					</td>
+					</tr>
+                    {{/each}}
+                </tbody>
+
+
+
+
+            </table>
+
+
+            {{/if}}
+
 
 
                             

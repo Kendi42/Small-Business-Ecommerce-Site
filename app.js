@@ -562,9 +562,39 @@ app.get("/storeorders/:id", (req, res) => {
     let image= `data:image/png;base64,${results[0].storeImage.toString('base64')}`
     const storeinfo=results[0];
     storeinfo.storeImage= image;
-    res.render("storepage", {storeinfo, OrdersTrue:true, storeID:id} );  
+    const details={}
+
+
+    const sql = 'SELECT placedorder.*, orderdetails.* FROM placedorder JOIN orderdetails ON placedorder.orderID = orderdetails.orderID WHERE placedorder.storeID = ?';
+    const values = [id];
+
+    db.query(sql, values, (err, results) => {
+      if (err) throw err;
+      console.log("resultssss", results);
+      for (let i = 0; i < results.length; i++) {
+        const order = results[i];
+
+        const productID = order.productID;
+        const sqlProduct = 'SELECT * FROM product WHERE productID = ?';
+        const valuesProduct = [productID];
+
+        db.query(sqlProduct, valuesProduct, (errProduct, resultsProduct) => {
+          if (errProduct) throw errProduct;
+
+          order.product = resultsProduct[0];
+          
+          details[order.orderID] = order;
+
+          if (i === results.length - 1) {
+            console.log("details", details)
+
+          }
+        });
+      }
+    res.render("storepage", {storeinfo, OrdersTrue:true, storeID:id, details:details} );  
 
   });
+});
 
 
 });
