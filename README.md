@@ -36,10 +36,38 @@
 <p>When a user clicks on one of these stores they are directed to the stores storefront where they can see all the products that particular shop has to offer</p>
 <img src="https://github.com/Kendi42/Small-Business-Ecommerce-Site/blob/0db797963f99d781eeb9f48fad495495ea323cae/Project%20Screenshots/Screenshot%202023-09-05%20153757.png" width="1280" height="800"/>
 
+## Become a seller
+<p>By clicking the become a seller button on the landing page the user is directed here. This page provides the user with more infromation about selling on the platfom. By logging in a user would be able to set up a store</p>
+<img src="https://github.com/Kendi42/Small-Business-Ecommerce-Site/blob/f654ed138736c0e95622af70350d510f2cdcf4d0/Project%20Screenshots/Become%20a%20seller.png" width="1280" height="800"/>
+
 ## Login and Signup
 <p>Through these pages a user can create a new account or signin using an existing one</p>
 <img src="https://github.com/Kendi42/Small-Business-Ecommerce-Site/blob/0db797963f99d781eeb9f48fad495495ea323cae/Project%20Screenshots/5.%20Signup%20Page.png" width="1280" height="800"/>
 <img src="https://github.com/Kendi42/Small-Business-Ecommerce-Site/blob/0db797963f99d781eeb9f48fad495495ea323cae/Project%20Screenshots/6.%20Login%20Page.png" width="1280" height="800"/>
+
+# After Login
+<p>Once a user has logged in they have full access to the platforms capabilities including adding items to their cart and checking out, as well as creating their very own store and adding products to it, if they are interested in selling on the platform</p>
+
+## Landing after login
+<p>The user is directed to the same landing page after login, except they have access to their seller dashboard as shown by the button on the top right of the screen as well as a chance to logout once they are done</p>
+<img src="https://github.com/Kendi42/Small-Business-Ecommerce-Site/blob/f654ed138736c0e95622af70350d510f2cdcf4d0/Project%20Screenshots/7.%20Landing%20after%20succecful%20Login.png" width="1280" height="800"/>
+
+# Buyer
+<p>Below is a walkthrough as a user with the intention of buying products on the platform</p>
+
+## Adding to Cart
+<p> Once logged in a user can now succesfully add products to their cart as shown below</p>
+<img src="https://github.com/Kendi42/Small-Business-Ecommerce-Site/blob/0db797963f99d781eeb9f48fad495495ea323cae/Project%20Screenshots/2.%20Product%20Recommendations.png" width="1280" height="800"/>
+<img src="https://github.com/Kendi42/Small-Business-Ecommerce-Site/blob/f654ed138736c0e95622af70350d510f2cdcf4d0/Project%20Screenshots/Added%20to%20cart.png" width="1280" height="800"/>
+
+## Checkout
+<p> When a user clicks the checkout button they are directed to the checkout page where they enter their delivery details and are finally able to place their order</p>
+<img src="https://github.com/Kendi42/Small-Business-Ecommerce-Site/blob/f654ed138736c0e95622af70350d510f2cdcf4d0/Project%20Screenshots/Checkout%20page.png" width="1280" height="800"/>
+
+# Selller
+<p>Below is a walkthrough as a user with the intention of setting up a store and selling products on the platform</p>
+
+
 
 
 
