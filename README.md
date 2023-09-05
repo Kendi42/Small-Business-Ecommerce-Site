@@ -47,7 +47,7 @@
 <img src="https://github.com/Kendi42/Small-Business-Ecommerce-Site/blob/0db797963f99d781eeb9f48fad495495ea323cae/Project%20Screenshots/6.%20Login%20Page.png" width="1280" height="800"/>
 
 # After Login
-<p>Once a user has logged in they have full access to the platforms capabilities including adding items to their cart and checking out, as well as creating their very own store and adding products to it, if they are interested in selling on the platform</p>
+<p>Once a user has logged in they have full access to the platforms capabilities including adding items to their cart and checking out, as well as creating their very own store and adding products to it.</p>
 
 ## Landing after login
 <p>The user is directed to the same landing page after login, except they have access to their seller dashboard as shown by the button on the top right of the screen as well as a chance to logout once they are done</p>
@@ -86,8 +86,7 @@
 <p>To create a new product the user simply fills in the form shown below/p>
 <img src="https://github.com/Kendi42/Small-Business-Ecommerce-Site/blob/2885b3bfd79a6dc0f1c859e44d9ec1684cba0e1d/Project%20Screenshots/Create%20New%20product.png" width="1280" height="800"/>
 
-
-
+___
 
 
 
