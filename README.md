@@ -12,7 +12,7 @@
 
 # Application Walkthrough
 # Overview Before Login
-## Landing page
+## Landing Page
 <p>This is the first page the user lands on. Here they have a search bar to look up products and stores, filter-buttons, to filter their product recommendation in terms of category, as well as a side navigation menu, to access other sections of the platform</p>
 <img src="https://github.com/Kendi42/Small-Business-Ecommerce-Site/blob/0db797963f99d781eeb9f48fad495495ea323cae/Project%20Screenshots/1.%20Landing%20Page.png" width="1280" height="800"/>
 
@@ -49,7 +49,7 @@
 # After Login
 <p>Once a user has logged in they have full access to the platforms capabilities including adding items to their cart and checking out, as well as creating their very own store and adding products to it.</p>
 
-## Landing after login
+## Landing Page after login
 <p>The user is directed to the same landing page after login, except they have access to their seller dashboard as shown by the button on the top right of the screen as well as a chance to logout once they are done</p>
 <img src="https://github.com/Kendi42/Small-Business-Ecommerce-Site/blob/f654ed138736c0e95622af70350d510f2cdcf4d0/Project%20Screenshots/7.%20Landing%20after%20succecful%20Login.png" width="1280" height="800"/>
 
@@ -79,7 +79,7 @@
 <img src="https://github.com/Kendi42/Small-Business-Ecommerce-Site/blob/2885b3bfd79a6dc0f1c859e44d9ec1684cba0e1d/Project%20Screenshots/Store%20created.png" width="1280" height="800"/>
 
 ## Merchant-Side Store Front
-<p> By clickign on their store, the user can access their store front from the merchant side. Here they can create new products that get shown to the other users of the platform</p>
+<p> By clicking on their store, the user can access their store-front from the merchant side. Here they can create new products that get shown to the other users of the platform</p>
 <img src="https://github.com/Kendi42/Small-Business-Ecommerce-Site/blob/2885b3bfd79a6dc0f1c859e44d9ec1684cba0e1d/Project%20Screenshots/Merchant%20side%20store%20front.png" width="1280" height="800"/>
 
 ## Creating a new Product
