@@ -13,7 +13,7 @@
 # Application Walkthrough
 # Overview Before Login
 ## Landing page
-<p>This is the first page the user lands on. Here they have a search bar to look up products and stores, filter buttons, to filter their product recommendation in terms of category, as well as a side navigation menu, to access other sections of the platform</p>
+<p>This is the first page the user lands on. Here they have a search bar to look up products and stores, filter-buttons, to filter their product recommendation in terms of category, as well as a side navigation menu, to access other sections of the platform</p>
 <img src="https://github.com/Kendi42/Small-Business-Ecommerce-Site/blob/0db797963f99d781eeb9f48fad495495ea323cae/Project%20Screenshots/1.%20Landing%20Page.png" width="1280" height="800"/>
 
 ## Product Recommendations
@@ -35,6 +35,7 @@
 ## Store Front
 <p>When a user clicks on one of these stores they are directed to the stores storefront where they can see all the products that particular shop has to offer</p>
 <img src="https://github.com/Kendi42/Small-Business-Ecommerce-Site/blob/0db797963f99d781eeb9f48fad495495ea323cae/Project%20Screenshots/Screenshot%202023-09-05%20153757.png" width="1280" height="800"/>
+<img src="https://github.com/Kendi42/Small-Business-Ecommerce-Site/blob/2885b3bfd79a6dc0f1c859e44d9ec1684cba0e1d/Project%20Screenshots/More%20on%20Store%20Front.png" width="1280" height="800"/>
 
 ## Become a seller
 <p>By clicking the become a seller button on the landing page the user is directed here. This page provides the user with more infromation about selling on the platfom. By logging in a user would be able to set up a store</p>
@@ -57,15 +58,37 @@
 
 ## Adding to Cart
 <p> Once logged in a user can now succesfully add products to their cart as shown below</p>
-<img src="https://github.com/Kendi42/Small-Business-Ecommerce-Site/blob/0db797963f99d781eeb9f48fad495495ea323cae/Project%20Screenshots/2.%20Product%20Recommendations.png" width="1280" height="800"/>
+<img src="https://github.com/Kendi42/Small-Business-Ecommerce-Site/blob/0db797963f99d781eeb9f48fad495495ea323cae/Project%20Screenshots/3.%20Product%20Description.png" width="1280" height="800"/>
 <img src="https://github.com/Kendi42/Small-Business-Ecommerce-Site/blob/f654ed138736c0e95622af70350d510f2cdcf4d0/Project%20Screenshots/Added%20to%20cart.png" width="1280" height="800"/>
 
 ## Checkout
 <p> When a user clicks the checkout button they are directed to the checkout page where they enter their delivery details and are finally able to place their order</p>
 <img src="https://github.com/Kendi42/Small-Business-Ecommerce-Site/blob/f654ed138736c0e95622af70350d510f2cdcf4d0/Project%20Screenshots/Checkout%20page.png" width="1280" height="800"/>
 
-# Selller
+# Seller
 <p>Below is a walkthrough as a user with the intention of setting up a store and selling products on the platform</p>
+
+## Seller Dashboard
+<p>By clicking the seller dashboard button on the landing page, a user is directed here. At the seller dashboard, a merchant can view their existing stores and add new ones by clicking the plus button</p>
+<img src="https://github.com/Kendi42/Small-Business-Ecommerce-Site/blob/2885b3bfd79a6dc0f1c859e44d9ec1684cba0e1d/Project%20Screenshots/Seller%20Dashboard.png" width="1280" height="800"/>
+
+## Creating a New Store
+<p>To create a new store the user simply fills in the form shown below/p>
+<img src="https://github.com/Kendi42/Small-Business-Ecommerce-Site/blob/2885b3bfd79a6dc0f1c859e44d9ec1684cba0e1d/Project%20Screenshots/Create%20New%20Store.png" width="1280" height="800"/>
+<p> From here they can see their newly created store on their seller dashboard</p>
+<img src="https://github.com/Kendi42/Small-Business-Ecommerce-Site/blob/2885b3bfd79a6dc0f1c859e44d9ec1684cba0e1d/Project%20Screenshots/Store%20created.png" width="1280" height="800"/>
+
+## Merchant-Side Store Front
+<p> By clickign on their store, the user can access their store front from the merchant side. Here they can create new products that get shown to the other users of the platform</p>
+<img src="https://github.com/Kendi42/Small-Business-Ecommerce-Site/blob/2885b3bfd79a6dc0f1c859e44d9ec1684cba0e1d/Project%20Screenshots/Merchant%20side%20store%20front.png" width="1280" height="800"/>
+
+## Creating a new Product
+<p>To create a new product the user simply fills in the form shown below/p>
+<img src="https://github.com/Kendi42/Small-Business-Ecommerce-Site/blob/2885b3bfd79a6dc0f1c859e44d9ec1684cba0e1d/Project%20Screenshots/Create%20New%20product.png" width="1280" height="800"/>
+
+
+
+
 
 
 
